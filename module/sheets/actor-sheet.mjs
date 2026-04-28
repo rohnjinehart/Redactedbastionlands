@@ -367,11 +367,11 @@ export class CainActorSheet extends BaseActorSheet {
       .map(id => game.items.get(id))
       .filter(item => item !== undefined);
 
-    // Resolve domain IDs to actual item objects
+    // Resolve domain IDs to actual item objects — preserve original index for drag-reorder
     const domainIds = context.system.domains || [];
     context.currentOpponentDomains = domainIds
-      .map(id => game.items.get(id))
-      .filter(item => item !== undefined);
+      .map((id, i) => { const item = game.items.get(id); return item ? { id: item.id, name: item.name, img: item.img, originalIndex: i } : null; })
+      .filter(item => item !== null);
   }
 
   _getItemsFromIDs(ids) {
@@ -1714,6 +1714,7 @@ export class CainActorSheet extends BaseActorSheet {
     html.find('.opponent-domain-drop').on('drop', async (event) => {
       event.preventDefault();
       event.currentTarget.classList.remove('dragover');
+      if (event.originalEvent.dataTransfer.types.includes('application/bastionlands-reorder')) return;
       try {
         const data = JSON.parse(event.originalEvent.dataTransfer.getData('text/plain'));
         const itemDrop = await Item.fromDropData(data);
@@ -1923,7 +1924,7 @@ export class CainActorSheet extends BaseActorSheet {
       const toIndex = parseInt(ev.currentTarget.dataset.index);
       const fromIndex = reorderData.fromIndex;
       if (fromIndex === toIndex || isNaN(fromIndex) || isNaN(toIndex)) return;
-      const arr = foundry.utils.deepClone(foundry.utils.getProperty(this.actor, systemPath) ?? []);
+      const arr = foundry.utils.deepClone(foundry.utils.getProperty(this.actor.toObject(), systemPath) ?? []);
       const [moved] = arr.splice(fromIndex, 1);
       arr.splice(toIndex, 0, moved);
       await this.actor.update({ [systemPath]: arr });

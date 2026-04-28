@@ -170,7 +170,7 @@
                 <p class="drop-hint">Drag domain items here from the compendium</p>
                 <div class="opp-domain-list">
                     {{#each currentOpponentDomains}}
-                    <div class="opponent-domain-item" draggable="true" data-domain-id="{{this.id}}" data-index="{{@index}}">
+                    <div class="opponent-domain-item" draggable="true" data-domain-id="{{this.id}}" data-index="{{this.originalIndex}}">
                         <img src="{{this.img}}" class="domain-icon" alt="{{this.name}}" title="{{this.name}}"/>
                         <span class="domain-name">{{this.name}}</span>
                         <button type="button" class="remove-btn remove-opponent-domain-btn" data-id="{{this.id}}"><i class="fas fa-times"></i></button>
