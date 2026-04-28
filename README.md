@@ -1,6 +1,6 @@
 # [Redacted]lands — FoundryVTT System
 
-An unofficial FoundryVTT system for playing **[Redacted]lands**, a custom modified ruleset built on top of **Mythic Bastionland** by Chris McDowall. It combines Mythic Bastionland's core resolution mechanics with the character systems from **CAIN** by Tom Bloom, adapted for a unique setting and playstyle.
+An unofficial FoundryVTT system for playing **[Redacted]lands**, a custom modified ruleset built by myself and Vivian Idol on top of **Mythic Bastionland** by Chris McDowall. It combines Mythic Bastionland's core resolution mechanics with the character systems from **CAIN** by Tom Bloom, adapted for a unique setting and playstyle.
 
 This system is not an official product of Bastionland Press or Tom Bloom.
 
