@@ -1,0 +1,32 @@
+.vscode/settings.json
+.idea/
+node_modules/
+books
+
+# Unpacked compendium DBs (legacy)
+_source/
+
+# Compiled compendium packs (built from src/packs/)
+/packs/
+
+# Keep the directory structure
+!packs/.gitkeep
+
+# AI Helper Tools
+.claude/
+.cursor/
+.aider*
+.copilot/
+.github-copilot/
+.codeium/
+.tabnine/
+.anthropic/
+*.ai-context
+*.ai-session
+.ai/
+.windsurf/
+.continue/
+
+# OS files
+.DS_Store
+Thumbs.db

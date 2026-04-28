@@ -1,0 +1,63 @@
+<form class='{{cssClass}} agenda-background' autocomplete='off'>
+  <header class='sheet-header agenda-header'>
+    <img
+      class='profile-img'
+      src='{{img}}'
+      data-edit='img'
+      title='{{name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname agenda-ability-name'><input
+          name='name'
+          type='text'
+          value='{{name}}'
+          placeholder='Name'
+          style='color: white; background-color: transparent; border: none; border-bottom: 2px solid #555;'
+        /></h1>
+    </div>
+  </header>
+
+  <nav class='sheet-tabs tabs agenda-tabs' data-group='primary'>
+    <a class='item' data-tab='domain'>Domain</a>
+  </nav>
+
+  <section class='sheet-body agenda-body'>
+    <div class='tab agenda-text-color' data-group='primary' data-tab='domain'>
+
+      <div class='form-group' style='display:flex; flex-direction:column; gap:6px;'>
+        <label style='color: white;'>Domain Name</label>
+        <input
+          type='text'
+          name='system.domainName'
+          value='{{system.domainName}}'
+          data-dtype='String'
+          style='width: 100%; color: white; background-color: #333; border: 1px solid #555; border-radius: 4px; padding: 8px; box-sizing: border-box;'
+        />
+      </div>
+
+      <div class='form-group' style='display:flex; flex-direction:column; gap:6px; margin-top: 12px;'>
+        <label style='color: white;'>Domain Description</label>
+        <textarea
+          name='system.domainDescription'
+          data-dtype='String'
+          rows='12'
+          style='width: 100%; color: white; background-color: #333; border: 1px solid #555; border-radius: 4px; padding: 8px; box-sizing: border-box; resize: vertical;'
+        >{{system.domainDescription}}</textarea>
+      </div>
+
+      <div class='form-group' style='display:flex; flex-direction:column; gap:6px; margin-top: 16px;'>
+        <label style='color: #e94560; font-weight: bold;'>
+          <i class='fas fa-skull' style='margin-right: 4px;'></i>Savage Attack Description
+        </label>
+        <textarea
+          name='system.savageAttackDescription'
+          data-dtype='String'
+          rows='12'
+          placeholder='Describe the savage attack this domain can unleash…'
+          style='width: 100%; color: #f5a0a0; background-color: #1a0808; border: 1px solid #660000; border-radius: 4px; padding: 8px; box-sizing: border-box; resize: vertical;'
+        >{{system.savageAttackDescription}}</textarea>
+      </div>
+
+    </div>
+  </section>
+</form>

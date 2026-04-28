@@ -1,0 +1,305 @@
+<form class="{{cssClass}} {{actor.type}} flexcol mob-psycho-theme no-border" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header mob-psycho-header">
+    <img class="profile-img mob-psycho-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200"/>
+    <div class="header-fields mob-psycho-header-fields human-npc-meta">
+      <h1 class="charname mob-psycho-charname">
+        <input name="name" type="text" value="{{actor.name}}" placeholder="Name"/>
+      </h1>
+      <input type="text" name="system.role" value="{{system.role}}" class="human-role-input" placeholder="Role..."/>
+      <textarea name="system.description" class="human-desc-input" placeholder="Brief description…">{{system.description}}</textarea>
+    </div>
+  </header>
+
+  {{!-- Sin Overflow Tracker --}}
+  <div class="human-sin-bar">
+    <div class="human-sin-label">Sin Overflow</div>
+    <div class="human-sin-pips">
+      {{#range 0 system.sinOverflow.max}}
+        {{#if (lt index ../system.sinOverflow.value)}}
+          <img class="sinOverflow-icon sinOverflow-icon-anim sin-icon-anim-{{mod (CainOffset index ../sheetConstants.SINVisualOffset) 7}}"
+               data-sin="{{CainOffset index 1}}"
+               data-tooltip="Right click to clear"/>
+        {{else}}
+          <img class="sinOverflow-icon"
+               src="systems/bastionlands/assets/sheet/CAIN-sin-no.png"
+               data-sin="{{CainOffset index 1}}"
+               data-tooltip="Right click to clear"/>
+        {{/if}}
+      {{/range}}
+    </div>
+    <div class="human-sin-controls">
+      <span class="human-sin-value">{{system.sinOverflow.value}} / {{system.sinOverflow.max}}</span>
+      <button type="button" class="sin-overflow-decrease human-sin-adj-btn">−</button>
+      <button type="button" class="sin-overflow-increase human-sin-adj-btn">+</button>
+    </div>
+  </div>
+
+  {{!-- Sheet Body — no tabs, everything visible --}}
+  <section class="sheet-body mob-psycho-body">
+    <div class="human-layout">
+
+      {{!-- LEFT SIDEBAR — identical to player character sheet --}}
+      <aside class="sidebar mob-psycho-sidebar human-sidebar">
+
+        <h3 class="mob-psycho-heading">Vitals &amp; Saves</h3>
+        <p style="font-size:0.75em;color:#aaa;margin:0 0 6px;">Roll d20 ≤ value to succeed.</p>
+
+        {{!-- Body --}}
+        <div class="virtue-row">
+          <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="body">Body</button>
+          <div class="virtue-inputs">
+            <input type="number" name="system.body.value" value="{{system.body.value}}" data-dtype="Number" min="0"/>
+            <span>/</span>
+            <input type="number" name="system.body.max" value="{{system.body.max}}" data-dtype="Number" min="0"/>
+          </div>
+          <progress class="virtue-progress body-progress" value="{{system.body.value}}" max="{{system.body.max}}"></progress>
+        </div>
+
+        {{!-- Psyche --}}
+        <div class="virtue-row">
+          <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="spirit">Psyche</button>
+          <div class="virtue-inputs">
+            <input type="number" name="system.spirit.value" value="{{system.spirit.value}}" data-dtype="Number" min="0"/>
+            <span>/</span>
+            <input type="number" name="system.spirit.max" value="{{system.spirit.max}}" data-dtype="Number" min="0"/>
+          </div>
+          <progress class="virtue-progress psyche-progress" value="{{system.spirit.value}}" max="{{system.spirit.max}}"></progress>
+        </div>
+
+        {{!-- Virtue --}}
+        <div class="virtue-row">
+          <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="virtue">Virtue</button>
+          <div class="virtue-inputs">
+            <input type="number" name="system.virtue.value" value="{{system.virtue.value}}" data-dtype="Number" min="0"/>
+            <span>/</span>
+            <input type="number" name="system.virtue.max" value="{{system.virtue.max}}" data-dtype="Number" min="0"/>
+          </div>
+          <progress class="virtue-progress virtue-stat-progress" value="{{system.virtue.value}}" max="{{system.virtue.max}}"></progress>
+        </div>
+
+        {{!-- Grace --}}
+        <div class="virtue-row">
+          <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="grace">Grace</button>
+          <div class="virtue-inputs">
+            <input type="number" name="system.grace.value" value="{{system.grace.value}}" data-dtype="Number" min="0"/>
+            <span>/</span>
+            <input type="number" name="system.grace.max" value="{{system.grace.max}}" data-dtype="Number" min="0"/>
+          </div>
+          <progress class="virtue-progress grace-progress" value="{{system.grace.value}}" max="{{system.grace.max}}"></progress>
+        </div>
+
+        {{!-- Burnout --}}
+        <div class="fatigue-row">
+          <input type="checkbox" name="system.burnout" {{#if system.burnout}}checked{{/if}} id="burnout-check"/>
+          <label for="burnout-check" class="resource-label mob-psycho-label">Burnout</label>
+          <button type="button" class="burnout-recover-btn{{#unless system.burnout}} burnout-recover-disabled{{/unless}}" data-tooltip="Sin Raise - roll 2d4 sin and recover from burnout" {{#unless system.burnout}}disabled{{/unless}}>Sin Raise</button>
+        </div>
+
+        {{!-- Resolve --}}
+        <h3 class="mob-psycho-heading guard-heading">Resolve</h3>
+        <div class="virtue-inputs">
+          <input type="number" name="system.resolve.value" value="{{system.resolve.value}}" data-dtype="Number" min="0"/>
+          <span>/</span>
+          <input type="number" name="system.resolve.max" value="{{system.resolve.max}}" data-dtype="Number" min="0"/>
+        </div>
+        <progress class="virtue-progress guard-progress"
+                  value="{{system.resolve.value}}"
+                  max="{{#if (gt system.resolve.max 0)}}{{system.resolve.max}}{{else}}1{{/if}}"></progress>
+
+        {{!-- Resistance --}}
+        <h3 class="mob-psycho-heading guard-heading">Resistance</h3>
+        <div class="resistance-display">{{totalArmor}}</div>
+
+        {{!-- Combat --}}
+        <h3 class="mob-psycho-heading" style="margin-top:12px;">Combat</h3>
+        <button type="button" class="rb-attack-btn mob-psycho-button rb-combat-btn">⚔ Attack</button>
+        <button type="button" class="rb-blasphemy-btn mob-psycho-button rb-combat-btn">✦ Use Blasphemy</button>
+        <button type="button" class="rb-take-damage-btn mob-psycho-button rb-combat-btn">🛡 Take Damage</button>
+        <button type="button" class="rb-virtue-loss-btn mob-psycho-button rb-combat-btn">💀 Vital Loss</button>
+
+      </aside>
+
+      {{!-- KIT column --}}
+      <div class="human-kit-col mob-psycho-main">
+        {{> "systems/bastionlands/templates/actor/parts/actor-items.hbs"}}
+
+        {{!-- Notes --}}
+        <div class="human-bio-section">
+          <h3 class="inv-heading human-bio-heading">Notes</h3>
+          <textarea name="system.notes" class="human-notes-input" placeholder="GM notes…">{{system.notes}}</textarea>
+        </div>
+      </div>
+
+      {{!-- ABILITIES column — full Agendas + Blasphemies sections --}}
+      <div class="human-abilities-col mob-psycho-main">
+        {{> "systems/bastionlands/templates/actor/parts/actor-abilities.hbs"}}
+      </div>
+
+    </div>
+  </section>
+</form>
+
+<style>
+/* ======================================================
+   LAYOUT
+   ====================================================== */
+.human-layout {
+  display: flex;
+  gap: 12px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.human-sidebar {
+  flex: 0 0 200px;
+  overflow-y: auto;
+}
+
+.human-kit-col {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 4px;
+}
+
+.human-abilities-col {
+  flex: 0 0 280px;
+  overflow-y: auto;
+  padding: 8px 4px;
+}
+
+/* ======================================================
+   SIDEBAR — copied verbatim from actor-character-sheet
+   ====================================================== */
+.virtue-row { margin-bottom:10px; }
+.virtue-name-btn { display:block; width:100%; text-align:left; font-size:0.95em; font-weight:bold; margin-bottom:3px; }
+.virtue-inputs { display:flex; align-items:center; gap:4px; margin-top:3px; }
+.virtue-inputs input { width:42px; text-align:center; }
+.virtue-progress { width:100%; height:6px; margin-top:3px; display:block; }
+.body-progress        { accent-color:#e94560; }
+.psyche-progress      { accent-color:#9b59b6; }
+.virtue-stat-progress { accent-color:#4a90d9; }
+.grace-progress       { accent-color:#2ecc71; }
+.guard-progress   { accent-color:#f39c12; margin-bottom:4px; }
+.guard-heading    { margin-top:12px; }
+.resistance-display { font-size:1.1em; font-weight:bold; color:#f39c12; padding:2px 0 6px; }
+.rb-combat-btn { width:100%; margin-bottom:6px; cursor:pointer; }
+
+/* ======================================================
+   HEADER extras
+   ====================================================== */
+.human-npc-meta { display: flex; flex-direction: column; gap: 6px; }
+.human-role-input {
+  width: 100%; padding: 4px 8px;
+  background: #1a1a1a; color: #e0e0e0;
+  border: 1px solid #444; border-radius: 4px;
+  font-size: 0.9em; box-sizing: border-box;
+}
+.human-desc-input {
+  width: 100%; min-height: 58px;
+  background: #1a1a1a; color: #e0e0e0;
+  border: 1px solid #444; border-radius: 4px;
+  font-size: 0.85em; padding: 6px 8px;
+  resize: vertical; font-family: inherit; box-sizing: border-box;
+}
+
+/* ======================================================
+   BIO / NOTES SECTION
+   ====================================================== */
+.human-bio-section {
+  margin-top: 20px;
+  padding-top: 12px;
+  border-top: 1px solid #333;
+}
+.human-bio-heading {
+  border-bottom: 1px solid #444;
+  padding-bottom: 4px;
+  margin-bottom: 8px;
+}
+.human-notes-input {
+  width: 100%;
+  min-height: 120px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 4px;
+  font-size: 0.85em;
+  padding: 6px 8px;
+  resize: vertical;
+  font-family: inherit;
+  box-sizing: border-box;
+}
+
+/* ======================================================
+   SIN OVERFLOW BAR
+   ====================================================== */
+.human-sin-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  background: #120808;
+  border: 1px solid #6b1a2a;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.human-sin-label {
+  font-size: 0.75em;
+  font-weight: bold;
+  color: #e94560;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.human-sin-pips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  flex: 1;
+  align-items: center;
+}
+
+.human-sin-pips .sinOverflow-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.human-sin-controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.human-sin-value {
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #e94560;
+  min-width: 36px;
+  text-align: center;
+}
+
+.human-sin-adj-btn {
+  background: #3a0d18;
+  border: 1px solid #6b1a2a;
+  border-radius: 4px;
+  color: #e94560;
+  font-size: 14px;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.2s;
+}
+
+.human-sin-adj-btn:hover {
+  background: #5a1a2a;
+}
+</style>

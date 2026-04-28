@@ -1,0 +1,180 @@
+<style>
+  .resource-header { color: white; }
+
+  /* ── Feat / Gambit panel ── */
+  .fg-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+    font-size: 0.85em;
+    color: #e0e0e0;
+  }
+  .fg-section-title {
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid #444;
+    padding-bottom: 3px;
+    margin: 0 0 8px;
+  }
+  .fg-feat {
+    margin-bottom: 10px;
+  }
+  .fg-feat-name {
+    font-weight: bold;
+    color: #fff;
+  }
+  .fg-feat-sub {
+    font-style: italic;
+    color: #aaa;
+    margin-left: 4px;
+  }
+  .fg-feat ul {
+    margin: 4px 0 0 1.2em;
+    padding: 0;
+    line-height: 1.5;
+  }
+  .fg-save-tag {
+    display: inline;
+    background: #2a2a2a;
+    border: 1px solid #555;
+    border-radius: 3px;
+    padding: 0 3px;
+    font-size: inherit;
+    font-weight: bold;
+    color: #f39c12;
+    margin: 0 1px;
+    cursor: pointer;
+    line-height: inherit;
+    vertical-align: baseline;
+    width: auto;
+    height: auto;
+  }
+  .fg-save-tag:hover {
+    background: #3a3a3a;
+    border-color: #f39c12;
+    color: #fff;
+  }
+  .fg-gambit-list {
+    margin: 4px 0 10px 1.2em;
+    padding: 0;
+    line-height: 1.6;
+  }
+  .fg-gambit-list li strong { color: #fff; }
+
+  /* Bio & Notes */
+  .fg-notes-section { margin-bottom: 1em; }
+  .fg-notes-textarea {
+    width: 100%;
+    min-height: 8em;
+    background: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.85em;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+  .fg-notes-textarea:focus {
+    outline: none;
+    border-color: #00bfff;
+  }
+</style>
+
+{{!-- Cat Level --}}
+<h3 class='resource-header' style='text-align: center;'>STAIN</h3>
+<div class="resource" style='display: flex; justify-content: center;'>
+  <div class="group_cat">
+    {{#times 7}}
+    <div class="checkbox-item_cat">
+      <div class="CAT-selector {{#if (eq system.CATLEVEL.value @index)}}CAT-selected{{/if}}" data-cat="{{@index}}" data-tooltip="{{localize 'SHEET.TOOLTIPS.CATSELECT'}}">
+        <img src="systems/bastionlands/assets/CAT/CAT{{@index}}.png" alt="CAT {{@index}}">
+      </div>
+      <div class="CAT-session-text" data-tooltip="{{localize 'SHEET.TOOLTIPS.SURVIVED'}}">{{lookup sheetConstants.CATSessionNumbers @index}}</div>
+    </div>
+    {{/times}}
+  </div>
+</div>
+
+{{!-- Feats & Gambits --}}
+<div class="fg-panel">
+
+  {{!-- LEFT: Feats --}}
+  <div>
+    <h2 class="fg-section-title">Feats</h2>
+
+    <div class="fg-feat">
+      <span class="fg-feat-name">Smite</span>
+      <span class="fg-feat-sub">Release your righteous fury</span>
+      <ul>
+        <li>Use before rolling a melee attack</li>
+        <li>The attack gains either +d12 or Blast</li>
+        <li>Pass a <button type="button" class="rb-save-btn fg-save-tag" data-virtue="body">BOD</button> Save or suffer Burnout</li>
+      </ul>
+    </div>
+
+    <div class="fg-feat">
+      <span class="fg-feat-name">Focus</span>
+      <span class="fg-feat-sub">Create an opening to exploit</span>
+      <ul>
+        <li>Use after rolling an attack</li>
+        <li>Perform a Gambit without using a die</li>
+        <li>Pass a <button type="button" class="rb-save-btn fg-save-tag" data-virtue="spirit">PSY</button> Save or suffer Burnout</li>
+      </ul>
+    </div>
+
+    <div class="fg-feat">
+      <span class="fg-feat-name">Deny</span>
+      <span class="fg-feat-sub">Rebuff an attack before it lands</span>
+      <ul>
+        <li>Use after an attack roll against you or an ally within arm's reach</li>
+        <li>Discard one attack die</li>
+        <li>Pass a <button type="button" class="rb-save-btn fg-save-tag" data-virtue="virtue">VIR</button> Save or suffer Burnout</li>
+      </ul>
+    </div>
+
+    <div class="fg-feat">
+      <span class="fg-feat-name">Curse</span>
+      <span class="fg-feat-sub">Break reality with your psychic will</span>
+      <ul>
+        <li>Use instead of making an attack roll</li>
+        <li>Perform one of your Blasphemy abilities</li>
+        <li>Pass a <button type="button" class="rb-save-btn fg-save-tag" data-virtue="grace">GRC</button> Save or suffer Burnout</li>
+      </ul>
+    </div>
+  </div>
+
+  {{!-- RIGHT: Gambits --}}
+  <div>
+    <h2 class="fg-section-title">Gambit</h2>
+    <ul class="fg-gambit-list">
+      <li><strong>Bolster</strong> the attack for +1 total damage</li>
+      <li><strong>Repel</strong> a foe away from you</li>
+      <li><strong>Move</strong> a foe</li>
+      <li><strong>Stop</strong> a foe from moving next turn</li>
+      <li><strong>Impair</strong> a weapon on their next turn</li>
+      <li><strong>Trap</strong> a shield until your next turn</li>
+      <li><strong>Dismount</strong> a foe</li>
+      <li><strong>Other Effect</strong> as agreed with the Admin</li>
+    </ul>
+
+    <h2 class="fg-section-title">Strong Gambit</h2>
+    <ul class="fg-gambit-list">
+      <li><strong>No Save</strong> is granted to the target</li>
+      <li><strong>Greater Effect</strong> such as disarming, breaking a weapon, or removing a helm</li>
+    </ul>
+  </div>
+
+</div>
+
+{{!-- Bio & Notes --}}
+<section class="fg-notes-section">
+  <h3 class="mob-psycho-heading">Bio &amp; Notes</h3>
+  <textarea name="system.notes" class="fg-notes-textarea" placeholder="Notes...">{{system.notes}}</textarea>
+</section>

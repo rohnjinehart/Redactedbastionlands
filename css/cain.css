@@ -1,0 +1,3619 @@
+/* Foundry VTT v11-v13 Compatible CSS */
+/* Imports must be at the top, before any @layer declarations */
+/* Using display=swap to ensure fonts load and replace fallback fonts */
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Metal+Mania&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lacquer&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tiny5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+@import url('./eye-anim.css');
+@import url('./glitch-effect.css');
+@import url('./sheets/index.css');
+@import url('./components/index.css');
+
+/*
+ * CSS Layer Support for Foundry VTT v13
+ * In v13, system CSS is automatically placed in the 'system' layer
+ * which has higher priority than Foundry's built-in styles.
+ * For v11 and v12, @layer is ignored and styles work normally.
+ */
+
+/* V13 Layer Overrides - Place important overrides in the system layer */
+@layer system {
+  /* Chat Message Styles - must be in @layer system for v13 compatibility */
+  .chat-message {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border: #000000 2px solid;
+    padding: 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .chat-message .message-header {
+    background-color: #262626;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+  }
+
+  .chat-message .table-draw .table-description {
+    background-color: #262626;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px dashed #00bfff;
+    color: #00bfff;
+  }
+
+  .chat-message .message-sender {
+    color: #ffffff;
+  }
+
+  .chat-message .message-metadata {
+    color: #ffffff;
+  }
+
+  .chat-message .message-timestamp {
+    color: #999999;
+  }
+
+  .chat-message .message-delete {
+    color: #ff4d4d;
+  }
+
+  .chat-message .flavor-text {
+    color: #ffffff;
+    font-style: italic;
+  }
+
+  .chat-message .message-content {
+    background-color: #1a1a1a;
+    padding: 10px;
+  }
+
+  .chat-message .dice-formula {
+    color: #ffffff;
+  }
+
+  .chat-message .dice-tooltip {
+    background-color: #1a1a1a;
+    padding: 10px;
+    border-radius: 5px;
+  }
+
+  .chat-message .part-header {
+    background-color: #1a1a1a;
+    padding: 5px;
+  }
+
+  .chat-message .part-formula {
+    color: #ffffff;
+  }
+
+  .chat-message .part-total {
+    color: #ffffff;
+  }
+
+  .chat-message .dice-rolls {
+    list-style: none;
+    padding: 0;
+  }
+
+  .chat-message .dice-total {
+    color: #ffffff;
+    font-size: 1.5em;
+    text-align: center;
+  }
+
+  /* Chat message heading styles for v13 */
+  #chat-log .message-content h1,
+  #chat-log .message-content h2,
+  #chat-log .message-content h3,
+  #chat-log .message-content h4,
+  #chat-log .message-content h5,
+  #chat-log .message-content h6,
+  .chat-message h1,
+  .chat-message h2,
+  .chat-message h3,
+  .chat-message h4,
+  .chat-message h5,
+  .chat-message h6 {
+    color: #ffffff;
+    font-family: 'Courier New', Courier, monospace;
+    font-style: normal;
+    margin-top: 0.5em;
+  }
+
+  /* Bond Ability Chat Card Styles */
+  .bond-ability-chat-card {
+    background-color: #16213e;
+    border: 1px solid #e94560;
+    border-radius: 6px;
+    padding: 0.75em;
+    margin: 0.25em 0;
+  }
+
+  .bond-ability-chat-card h3 {
+    color: #e94560;
+    margin: 0 0 0.5em 0;
+    font-size: 1.1em;
+    border-bottom: 1px solid #0f3460;
+    padding-bottom: 0.3em;
+  }
+
+  .bond-ability-chat-card .ability-level-info {
+    color: #4a90d9;
+    font-size: 0.85em;
+    margin: 0.3em 0;
+  }
+
+  .bond-ability-chat-card .permanent-tag {
+    color: #5cb85c;
+    font-size: 0.85em;
+    margin: 0.3em 0;
+  }
+
+  .bond-ability-chat-card .permanent-tag i {
+    margin-right: 0.3em;
+  }
+
+  .bond-ability-chat-card .ability-description {
+    color: #e0e0e0;
+    font-size: 0.9em;
+    line-height: 1.4;
+    margin: 0.5em 0;
+    padding: 0.5em;
+    background-color: #0f3460;
+    border-radius: 4px;
+  }
+
+  .bond-ability-chat-card .psyche-cost {
+    color: #d9534f;
+    font-style: italic;
+    font-size: 0.85em;
+    margin: 0.5em 0 0 0;
+  }
+
+  .bond-ability-chat-card .psyche-cost i {
+    margin-right: 0.3em;
+  }
+
+  /* Psyche Spent variation */
+  .bond-ability-chat-card.psyche-spent {
+    border-color: #d9534f;
+    background-color: #1a1a2e;
+  }
+
+  .bond-ability-chat-card.psyche-spent h3 {
+    color: #d9534f;
+  }
+
+  .bond-ability-chat-card .psyche-spent-info {
+    color: #d9534f;
+    font-size: 0.9em;
+    margin: 0.3em 0;
+    padding: 0.3em 0.5em;
+    background-color: rgba(217, 83, 79, 0.2);
+    border-radius: 3px;
+    display: inline-block;
+  }
+
+  .bond-ability-chat-card .remaining-bursts {
+    color: #888;
+    font-size: 0.8em;
+    margin: 0.5em 0 0 0;
+    text-align: right;
+    font-style: italic;
+  }
+}
+
+/* Base styles - work across all versions */
+/* Scope image border removal to CAIN system elements only */
+.cain img,
+.chat-message img {
+  border: none;
+}
+
+/* Global styles - scoped to CAIN system sheets */
+.window-app.cain {
+  font-family: "Roboto", sans-serif;
+}
+
+.window-app.cain .window-content {
+  padding: 5px;
+}
+
+/* Window Content Style - scoped to CAIN sheets */
+
+.cain .rollable:hover, .cain .rollable:focus {
+  color: #000;
+  text-shadow: 0 0 10px red;
+  cursor: pointer;
+}
+
+/* Grid utilities - scoped to CAIN sheets */
+.cain .grid,
+.cain .grid-2col {
+  display: grid;
+  grid-column: span 2/span 2;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin: 10px 0;
+  padding: 0;
+}
+
+.cain .grid-3col {
+  grid-column: span 3/span 3;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.cain .grid-4col {
+  grid-column: span 4/span 4;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.cain .grid-5col {
+  grid-column: span 5/span 5;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.cain .grid-6col {
+  grid-column: span 6/span 6;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+.cain .grid-7col {
+  grid-column: span 7/span 7;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+}
+
+.cain .grid-8col {
+  grid-column: span 8/span 8;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+}
+
+.cain .grid-9col {
+  grid-column: span 9/span 9;
+  grid-template-columns: repeat(9, minmax(0, 1fr));
+}
+
+.cain .grid-10col {
+  grid-column: span 10/span 10;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+}
+
+.cain .grid-11col {
+  grid-column: span 11/span 11;
+  grid-template-columns: repeat(11, minmax(0, 1fr));
+}
+
+.cain .grid-12col {
+  grid-column: span 12/span 12;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.cain .grid-start-2 {
+  grid-column-start: 2;
+}
+
+.cain .grid-start-3 {
+  grid-column-start: 3;
+}
+
+.cain .grid-start-4 {
+  grid-column-start: 4;
+}
+
+.cain .grid-start-5 {
+  grid-column-start: 5;
+}
+
+.cain .grid-start-6 {
+  grid-column-start: 6;
+}
+
+.cain .grid-start-7 {
+  grid-column-start: 7;
+}
+
+.cain .grid-start-8 {
+  grid-column-start: 8;
+}
+
+.cain .grid-start-9 {
+  grid-column-start: 9;
+}
+
+.cain .grid-start-10 {
+  grid-column-start: 10;
+}
+
+.cain .grid-start-11 {
+  grid-column-start: 11;
+}
+
+.cain .grid-start-12 {
+  grid-column-start: 12;
+}
+
+.cain .grid-span-2 {
+  grid-column-end: span 2;
+}
+
+.cain .grid-span-3 {
+  grid-column-end: span 3;
+}
+
+.cain .grid-span-4 {
+  grid-column-end: span 4;
+}
+
+.cain .grid-span-5 {
+  grid-column-end: span 5;
+}
+
+.cain .grid-span-6 {
+  grid-column-end: span 6;
+}
+
+.cain .grid-span-7 {
+  grid-column-end: span 7;
+}
+
+.cain .grid-span-8 {
+  grid-column-end: span 8;
+}
+
+.cain .grid-span-9 {
+  grid-column-end: span 9;
+}
+
+.cain .grid-span-10 {
+  grid-column-end: span 10;
+}
+
+.cain .grid-span-11 {
+  grid-column-end: span 11;
+}
+
+.cain .grid-span-12 {
+  grid-column-end: span 12;
+}
+
+/* Flex utilities - scoped to CAIN sheets */
+.cain .flex-group-center,
+.cain .flex-group-left,
+.cain .flex-group-right {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.cain .flex-group-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.cain .flex-group-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.cain .flexshrink {
+  flex: 0;
+}
+
+.cain .flex-between {
+  justify-content: space-between;
+}
+
+.cain .flexlarge {
+  flex: 2;
+}
+
+.cain .align-left {
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.cain .align-right {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.cain .align-center {
+  justify-content: center;
+  text-align: center;
+}
+
+/* Styles limited to cain sheets */
+.cain .item-form {
+  font-family: "Roboto", sans-serif;
+}
+.cain .sheet-header {
+  flex: 0 auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+  margin-bottom: 10px;
+  min-height: 100px;
+}
+.cain .sheet-header .profile-img {
+  flex: 0 0 100px;
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+  object-fit: cover;
+  align-self: center;
+}
+
+.cain .sheet-header .header-fields {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  min-height: 100px;
+}
+
+.cain .sheet-header h1.charname {
+  height: 50px;
+  padding: 0px;
+  margin: 5px 0;
+  border-bottom: 0;
+  flex-shrink: 0;
+  font-size: 32px;
+}
+.cain .sheet-header h1.charname input {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  font-size: 32px;
+}
+.cain .sheet-tabs {
+  flex: 0;
+}
+.cain .sheet-body,
+.cain .sheet-body .tab,
+.cain .sheet-body .tab .editor {
+  height: 100%;
+}
+/* TinyMCE editor (v11/v12) and ProseMirror (v13) compatibility */
+.cain .tox .tox-editor-container,
+.cain .prosemirror.ProseMirror {
+  background: #fff;
+}
+.cain .tox .tox-edit-area,
+.cain .prosemirror.ProseMirror {
+  padding: 0 8px;
+}
+.cain .resource-label {
+  font-weight: bold;
+}
+.cain .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+.cain .items-header > * {
+  font-size: 14px;
+  text-align: center;
+}
+.cain .items-header .item-name {
+  font-weight: bold;
+  padding-left: 5px;
+  text-align: left;
+  display: flex;
+}
+.cain .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  color: #444;
+}
+.cain .items-list .item-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.cain .items-list .item-name {
+  flex: 2;
+  margin: 0;
+  overflow: hidden;
+  font-size: 13px;
+  text-align: left;
+  align-items: center;
+  display: flex;
+}
+.cain .items-list .item-name h3, .cain .items-list .item-name h4 {
+  margin: 0;
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.cain .items-list .item-controls {
+  display: flex;
+  flex: 0 0 100px;
+  justify-content: flex-end;
+}
+.cain .items-list .item-controls a {
+  font-size: 12px;
+  text-align: center;
+  margin: 0 6px;
+}
+.cain .items-list .item {
+  align-items: center;
+  padding: 0 2px;
+  border-bottom: 1px solid #c9c7b8;
+}
+.cain .items-list .item:last-child {
+  border-bottom: none;
+}
+.cain .items-list .item .item-name {
+  color: #191813;
+}
+.cain .items-list .item .item-name .item-image {
+  flex: 0 0 30px;
+  height: 30px;
+  background-size: 30px;
+  border: none;
+  margin-right: 5px;
+}
+.cain .items-list .item-prop {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.cain .items-list .items-header {
+  height: 28px;
+  margin: 2px 0;
+  padding: 0;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.05);
+  border: 2px groove #eeede0;
+  font-weight: bold;
+}
+.cain .items-list .items-header > * {
+  font-size: 12px;
+  text-align: center;
+}
+.cain .items-list .items-header .item-name {
+  padding-left: 5px;
+  text-align: left;
+}
+.cain .item-formula {
+  flex: 0 0 200px;
+  padding: 0 8px;
+}
+.cain .effects .item .effect-source,
+.cain .effects .item .effect-duration,
+.cain .effects .item .effect-controls {
+  text-align: center;
+  border-left: 1px solid #c9c7b8;
+  border-right: 1px solid #c9c7b8;
+  font-size: 12px;
+}
+.cain .effects .item .effect-controls {
+  border: none;
+
+}
+/* New styles for checkbox group */
+.cain .group_cat {
+  align-items: center; 
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 10px; /* Adjust the gap between items as needed */
+}
+
+.cain .checkbox-item_cat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.cain .checkbox-item_cat label {
+  margin-bottom: 5px; /* Space between label and checkbox */
+}
+
+.CAT-selector {
+  width: 45px; 
+  height: 45px;
+  overflow: hidden;
+  cursor: pointer;
+  margin-bottom: 5px; /* Space between image and label */
+  padding: 1px;
+}
+
+.CAT-selector img {
+  width: 100%;
+  border: none !important;
+}
+
+.CAT-selected{
+  border: #ff3333 solid 1px;
+  padding: unset !important;
+}
+
+.CAT-session-text{
+  color: white; 
+  width:100%;
+}
+
+.extra-dice-section {
+  background-color: #f0f0f0; /* Light grey background */
+  border: 1px solid #ccc;    /* Light grey border */
+  padding: 10px;             /* Padding around the section */
+  margin-top: 5px;
+  margin-bottom: 5px;          /* Space above the section */
+  border-radius: 5px;        /* Rounded corners */
+}
+/* Add these styles to your CSS file */
+
+
+/* Agenda styles */
+.agenda-size {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  height: 400px;
+}
+
+.agenda-name {
+  font-family: "Metal Mania", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+/* Agenda Header */
+.agenda-header {
+  border-bottom: 2px solid #444;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.agenda-header .profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 1em;
+  border: 2px solid #555;
+}
+
+.agenda-header .header-fields {
+  flex-grow: 1;
+}
+
+.agenda-header .charname input {
+  font-size: 1.5em;
+  width: 100%;
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
+/* Agenda Tabs */
+.agenda-tabs {
+  background-color: #2b2b2b;
+  border-bottom: 2px solid #444;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5em 0;
+}
+
+.agenda-tabs .item {
+  color: #e0e0e0;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.agenda-tabs .item:hover,
+.agenda-tabs .item.active {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* Agenda Body */
+.agenda-body {
+  background-color: #1a1a1a;
+  padding: 1em;
+}
+
+.agenda-body .tab {
+  display: none;
+}
+
+.agenda-body .tab.active {
+  display: block;
+}
+
+.agenda-body .form-group {
+  margin-bottom: 1em;
+}
+
+.agenda-body .form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.agenda-body .form-group textarea {
+  width: 100%;
+  padding: 0.5em;
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  min-height: 100px;
+}
+
+.agenda-text-color {
+  color: #e0e0e0;
+}
+
+.agenda-background {
+  background-color: #1a1a1a;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), -10px -10px 0 rgba(0, 0, 0, 0.5), 10px -10px 0 rgba(0, 0, 0, 0.5), -10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* end agenda styles */
+
+/* homebrew styles */
+.homebrew-size {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  height: 400px;
+}
+
+.homebrew-name {
+  font-family: "Metal Mania", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+/* homebrew Header */
+.homebrew-header {
+  background-color: #2b2b2b;
+  border-bottom: 2px solid #444;
+  padding: 1em;
+  display: flex;
+  align-items: center;
+}
+
+.homebrew-header .profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 1em;
+  border: 2px solid #555;
+}
+
+.homebrew-header .header-fields {
+  flex-grow: 1;
+}
+
+.homebrew-header .charname input {
+  font-size: 1.5em;
+  width: 100%;
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  padding: 0.5em;
+  border-radius: 4px;
+}
+
+/* homebrew Tabs */
+.homebrew-tabs {
+  background-color: #2b2b2b;
+  border-bottom: 2px solid #444;
+  display: flex;
+  justify-content: space-around;
+  padding: 0.5em 0;
+}
+
+.homebrew-tabs .item {
+  color: #e0e0e0;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: border-bottom 0.3s;
+}
+
+.homebrew-tabs .item:hover,
+.homebrew-tabs .item.active {
+  border-bottom: 2px solid #e0e0e0;
+}
+
+/* homebrew Body */
+.homebrew-body {
+  background-color: #1a1a1a;
+  padding: 1em;
+}
+
+.homebrew-body .tab {
+  display: none;
+}
+
+.homebrew-body .tab.active {
+  display: block;
+}
+
+.homebrew-body .form-group {
+  margin-bottom: 1em;
+}
+
+.homebrew-body .form-group label {
+  display: block;
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  color: #e0e0e0;
+}
+
+.homebrew-body .form-group textarea {
+  width: 100%;
+  padding: 0.5em;
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #555;
+  border-radius: 4px;
+  min-height: 100px;
+}
+
+.homebrew-text-color {
+  color: #e0e0e0;
+}
+
+.homebrew-background {
+  background-color: #1a1a1a;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), -10px -10px 0 rgba(0, 0, 0, 0.5), 10px -10px 0 rgba(0, 0, 0, 0.5), -10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.homebrew-toggle-bold {
+  width: 20%;
+}
+/* end homebrew styles */
+
+
+/* Character Sheet */
+
+.mob-psycho-theme {
+  /* General theme styles */
+  background-color: #0d0d0d;
+  color: #ffffff;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), -10px -10px 0 rgba(0, 0, 0, 0.5), 10px -10px 0 rgba(0, 0, 0, 0.5), -10px 10px 0 rgba(0, 0, 0, 0.5);
+  font-family: 'Courier New', Courier, monospace; /* Typewriter font */
+  padding: 20px;
+  border: 2px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  background-image: url('https://images.thdstatic.com/productImages/bcbf4ea8-d0d4-4b36-9bfb-9fd05702d10e/svn/black-rust-oleum-stops-rust-texture-paint-7220830-76_600.jpg'); /* Paper-like background */
+  background-size: cover;
+}
+
+/* ProseMirror menu buttons (v13 editor) */
+.prosemirror menu button,
+.ProseMirror menu button,
+.editor-container .ProseMirror-menubar button,
+.editor .ProseMirror-menubar button {
+  background: #ffffff !important;
+  color: #333333 !important;
+  border: 1px solid #ccc !important;
+  padding: 4px 8px;
+  margin: 2px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.prosemirror menu button:hover,
+.ProseMirror menu button:hover,
+.editor-container .ProseMirror-menubar button:hover,
+.editor .ProseMirror-menubar button:hover {
+  background: #e0e0e0 !important;
+  color: #000000 !important;
+  border-color: #999 !important;
+}
+
+/* ProseMirror menu button icons */
+.prosemirror menu button i,
+.ProseMirror menu button i,
+.editor-container .ProseMirror-menubar button i,
+.editor .ProseMirror-menubar button i {
+  color: #333333 !important;
+}
+
+/* ProseMirror menu container */
+.prosemirror menu,
+.ProseMirror-menubar,
+.editor-container .ProseMirror-menubar,
+.editor .ProseMirror-menubar {
+  background: #f5f5f5 !important;
+  border-bottom: 1px solid #ccc !important;
+  padding: 4px !important;
+}
+
+.mob-psycho-header {
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.mob-psycho-img {
+  border: 3px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  border-radius: 50%;
+  margin: 10px 0;
+  filter: contrast(150%) saturate(120%) hue-rotate(10deg); /* Apply filters for a distorted effect */
+  transform: rotate(-5deg) scale(1.1); /* Slight rotation and scaling */
+  transition: transform 0.3s, filter 0.3s, box-shadow 0.3s; /* Smooth transition for hover effect */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+  position: relative; /* For pseudo-element positioning */
+  object-fit: cover; /* Ensure the image covers the container without stretching */
+  width: 100px; /* Set a fixed width */
+  height: 100px; /* Set a fixed height */
+}
+
+.mob-psycho-img::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+  transition: opacity 0.3s;
+}
+
+.mob-psycho-img:hover::before {
+  opacity: 0.5;
+}
+
+.mob-psycho-img:hover {
+  filter: contrast(200%) saturate(150%) hue-rotate(20deg); /* More intense filters on hover */
+  transform: rotate(5deg) scale(1.2); /* More rotation and scaling on hover */
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.7); /* More intense shadow on hover */
+}
+
+.mob-psycho-img:hover::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 120%;
+  height: 120%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -50%) scale(1.2);
+  mix-blend-mode: screen;
+  pointer-events: none;
+  transition: transform 0.3s, opacity 0.3s;
+  opacity: 0.7;
+}
+
+.mob-psycho-header-fields {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.mob-psycho-charname input {
+  background-color: #333333;
+  color: #ffffff;
+  border: 1px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 5px;
+  font-size: 32px;
+}
+
+.sin-inline-box {
+  background-color: #1a1a1a;
+  border: 1px dashed #00bfff;
+  border-radius: 5px;
+  padding: 6px 10px;
+  margin: 6px 10px 0;
+}
+
+/* Hide sin marks in the inline box */
+.sin-inline-box .sin-marks { display: none; }
+
+/* Sin Overflow heading — match mob-psycho-heading */
+.sin-inline-box .sin-overflow > h3 {
+  color: #00bfff;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 1em;
+  margin: 0 0 6px;
+}
+
+/* 0 / 10 counter — match virtue input style */
+.sin-inline-box .sin-overflow-controls > h3 {
+  font-size: 0.9em;
+  color: #e0e0e0;
+  font-weight: normal;
+  margin: 4px 0 0;
+}
+
+/* Large icons filling the box */
+.sin-inline-box .sin-overflow { margin: 0; border: none; background: transparent; padding: 0; box-shadow: none; }
+.sin-inline-box .sin-overflow-controls { gap: 2px; }
+.sin-inline-box #sinOverflow-checkboxes { margin-top: 4px; flex-wrap: wrap; }
+.sin-inline-box .sinOverflow-icon { width: 44px; height: 44px; margin: 2px; }
+
+/* Hide roll, resist and adjust max from inline box */
+.sin-inline-box .sin-overflow-controls > div:not(#sinOverflow-checkboxes),
+.sin-inline-box label[for="sinOverflow-max"] { display: none !important; }
+
+.mob-psycho-grid {
+  color: #ffffff;
+  gap: 10px;
+  padding: 10px;
+  margin: 10px 0;
+  align-items: start;
+}
+
+.mob-psycho-flex-group {
+  background-color: #333333;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.mob-psycho-label {
+  color: #00bfff; /* Jujutsu Kaisen inspired accent color */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.mob-psycho-theme input[type="number"],
+.mob-psycho-theme input[type="text"] {
+  color: #ffffff;
+  background-color: #404040;
+  border: 1px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 5px;
+}
+
+.mob-psycho-input {
+  background-color: #404040;
+  color: #ffffff;
+  border: 1px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 5px;
+}
+
+/* Search input styling */
+.agenda-search-input,
+.blasphemy-search-input,
+.item-search-input {
+  width: 100%;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  background-color: #2a2a2a;
+  color: #ffffff;
+  border: 1px solid #666666;
+  border-radius: 3px;
+  font-size: 14px;
+  font-family: 'Roboto', sans-serif;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.agenda-search-input:focus,
+.blasphemy-search-input:focus,
+.item-search-input:focus {
+  outline: none;
+  background-color: #333333;
+  border-color: #00bfff;
+}
+
+/* Placeholder text styling */
+.agenda-search-input::placeholder,
+.blasphemy-search-input::placeholder,
+.item-search-input::placeholder {
+  color: #999999;
+  opacity: 1;
+  font-style: normal;
+}
+
+.agenda-search-input:focus::placeholder,
+.blasphemy-search-input:focus::placeholder,
+.item-search-input:focus::placeholder {
+  color: #777777;
+}
+
+.mob-psycho-resource-content {
+  background-color: #333333;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px dashed #00bfff; /* Dashed border for a report look */
+}
+
+.mob-psycho-tabs {
+  background-color: #1a1a1a;
+  border-bottom: 2px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 5px;
+}
+
+.mob-psycho-tab-item {
+  color: #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 5px;
+  border-bottom: 1px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover effect */
+}
+
+.mob-psycho-tab-item:hover {
+  background-color: #00bfff; /* Jujutsu Kaisen inspired accent color */
+  color: #0d0d0d; /* Invert colors on hover */
+}
+
+.mob-psycho-body {
+  background-color: #0d0d0d;
+  padding: 20px;
+  border: 2px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+}
+
+.mob-psycho-tab {
+  background-color: #0d0d0d;
+}
+
+.mob-psycho-sidebar {
+  background-color: #1a1a1a;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px dashed #00bfff; /* Dashed border for a report look */
+}
+
+.mob-psycho-heading {
+  color: #00bfff; /* Jujutsu Kaisen inspired accent color */
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.mob-psycho-ability {
+  background-color: #262626;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 2px; /* Dashed border for a report look */
+  gap: 4px;
+}
+
+/* Removed: #sidebar margin override was causing layout shift issues */
+
+.mob-psycho-extra-dice {
+  background-color: #262626;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px dashed #00bfff; /* Dashed border for a report look */
+}
+
+#chat-controls input, .chat-controls input {
+  border: 1px solid #444 !important;
+  outline: none !important;
+}
+
+.mob-psycho-affliction {
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.mob-psycho-main {
+  background-color: #1a1a1a;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px dashed #00bfff; /* Jujutsu Kaisen inspired accent color */
+  align-self: start !important;
+  height: fit-content !important;
+}
+
+.mob-psycho-editor {
+  background-color: #262626;
+  color: #ffffff;
+  border: 1px solid #00bfff; /* Jujutsu Kaisen inspired accent color */
+  padding: 10px;
+}
+
+/* Ensure ProseMirror buttons are visible in mob-psycho theme */
+.mob-psycho-theme .prosemirror menu button,
+.mob-psycho-theme .ProseMirror menu button,
+.mob-psycho-theme .editor-container .ProseMirror-menubar button,
+.mob-psycho-theme .editor .ProseMirror-menubar button,
+.mob-psycho-editor .prosemirror menu button,
+.mob-psycho-editor .ProseMirror menu button,
+.mob-psycho-editor .editor-container .ProseMirror-menubar button,
+.mob-psycho-editor .editor .ProseMirror-menubar button {
+  background: #ffffff !important;
+  color: #333333 !important;
+  border: 1px solid #00bfff !important;
+}
+
+.mob-psycho-theme .prosemirror menu button:hover,
+.mob-psycho-theme .ProseMirror menu button:hover,
+.mob-psycho-theme .editor-container .ProseMirror-menubar button:hover,
+.mob-psycho-theme .editor .ProseMirror-menubar button:hover,
+.mob-psycho-editor .prosemirror menu button:hover,
+.mob-psycho-editor .ProseMirror menu button:hover,
+.mob-psycho-editor .editor-container .ProseMirror-menubar button:hover,
+.mob-psycho-editor .editor .ProseMirror-menubar button:hover {
+  background: #00bfff !important;
+  color: #000000 !important;
+}
+
+.rest-dice-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.mob-psycho-rest-dice {
+  background-color: #2e0d45;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.mob-psycho-button {
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #4b0082;
+  color: #f5f5f5;
+  cursor: pointer;
+}
+
+.mob-psycho-button:hover {
+  background-color: #6a0dad;
+}
+
+/* end mob-psycho-theme.css */
+
+/* Burnout recovery button */
+.fatigue-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.burnout-recover-btn {
+  margin-left: auto;
+  padding: 1px 6px;
+  font-size: 0.85em;
+  border-radius: 3px;
+  border: 1px solid #4b0082;
+  background: #2a1a3a;
+  color: #c8a0f0;
+  cursor: pointer;
+  line-height: 1.4;
+}
+
+.burnout-recover-btn:hover {
+  background: #4b0082;
+  color: #fff;
+}
+
+.burnout-recover-btn.burnout-recover-disabled,
+.burnout-recover-btn[disabled] {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Rolls and chat message edits */
+
+/* Chat Message Styles */
+
+.chat-message {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border: #000000 2px solid;
+  padding: 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.chat-message .message-header {
+  background-color: #262626;
+  padding: 5px;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.chat-message .table-draw .table-description  {
+  background-color: #262626;
+  padding: 5px;
+  border-radius: 5px;
+  border: 1px dashed #00bfff;
+  color: #00bfff;
+}
+
+.chat-message .message-sender {
+  color: #ffffff;
+}
+
+.chat-message .message-metadata {
+  color: #ffffff;
+}
+
+.chat-message .message-timestamp {
+  color: #999999;
+}
+
+.chat-message .message-delete {
+  color: #ff4d4d;
+}
+
+.chat-message .flavor-text {
+  color: #ffffff;
+  font-style: italic;
+}
+
+.chat-message .message-content {
+  background-color: #1a1a1a;
+  padding: 10px;
+}
+
+.chat-message .dice-formula {
+  color: #ffffff;
+}
+
+.chat-message .dice-tooltip {
+  background-color: #1a1a1a;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.chat-message .part-header {
+  background-color: #1a1a1a;
+  padding: 5px;
+}
+
+.chat-message .part-formula {
+  color: #ffffff;
+}
+
+.chat-message .part-total {
+  color: #ffffff;
+}
+
+.chat-message .dice-rolls {
+  list-style: none;
+  padding: 0;
+}
+
+.chat-message .dice-total {
+  color: #ffffff;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.cain .no-border{
+  border: none !important;
+}
+
+.cain .no-padding{
+  padding: unset !important;
+}
+
+/* Talisman CSS */
+
+#talisman-management {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#add-talisman {
+  background-color: #262626;
+  padding: 20px;
+  border-radius: 10px;
+  color: #ffffff ;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#talisman-management .current-marks {
+  font-size: 1em;
+  color: #ff4500; /* Bright orange-red color */
+}
+
+#talisman-management .talisman-image {
+  width: 200px;
+  height: 220px;
+  margin-bottom: 10px;
+}
+
+.talisman-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  width: 100%;
+  max-width: 1200px;
+  margin-bottom: 20px;
+}
+
+.talisman {
+  background-color: #262626;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.talisman input {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background-color: #333333;
+  color: #ffffff;
+}
+
+.talisman button {
+  margin-top: 10px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #1e90ff;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.talisman button.delete-talisman {
+  background-color: #ff4d4d;
+}
+
+.talisman button:hover {
+  opacity: 0.8;
+}
+
+#talisman-management .talisman-name {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  background: #3a3a3a;
+  color: #fff;
+}
+
+
+.sinOverflow-icon{
+  border: none !important;
+}
+
+/* sin-marks.css */
+
+/* sin-marks.css */
+
+.sin-marks {
+  background-color: #1a1a1a;
+  border: 2px solid #660066;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  font-family: 'Courier-New', serif;
+  color: #e0b3ff;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sin-marks h3 {
+  color: #cc33ff;
+  font-family: 'Courier-New', serif;
+  text-shadow: 3px 3px 6px #000;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.sin-marks ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.sin-mark-body-part {
+  background-color: #2b2b2b;
+  border: 2px solid #660066;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sin-marks li:hover {
+  box-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
+}
+
+.sin-marks li:active {
+  background-color: #1a1a1a;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.button-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sin-marks button {
+  color: #fff;
+  border: 2px solid #660066;;
+  margin: 0px;
+  cursor: pointer;
+  font-family: 'Courier-New', serif;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.sin-marks button:hover {
+  background-color: #b300b3;
+  box-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
+}
+
+.sin-marks button:active {
+  background-color: #990099;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.no-sin-marks {
+  color: #e0b3ff;
+  background-color: #2b2b2b;
+  padding: 15px;
+  border-radius: 8px;
+  margin: 20px 0;
+  font-style: italic;
+  border: 2px solid #660066;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.no-sin-marks:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
+}
+
+.sin-overflow {
+  background-color: #1a1a1a;
+  border: 2px solid #660066;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+  font-family: 'Courier-New', serif;
+  color: #e0b3ff;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-bottom: 20px;
+}
+
+.sin-overflow h3 {
+  color: #cc33ff;
+  font-family: 'Courier-New', serif;
+  text-shadow: 3px 3px 6px #000;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.sin-overflow-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.sin-overflow-controls label {
+  color: #e0b3ff;
+  font-family: 'Courier-New', serif;
+}
+
+.sin-overflow-controls input {
+  background-color: #2b2b2b;
+  color: #e0b3ff;
+  border: 2px solid #660066;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: 'Courier-New', serif;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.sin-overflow-controls input:hover {
+  background-color: #333;
+  box-shadow: 0 0 10px rgba(128, 0, 128, 0.8);
+}
+
+.sin-overflow-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.sin-overflow-buttons button {
+  background-color: #cc33ff;
+  color: #fff;
+  border: 2px solid #660066;
+  padding: 12px 24px;
+  margin: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Courier-New', serif;
+  transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.sin-overflow-buttons button:hover {
+  background-color: #b300b3;
+  transform: scale(1.1);
+  box-shadow: 0 0 20px rgba(128, 0, 128, 0.8);
+}
+
+.sin-overflow-buttons button:active {
+  background-color: #990099;
+  transform: scale(0.95);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+/* Media query for responsive design */
+@media (max-width: 600px) {
+  .button-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sin-marks button {
+    margin: 5px 0;
+  }
+}
+
+/* end sin-marks.css */
+
+/* Item Sheet */
+
+.item-kit {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid #444;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), -10px -10px 0 rgba(0, 0, 0, 0.5), 10px -10px 0 rgba(0, 0, 0, 0.5), -10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.item-kit .sheet-header {
+  background-color: #2c2c2c;
+  border-bottom: 2px solid #444;
+  padding: 10px;
+}
+
+.item-kit .sheet-header h1 input {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  width: 100%;
+}
+
+.item-kit .sheet-body {
+  background-color: #1a1a1a;
+}
+
+.item-kit .description {
+  margin-bottom: 20px;
+}
+
+.item-kit .resource {
+  margin-bottom: 10px;
+}
+
+.item-kit .resource-label {
+  color: #e0e0e0;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.item-kit .resource input {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  width: 100%;
+}
+
+.item-kit .resource input:hover {
+  border-color: #ff0000;
+}
+
+.item-kit .sheet-tabs .item {
+  color: #e0e0e0;
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.item-kit .sheet-tabs .item:hover {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.item-kit .tab {
+  padding: 10px;
+  border: 1px solid #444;
+  background-color: #2c2c2c;
+}
+
+.item-kit {
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid #444;
+  box-shadow: 10px 10px 0 rgba(0, 0, 0, 0.5), -10px -10px 0 rgba(0, 0, 0, 0.5), 10px -10px 0 rgba(0, 0, 0, 0.5), -10px 10px 0 rgba(0, 0, 0, 0.5);
+}
+
+.item-kit .sheet-header {
+  background-color: #2c2c2c;
+  border-bottom: 2px solid #444;
+  padding: 10px;
+}
+
+.item-kit .sheet-header h1 input {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  width: 100%;
+}
+
+.item-kit .sheet-body {
+  background-color: #1a1a1a;
+}
+
+.item-kit .description {
+  margin-bottom: 20px;
+}
+
+.item-kit .resource {
+  margin-bottom: 10px;
+}
+
+.item-kit .resource-label {
+  color: #e0e0e0;
+  font-weight: bold;
+  font-size: 1.1em;
+}
+
+.item-kit .resource input {
+  background-color: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  width: 100%;
+}
+
+.item-kit .resource input:hover {
+  border-color: #ff0000;
+}
+
+.item-kit .sheet-tabs .item {
+  color: #e0e0e0;
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  padding: 5px 10px;
+  margin-right: 5px;
+  text-decoration: none;
+}
+
+.item-kit .sheet-tabs .item:hover {
+  background-color: #ff0000;
+  color: #fff;
+}
+
+.item-kit .tab {
+  padding: 10px;
+  border: 1px solid #444;
+  background-color: #2c2c2c;
+}
+
+.talisman-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px; /* Adjust as needed */
+  z-index: 1000; /* Ensure it is above other elements */
+  position: relative;
+}
+
+.talisman-button, .risk-roll-button, .fate-roll-button, .player-overview-button, .homebrew-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  width: 64px; /* Adjust the size as needed */
+  height: 64px; /* Adjust the size as needed */
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.talisman-button img, .risk-roll-button img, .fate-roll-button img, .player-overview-button img, .homebrew-button img {
+  border: none;
+  width: 100%;
+  height: auto;
+  transition: filter 0.3s ease;
+}
+
+.talisman-button img:hover, .risk-roll-button img:hover, .fate-roll-button img:hover, .player-overview-button img:hover, .homebrew-button img:hover {
+  filter: brightness(1.2); /* Adjust the brightness to highlight the icon */
+}
+
+.talisman-button.clicked img, .risk-roll-button.clicked img, .fate-roll-button.clicked img, .player-overview-button.clicked img, .homebrew-button.clicked img {
+  filter: brightness(0.8); /* Adjust the brightness to indicate the button has been clicked */
+}
+
+.form-blasphemy-power {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100%;
+  border-radius: 15px;
+  padding: 25px;
+  gap: 25px;
+  box-shadow: 0 0 15px var(--accent-color, #ff00ff), 0 0 30px var(--accent-color, #ff00ff);
+  font-family: 'Lacquer', sans-serif;
+  background: linear-gradient(135deg, var(--primary-color, #2a2a2a), var(--secondary-color, #555));
+  color: var(--text-color, #ffffff);
+  margin: 0;
+  border: 3px solid var(--secondary-color, #555);
+  overflow-y: auto;
+  position: relative;
+  width: 100%;
+}
+
+.form-blasphemy-power label {
+  font-weight: bold;
+  color: var(--text-color, #ffffff);
+  text-decoration: underline;
+}
+
+.blasphemy-power-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 100%;
+  border-bottom: 2px solid var(--secondary-color, #555);
+  padding-bottom: 10px;
+  overflow: visible; /* Override the parent overflow */
+  background: linear-gradient(135deg, var(--accent-color, #ff00ff), var(--primary-color, #2a2a2a));
+  padding: 10px;
+  border-radius: 10px;
+  width: 100%;
+}
+
+.form-blasphemy-power .header-fields {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-blasphemy-power .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+}
+
+.form-blasphemy-power .charname {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.form-blasphemy-power .profile-img {
+  border: 3px solid var(--accent-color, #ff00ff);
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  box-shadow: 0 0 10px var(--accent-color, #ff00ff), 0 0 20px var(--accent-color, #ff00ff);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-blasphemy-power .profile-img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px var(--accent-color, #ff00ff), 0 0 40px var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power input[type="text"],
+.form-blasphemy-power input[type="checkbox"] {
+  background-color: var(--primary-color, #2a2a2a);
+  color: var(--text-color, #f0f0f0);
+  border: 2px solid var(--secondary-color, #333);
+  border-radius: 5px;
+  padding: 5px;
+  font-family: 'Lacquer', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.form-blasphemy-power input[type="checkbox"] {
+  width: auto;
+  height: auto;
+}
+
+.form-blasphemy-power .blasphemy-power-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  width: 100%;
+  max-height: 600px;
+  text-align: center; /* Center text in the sheet body */
+  background: linear-gradient(135deg, var(--primary-color, #2a2a2a), var(--secondary-color, #555));
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.form-blasphemy-power .blasphemy-power-body h2 {
+  text-align: center; /* Center the Description heading */
+  color: var(--accent-color, #ff00ff);
+  text-shadow: 0 0 10px var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power .blasphemy-power-body p {
+  text-align: center;
+  padding: 10px;
+  border: 2px solid var(--secondary-color, #555);
+  border-radius: 10px;
+  background-color: var(--primary-color, #2a2a2a);
+  font-family: 'Courier New', Courier, monospace;
+  color: var(--text-color, #ffffff);
+  box-shadow: 0 0 10px var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power .blasphemy-power-body img {
+  max-width: 100%;
+  border-radius: 10px;
+  box-shadow: 0 0 10px var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power .er h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power .blasphemy-power-header h2 {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent-color, #ff00ff);
+}
+
+.form-blasphemy-power .power-label {
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--text-color, #ff00ff);
+}
+
+
+.circle-checkboxes {
+  input[type="checkbox"] {
+    display: none;
+  }
+
+  input[type="checkbox"]+label {
+    display: inline-block;
+    padding: 0;
+    height: 50px;
+    width: 50px;
+    background-size: cover;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+  }
+
+  input[type="checkbox"]+label:hover {
+    transform: scale(1.05);
+  }
+
+  input[type="checkbox"]+label::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #9b59b6;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 0 rgba(155, 89, 182, 0);
+  }
+
+  input[type="checkbox"]+label:hover::before {
+    border-color: #bb7bd6;
+    box-shadow: 0 0 8px rgba(155, 89, 182, 0.4);
+  }
+
+  input[type="checkbox"]:checked+label::before {
+    background-color: #9b59b6;
+    border-color: #9b59b6;
+    box-shadow: 0 0 10px rgba(155, 89, 182, 0.6);
+  }
+
+  /* V13 FontAwesome checkbox compatibility - hide FA icons for custom checkboxes */
+  input[type="checkbox"]+label::after {
+    display: none !important;
+  }
+} 
+
+.ability-dots {
+  input[type="checkbox"]+label {
+    height: 30px;
+    width: 30px;
+    transition: transform 0.1s ease;
+  }
+
+  input[type="checkbox"]+label:hover {
+    transform: scale(1.1);
+  }
+
+  input[type="checkbox"]+label::before {
+    width: 18px;
+    height: 18px;
+    border: 3px solid #0a7baf;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease;
+    box-shadow: 0 0 0 0 rgba(10, 123, 175, 0);
+  }
+
+  input[type="checkbox"]+label:hover::before {
+    border-color: #0d9edb;
+    box-shadow: 0 0 6px rgba(10, 123, 175, 0.5);
+  }
+
+  input[type="checkbox"]:checked+label::before {
+    background-color: #0a7baf;
+    border-color: #0a7baf;
+    box-shadow: 0 0 8px rgba(10, 123, 175, 0.7);
+  }
+
+  /* V13 FontAwesome checkbox compatibility - hide FA icons for custom checkboxes */
+  input[type="checkbox"]+label::after {
+    display: none !important;
+  }
+}
+
+.psyche-burst-checkboxes {
+  input[type="checkbox"]+label {
+    background: url('systems/bastionlands/assets/brain.png') no-repeat;
+  }
+
+  /* V13 FontAwesome checkbox compatibility - hide FA icons for custom checkboxes */
+  input[type="checkbox"]+label::after {
+    display: none !important;
+  }
+}
+
+.collapsible-section {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  width: 300px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 1000;
+}
+
+.collapsible-section .header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.collapsible-section .content {
+  display: block;
+}
+
+.collapsible-section .header button {
+  background: #333;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  padding: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.collapsible-section .header button:hover {
+  background: #555;
+}
+
+.pinned-talisman-container {
+  position: absolute;
+  top: 50px;
+  left: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  resize: both;
+  overflow: auto;
+}
+
+.pinned-talisman {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 1em; /* Use em units for padding */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1; /* Allow the pinned talisman to grow */
+}
+
+.pinned-talisman img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain; /* Ensure the full image is displayed */
+  border-radius: 4px;
+  margin-bottom: 0.5em; /* Use em units for margin */
+}
+
+.pinned-talisman span {
+  font-size: 1em; /* Use em units for font size */
+  margin-bottom: 0.5em; /* Use em units for margin */
+}
+
+.pinned-talisman button {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  padding: 0.5em 1em; /* Use em units for padding */
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 0.5em; /* Use em units for margin */
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.pinned-talisman button:hover {
+  background: #cc0000;
+}
+
+/* ============================================ */
+/* Foundry VTT v11-v13 Cross-Version Compatibility */
+/* ============================================ */
+
+/*
+ * V13 CSS Layer Priority Overrides
+ * These rules ensure that CAIN system styles take precedence
+ * over Foundry's built-in styles in v13 while remaining compatible
+ * with v11 and v12.
+ *
+ * IMPORTANT: Do NOT set position or z-index on .cain.sheet class!
+ * This interferes with Foundry's window positioning in v12 and causes
+ * sheets to render incorrectly (appearing on wrong side, pushing chat bar).
+ * Foundry handles window positioning automatically - let it do its job.
+ */
+
+/* Input and form element consistency */
+.cain input[type="text"],
+.cain input[type="number"],
+.cain input[type="color"],
+.cain textarea,
+.cain select {
+  font-family: inherit;
+  border-radius: 3px;
+  box-sizing: border-box;
+}
+
+/* Select dropdown styling - ensure readability */
+.cain select {
+  background-color: #000000 !important;
+  color: #ffffff !important;
+  border: 1px solid #00bfff;
+  padding: 4px 8px;
+}
+
+/* Select dropdown option styling - ensure readability */
+.cain select option {
+  background-color: #ffffff !important;
+  color: #000000 !important;
+  padding: 4px 8px;
+}
+
+.cain select option:checked {
+  background-color: #0a7baf !important;
+  color: #ffffff !important;
+}
+
+/* Sheet header input fields - ensure consistent styling across versions */
+.cain .sheet-header input[type="text"],
+.cain .sheet-header input[type="number"] {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid #7a7971;
+  padding: 2px 4px;
+  height: auto;
+  line-height: normal;
+  font-size: 12px;
+  /* Allow individual sheets to override color with inline styles or specific classes */
+}
+
+/* Character name input - override to maintain large size */
+.cain .sheet-header h1.charname input,
+.cain .sheet-header .mob-psycho-charname input {
+  font-size: 32px !important;
+  height: 100% !important;
+  padding: 5px !important;
+}
+
+/* Header field labels - ensure visibility */
+.cain .sheet-header label {
+  font-weight: normal;
+  color: #00bfff;
+  text-transform: uppercase;
+  font-size: 10px;
+  margin-bottom: 2px;
+  display: block;
+}
+
+/* Header layout consistency - prevent image overflow */
+.cain .sheet-header {
+  overflow: visible !important;
+  flex-wrap: nowrap !important;
+  align-items: stretch !important;
+  min-height: 100px !important;
+}
+
+.cain .sheet-header .profile-img {
+  flex: 0 0 100px !important;
+  width: 100px !important;
+  height: 100px !important;
+  align-self: center !important;
+  object-fit: cover !important;
+}
+
+.cain .sheet-header .header-fields {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: 100px !important;
+}
+
+/* Button consistency across versions */
+.cain button {
+  font-family: inherit;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+/* Prosemirror editor compatibility (TinyMCE/ProseMirror transition) */
+.cain .editor-content,
+.cain .prosemirror {
+  min-height: 100px;
+}
+
+/* Tab navigation consistency */
+.cain .sheet-tabs {
+  flex-shrink: 0;
+}
+
+.cain .tabs {
+  flex-shrink: 0;
+}
+
+/* Color picker and custom controls */
+.cain input[type="color"] {
+  min-height: 24px;
+  min-width: 40px;
+  padding: 2px;
+}
+
+/* Ensure proper image rendering across versions */
+.cain img {
+  border: none;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Grid layout consistency */
+.cain .grid,
+.cain .grid-2col,
+.cain .grid-3col,
+.cain .grid-4col,
+.cain .grid-5col,
+.cain .grid-6col,
+.cain .grid-7col,
+.cain .grid-8col,
+.cain .grid-9col,
+.cain .grid-10col,
+.cain .grid-11col,
+.cain .grid-12col {
+  gap: 10px;
+}
+
+/* V13 Dark/Light mode support - preserve our dark theme */
+.cain.sheet,
+.cain.sheet .window-content {
+  color-scheme: dark;
+}
+
+/* Ensure our custom theme colors are preserved */
+.mob-psycho-theme {
+  color-scheme: dark;
+  forced-color-adjust: none;
+}
+
+/* Accessibility - ensure focus states are visible */
+.cain button:focus-visible,
+.cain input:focus-visible,
+.cain select:focus-visible,
+.cain textarea:focus-visible {
+  outline: 2px solid #00bfff;
+  outline-offset: 2px;
+}
+
+/* V13 Application header compatibility */
+.cain .window-header {
+  flex-shrink: 0;
+}
+
+/* Item list consistency */
+.cain .items-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ensure roll buttons maintain styling */
+.cain .rollable {
+  cursor: pointer;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+/* V13 Journal/Editor compatibility */
+.cain .editor,
+.cain .editor-content {
+  background: transparent;
+}
+
+/* V13 Chat Message Heading Fix - Moved to @layer system block at top of file */
+/* See lines 19-40 for the actual implementation */
+
+/* Fix for UI shift when chat messages are posted - prevent #interface from scrolling */
+#interface {
+  overflow: hidden !important;
+}
+
+/* End v11-v13 Compatibility Section */
+
+/* ==========================================
+   CAIN Dice Roller Panel Styles
+   ========================================== */
+
+/* Panel Container - Purple Theme */
+/* ==================== DICE PANEL ANIMATIONS ==================== */
+@keyframes dicePanelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes dicePanelGlow {
+  0%, 100% {
+    box-shadow: 0 4px 12px var(--dice-glow-color, rgba(124, 58, 237, 0.2));
+  }
+  50% {
+    box-shadow: 0 4px 20px var(--dice-glow-color, rgba(124, 58, 237, 0.4));
+  }
+}
+
+@keyframes diceButtonPulse {
+  0%, 100% {
+    box-shadow: 0 2px 4px var(--dice-glow-color, rgba(147, 51, 234, 0.3));
+  }
+  50% {
+    box-shadow: 0 2px 12px var(--dice-glow-color, rgba(147, 51, 234, 0.6));
+  }
+}
+
+@keyframes diceIconSpin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes diceShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+/* ==================== THEME CSS VARIABLES ==================== */
+/* Purple Theme (Default) */
+.cain-dice-panel {
+  --dice-bg-start: #1a1a2e;
+  --dice-bg-end: #0f0f1a;
+  --dice-border: #7c3aed;
+  --dice-border-light: #a855f7;
+  --dice-header-start: #2d1f4e;
+  --dice-header-end: #1a1a2e;
+  --dice-text: #c4b5fd;
+  --dice-text-bright: #e9d5ff;
+  --dice-text-dim: #a78bfa;
+  --dice-accent: #9333ea;
+  --dice-accent-light: #a855f7;
+  --dice-glow-color: rgba(124, 58, 237, 0.3);
+  --dice-button-start: #9333ea;
+  --dice-button-end: #7c3aed;
+  /* Divine Agony - Purple Theme */
+  --divine-agony-bg: rgba(239, 68, 68, 0.15);
+  --divine-agony-bg-active: rgba(239, 68, 68, 0.25);
+  --divine-agony-border: rgba(239, 68, 68, 0.4);
+  --divine-agony-border-active: rgba(239, 68, 68, 0.6);
+  --divine-agony-text: #ef4444;
+  --divine-agony-text-bright: #ff6b6b;
+  --divine-agony-glow: rgba(239, 68, 68, 0.5);
+}
+
+/* Dark Theme */
+.cain-dice-panel[data-theme="dark"] {
+  --dice-bg-start: #1a1a1a;
+  --dice-bg-end: #0a0a0a;
+  --dice-border: #444444;
+  --dice-border-light: #666666;
+  --dice-header-start: #2a2a2a;
+  --dice-header-end: #1a1a1a;
+  --dice-text: #cccccc;
+  --dice-text-bright: #ffffff;
+  --dice-text-dim: #999999;
+  --dice-accent: #555555;
+  --dice-accent-light: #777777;
+  --dice-glow-color: rgba(100, 100, 100, 0.3);
+  --dice-button-start: #444444;
+  --dice-button-end: #333333;
+  /* Divine Agony - Dark Theme */
+  --divine-agony-bg: rgba(239, 68, 68, 0.1);
+  --divine-agony-bg-active: rgba(239, 68, 68, 0.2);
+  --divine-agony-border: rgba(239, 68, 68, 0.25);
+  --divine-agony-border-active: rgba(239, 68, 68, 0.45);
+  --divine-agony-text: #f87171;
+  --divine-agony-text-bright: #fca5a5;
+  --divine-agony-glow: rgba(248, 113, 113, 0.4);
+}
+
+/* Light Theme */
+.cain-dice-panel[data-theme="light"] {
+  --dice-bg-start: #f5f5f5;
+  --dice-bg-end: #e0e0e0;
+  --dice-border: #9333ea;
+  --dice-border-light: #a855f7;
+  --dice-header-start: #e8e0f0;
+  --dice-header-end: #f0f0f0;
+  --dice-text: #4a4a4a;
+  --dice-text-bright: #1a1a1a;
+  --dice-text-dim: #6b21a8;
+  --dice-accent: #9333ea;
+  --dice-accent-light: #a855f7;
+  --dice-glow-color: rgba(147, 51, 234, 0.2);
+  --dice-button-start: #9333ea;
+  --dice-button-end: #7c3aed;
+  /* Divine Agony - Light Theme */
+  --divine-agony-bg: rgba(220, 38, 38, 0.12);
+  --divine-agony-bg-active: rgba(220, 38, 38, 0.22);
+  --divine-agony-border: rgba(220, 38, 38, 0.4);
+  --divine-agony-border-active: rgba(220, 38, 38, 0.6);
+  --divine-agony-text: #dc2626;
+  --divine-agony-text-bright: #b91c1c;
+  --divine-agony-glow: rgba(220, 38, 38, 0.4);
+}
+
+/* Blood Theme */
+.cain-dice-panel[data-theme="blood"] {
+  --dice-bg-start: #1a0a0a;
+  --dice-bg-end: #0a0505;
+  --dice-border: #8b0000;
+  --dice-border-light: #dc2626;
+  --dice-header-start: #2a0f0f;
+  --dice-header-end: #1a0a0a;
+  --dice-text: #f5c6c6;
+  --dice-text-bright: #ffffff;
+  --dice-text-dim: #dc2626;
+  --dice-accent: #8b0000;
+  --dice-accent-light: #dc2626;
+  --dice-glow-color: rgba(220, 38, 38, 0.3);
+  --dice-button-start: #8b0000;
+  --dice-button-end: #5c0000;
+  /* Divine Agony - Blood Theme (more integrated) */
+  --divine-agony-bg: rgba(255, 100, 100, 0.15);
+  --divine-agony-bg-active: rgba(255, 100, 100, 0.3);
+  --divine-agony-border: rgba(255, 100, 100, 0.4);
+  --divine-agony-border-active: rgba(255, 100, 100, 0.7);
+  --divine-agony-text: #ff6b6b;
+  --divine-agony-text-bright: #ffa0a0;
+  --divine-agony-glow: rgba(255, 107, 107, 0.6);
+}
+
+/* ==================== MAIN PANEL STYLES ==================== */
+.cain-dice-panel {
+  background: linear-gradient(180deg, var(--dice-bg-start) 0%, var(--dice-bg-end) 100%);
+  border: 2px solid var(--dice-border);
+  border-radius: 6px;
+  margin: 4px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  overflow: hidden;
+  /* Smooth transitions for position/size changes */
+  transition: all 0.3s ease, opacity 0.2s ease, transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+  box-sizing: border-box;
+  /* Full width to match chat input */
+  width: 100%;
+  box-shadow: 0 4px 12px var(--dice-glow-color);
+  /* Entry animation */
+  animation: dicePanelSlideIn 0.4s ease-out;
+  /* Prevent panel from growing unbounded - especially for v12 */
+  flex-shrink: 0;
+  flex-grow: 0;
+  height: auto;
+  max-height: fit-content;
+}
+
+/* Hidden state for user preference */
+.cain-dice-panel.hidden {
+  display: none !important;
+}
+
+
+.cain-dice-panel.collapsed .cain-dice-panel-body {
+  max-height: 0;
+  padding: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.cain-dice-panel-body {
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  overflow: hidden;
+}
+
+/* Panel Header - Theme Aware */
+.cain-dice-panel-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 8px;
+  background: linear-gradient(135deg, var(--dice-header-start) 0%, var(--dice-header-end) 100%);
+  border-bottom: 2px solid var(--dice-border);
+  color: var(--dice-text);
+  font-weight: bold;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cain-dice-panel-header .cain-dice-icon {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  opacity: 0.95;
+  transition: all 0.4s ease;
+  /* Purple theme - subtle 20% tint */
+  filter: sepia(20%) saturate(150%) hue-rotate(220deg) drop-shadow(0 0 3px var(--dice-glow-color));
+}
+
+/* Dark theme icon - very subtle grayscale tint */
+.cain-dice-panel[data-theme="dark"] .cain-dice-panel-header .cain-dice-icon {
+  filter: saturate(80%) brightness(90%) drop-shadow(0 0 3px var(--dice-glow-color));
+}
+
+/* Light theme icon - subtle dark purple tint */
+.cain-dice-panel[data-theme="light"] .cain-dice-panel-header .cain-dice-icon {
+  filter: sepia(15%) saturate(120%) hue-rotate(260deg) brightness(95%) drop-shadow(0 0 3px var(--dice-glow-color));
+}
+
+/* Blood theme icon - subtle red tint */
+.cain-dice-panel[data-theme="blood"] .cain-dice-panel-header .cain-dice-icon {
+  filter: sepia(25%) saturate(200%) hue-rotate(340deg) drop-shadow(0 0 3px var(--dice-glow-color));
+}
+
+.cain-dice-panel-header:hover .cain-dice-icon {
+  transform: scale(1.15) rotate(5deg);
+  opacity: 1;
+}
+
+/* Hover glow effects per theme - slightly stronger tint on hover */
+.cain-dice-panel:not([data-theme]) .cain-dice-panel-header:hover .cain-dice-icon,
+.cain-dice-panel[data-theme="purple"] .cain-dice-panel-header:hover .cain-dice-icon {
+  filter: sepia(25%) saturate(180%) hue-rotate(220deg) brightness(105%) drop-shadow(0 0 8px var(--dice-glow-color));
+}
+
+.cain-dice-panel[data-theme="dark"] .cain-dice-panel-header:hover .cain-dice-icon {
+  filter: saturate(90%) brightness(100%) drop-shadow(0 0 8px var(--dice-glow-color));
+}
+
+.cain-dice-panel[data-theme="light"] .cain-dice-panel-header:hover .cain-dice-icon {
+  filter: sepia(20%) saturate(150%) hue-rotate(260deg) brightness(100%) drop-shadow(0 0 8px var(--dice-glow-color));
+}
+
+.cain-dice-panel[data-theme="blood"] .cain-dice-panel-header:hover .cain-dice-icon {
+  filter: sepia(30%) saturate(250%) hue-rotate(340deg) brightness(105%) drop-shadow(0 0 8px var(--dice-glow-color));
+}
+
+.cain-dice-panel-header span {
+  flex: 1;
+  color: var(--dice-text-dim);
+  font-size: 10px;
+}
+
+/* Theme Toggle Button */
+.cain-dice-panel .cain-theme-toggle {
+  background: transparent;
+  border: none;
+  color: var(--dice-border);
+  cursor: pointer;
+  padding: 2px;
+  font-size: 10px;
+  line-height: 1;
+  transition: all 0.3s ease;
+  opacity: 0.7;
+}
+
+.cain-dice-panel .cain-theme-toggle:hover {
+  color: var(--dice-border-light);
+  opacity: 1;
+}
+
+.cain-dice-panel .cain-panel-toggle {
+  background: transparent;
+  border: none;
+  color: var(--dice-border);
+  cursor: pointer;
+  padding: 2px;
+  font-size: 10px;
+  line-height: 1;
+  transition: all 0.3s ease;
+}
+
+.cain-dice-panel .cain-panel-toggle:hover {
+  color: var(--dice-border-light);
+  transform: translateY(-1px);
+}
+
+/* Panel Body */
+.cain-dice-panel-body {
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+/* Row Styling - Theme Aware */
+.cain-dice-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cain-dice-row > label {
+  color: var(--dice-text-dim);
+  font-size: 10px;
+  text-transform: uppercase;
+  min-width: 40px;
+  font-weight: bold;
+}
+
+/* Character Select - Theme Aware */
+.cain-dice-panel .cain-character-select {
+  flex: 1;
+  background: var(--dice-bg-start);
+  border: 1px solid var(--dice-border);
+  border-radius: 3px;
+  color: var(--dice-text);
+  padding: 4px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cain-dice-panel .cain-character-select:hover {
+  border-color: var(--dice-border-light);
+  background: var(--dice-header-start);
+}
+
+.cain-dice-panel .cain-character-select:focus {
+  outline: none;
+  border-color: var(--dice-border-light);
+  box-shadow: 0 0 4px var(--dice-glow-color);
+}
+
+.cain-dice-panel .cain-character-select option {
+  background: var(--dice-bg-start);
+  color: var(--dice-text);
+}
+
+/* Skill Select - Theme Aware */
+.cain-dice-panel .cain-skill-select {
+  flex: 1;
+  background: var(--dice-bg-start);
+  border: 1px solid var(--dice-border);
+  border-radius: 3px;
+  color: var(--dice-text);
+  padding: 4px 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.cain-dice-panel .cain-skill-select:hover {
+  border-color: var(--dice-border-light);
+  background: var(--dice-header-start);
+}
+
+.cain-dice-panel .cain-skill-select:focus {
+  outline: none;
+  border-color: var(--dice-border-light);
+  box-shadow: 0 0 4px var(--dice-glow-color);
+}
+
+.cain-dice-panel .cain-skill-select option {
+  background: var(--dice-bg-start);
+  color: var(--dice-text);
+}
+
+/* Dice Pool Controls Container */
+.cain-dice-panel .cain-dice-pool-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+/* Dice Pool +/- Buttons */
+.cain-dice-panel .cain-pool-minus,
+.cain-dice-panel .cain-pool-plus {
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  background: var(--dice-bg-start);
+  border: 1px solid var(--dice-border);
+  border-radius: 3px;
+  color: var(--dice-text-bright);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cain-dice-panel .cain-pool-minus:hover,
+.cain-dice-panel .cain-pool-plus:hover {
+  border-color: var(--dice-border-light);
+  background: var(--dice-header-start);
+  color: var(--dice-text-bright);
+  transform: scale(1.1);
+}
+
+.cain-dice-panel .cain-pool-minus:active,
+.cain-dice-panel .cain-pool-plus:active {
+  transform: scale(0.95);
+}
+
+/* Dice Pool Input - Theme Aware */
+.cain-dice-panel .cain-dice-pool,
+.cain-dice-panel input.cain-dice-pool,
+.cain-dice-panel input[type="number"].cain-dice-pool {
+  width: 38px;
+  background: var(--dice-bg-start) !important;
+  border: 1px solid var(--dice-border) !important;
+  border-radius: 3px;
+  color: #ffffff !important;
+  padding: 4px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* Hide spinner buttons for cleaner look */
+.cain-dice-panel .cain-dice-pool::-webkit-outer-spin-button,
+.cain-dice-panel .cain-dice-pool::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cain-dice-panel .cain-dice-pool:hover,
+.cain-dice-panel input.cain-dice-pool:hover {
+  border-color: var(--dice-border-light) !important;
+  background: var(--dice-header-start) !important;
+}
+
+.cain-dice-panel .cain-dice-pool:focus,
+.cain-dice-panel input.cain-dice-pool:focus {
+  outline: none;
+  border-color: var(--dice-border-light) !important;
+  box-shadow: 0 0 4px var(--dice-glow-color);
+  color: #ffffff !important;
+}
+
+/* Modifiers Row */
+.cain-dice-panel .cain-modifiers {
+  justify-content: center;
+  gap: 6px;
+  padding: 4px 6px;
+}
+
+.cain-dice-panel .cain-modifiers label {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  color: var(--dice-text);
+  font-size: 9px;
+  text-transform: uppercase;
+  min-width: auto;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.cain-dice-panel .cain-modifiers label:hover {
+  color: var(--dice-text-bright);
+}
+
+.cain-dice-panel .cain-extra-dice {
+  width: 32px;
+  background: var(--dice-bg-start);
+  border: 1px solid var(--dice-border);
+  border-radius: 3px;
+  color: var(--dice-text-bright);
+  padding: 3px;
+  text-align: center;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.cain-dice-panel .cain-extra-dice:focus {
+  outline: none;
+  border-color: var(--dice-border-light);
+}
+
+/* Simple Checkbox Styling */
+.cain-dice-panel .cain-modifiers input[type="checkbox"] {
+  width: 12px;
+  height: 12px;
+  accent-color: var(--dice-accent);
+  cursor: pointer;
+  margin: 0;
+}
+
+/* Main Roll Button - Theme Aware with Animation */
+.cain-dice-panel .cain-roll-skill {
+  flex: 1;
+  background: linear-gradient(135deg, var(--dice-button-start) 0%, var(--dice-button-end) 100%);
+  border: 1px solid var(--dice-border-light);
+  border-radius: 4px;
+  color: #fff;
+  padding: 6px 10px;
+  font-family: 'Courier New', monospace;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px var(--dice-glow-color);
+  position: relative;
+  overflow: hidden;
+}
+
+.cain-dice-panel .cain-roll-skill::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+  transform: rotate(45deg) translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.cain-dice-panel .cain-roll-skill:hover::before {
+  transform: rotate(45deg) translateX(100%);
+}
+
+.cain-dice-panel .cain-roll-skill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--dice-glow-color);
+  filter: brightness(1.1);
+}
+
+.cain-dice-panel .cain-roll-skill:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 1px 2px var(--dice-glow-color);
+}
+
+/* Roll button dice icon animation on hover */
+.cain-dice-panel .cain-roll-skill i {
+  transition: transform 0.3s ease;
+}
+
+.cain-dice-panel .cain-roll-skill:hover i {
+  animation: diceShake 0.5s ease;
+}
+
+/* Quick Roll Buttons - Theme Aware */
+.cain-dice-panel .cain-quick-rolls {
+  justify-content: center;
+  gap: 4px;
+  padding-top: 4px;
+  border-top: 1px solid var(--dice-accent);
+}
+
+.cain-dice-panel .cain-quick-rolls button {
+  background: linear-gradient(135deg, var(--dice-header-start) 0%, var(--dice-bg-start) 100%);
+  border: 1px solid var(--dice-border);
+  border-radius: 3px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--dice-text);
+  font-family: 'Courier New', monospace;
+  font-size: 9px;
+  font-weight: bold;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+.cain-dice-panel .cain-quick-rolls button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.4s ease, height 0.4s ease;
+}
+
+.cain-dice-panel .cain-quick-rolls button:hover::after {
+  width: 150%;
+  height: 150%;
+}
+
+.cain-dice-panel .cain-quick-rolls button i {
+  font-size: 12px;
+  color: var(--dice-text-dim);
+  transition: all 0.2s ease;
+}
+
+.cain-dice-panel .cain-quick-rolls button span {
+  color: var(--dice-text);
+  transition: color 0.2s ease;
+}
+
+.cain-dice-panel .cain-quick-rolls button img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.cain-dice-panel .cain-quick-rolls button:hover {
+  border-color: var(--dice-border-light);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 4px 8px var(--dice-glow-color);
+}
+
+.cain-dice-panel .cain-quick-rolls button:hover i {
+  color: var(--dice-text-bright);
+  transform: scale(1.1);
+}
+
+.cain-dice-panel .cain-quick-rolls button:hover span {
+  color: var(--dice-text-bright);
+}
+
+.cain-dice-panel .cain-quick-rolls button:hover img {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+.cain-dice-panel .cain-quick-rolls button:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Risk button - Red accent */
+.cain-dice-panel .cain-roll-risk {
+  border-color: #dc2626;
+}
+
+.cain-dice-panel .cain-roll-risk i {
+  color: #f87171;
+}
+
+.cain-dice-panel .cain-roll-risk:hover {
+  border-color: #ef4444;
+  background: linear-gradient(135deg, #450a0a 0%, var(--dice-bg-start) 100%);
+  box-shadow: 0 4px 8px rgba(220, 38, 38, 0.3);
+}
+
+/* Fate button - Gold accent */
+.cain-dice-panel .cain-roll-fate {
+  border-color: #ca8a04;
+}
+
+.cain-dice-panel .cain-roll-fate i {
+  color: #fbbf24;
+}
+
+.cain-dice-panel .cain-roll-fate:hover {
+  border-color: #eab308;
+  background: linear-gradient(135deg, #422006 0%, var(--dice-bg-start) 100%);
+  box-shadow: 0 4px 8px rgba(234, 179, 8, 0.3);
+}
+
+/* Rest button - Blue accent */
+.cain-dice-panel .cain-roll-rest {
+  border-color: #0ea5e9;
+}
+
+.cain-dice-panel .cain-roll-rest i {
+  color: #38bdf8;
+}
+
+.cain-dice-panel .cain-roll-rest:hover {
+  border-color: #38bdf8;
+  background: linear-gradient(135deg, #0c4a6e 0%, var(--dice-bg-start) 100%);
+  box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+}
+
+/* Custom button - Cyan accent */
+.cain-dice-panel .cain-roll-custom {
+  border-color: #06b6d4;
+}
+
+.cain-dice-panel .cain-roll-custom i {
+  color: #22d3ee;
+  transition: transform 0.3s ease;
+}
+
+.cain-dice-panel .cain-roll-custom:hover {
+  border-color: #22d3ee;
+  background: linear-gradient(135deg, #164e63 0%, var(--dice-bg-start) 100%);
+  box-shadow: 0 4px 8px rgba(6, 182, 212, 0.3);
+}
+
+.cain-dice-panel .cain-roll-custom:hover i {
+  transform: rotate(90deg);
+}
+
+/* v11/v12 Chat Sidebar Compatibility */
+/* Ensure panel doesn't stretch in flex containers */
+#chat .cain-dice-panel,
+#sidebar #chat .cain-dice-panel,
+.chat-sidebar .cain-dice-panel {
+  flex: 0 0 auto;
+  align-self: stretch;
+  min-height: 0;
+}
+
+
+/* ==========================================
+   V13 Floating Dice Panel (when sidebar collapsed)
+   ========================================== */
+
+/* When the dice panel is floating (not in sidebar), make it draggable and positioned */
+.cain-dice-panel.floating-panel {
+  position: fixed !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 2px solid #6b21a8;
+  border-radius: 8px;
+  width: 280px;
+}
+
+.cain-dice-panel.floating-panel .cain-dice-panel-header {
+  cursor: move;
+}
+
+/* Ensure all elements in floating panel are clickable */
+.cain-dice-panel.floating-panel * {
+  pointer-events: auto !important;
+}
+
+/* Prevent cursor move on interactive elements inside floating panel */
+.cain-dice-panel.floating-panel button,
+.cain-dice-panel.floating-panel select,
+.cain-dice-panel.floating-panel input {
+  cursor: pointer;
+}
+
+.cain-dice-panel.floating-panel input[type="number"] {
+  cursor: text;
+}
+
+/* ==========================================
+   CAIN Dice Panel ApplicationV2 Window
+   ========================================== */
+
+/* Window wrapper styles */
+.cain-dice-panel-window {
+  background: #1a1a2e !important;
+  border: 2px solid #6b21a8 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+}
+
+.cain-dice-panel-window .window-header {
+  background: linear-gradient(135deg, #2d1b4e 0%, #1a1a2e 100%) !important;
+  border-bottom: 1px solid #6b21a8 !important;
+  padding: 6px 10px !important;
+  cursor: move;
+}
+
+.cain-dice-panel-window .window-header .window-title {
+  color: #e9d5ff !important;
+  font-family: 'Courier New', monospace !important;
+  font-weight: bold !important;
+  text-transform: uppercase !important;
+  letter-spacing: 1px !important;
+  font-size: 12px !important;
+}
+
+.cain-dice-panel-window .window-header .header-control {
+  color: #a78bfa !important;
+}
+
+.cain-dice-panel-window .window-header .header-control:hover {
+  color: #e9d5ff !important;
+}
+
+.cain-dice-panel-window .window-content {
+  background: transparent !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+/* Hide the inner panel header since we're using the window header */
+.cain-dice-panel-window .cain-dice-panel-header {
+  display: none !important;
+}
+
+/* The inner dice panel styling within the window */
+.cain-dice-panel-window .cain-dice-panel {
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Theme-specific window styling */
+.cain-dice-panel-window.theme-dark {
+  background: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+.cain-dice-panel-window.theme-dark .window-header {
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%) !important;
+  border-bottom-color: #4b5563 !important;
+}
+
+.cain-dice-panel-window.theme-dark .window-header .window-title {
+  color: #e5e7eb !important;
+}
+
+.cain-dice-panel-window.theme-light {
+  background: #f3e8ff !important;
+  border-color: #9333ea !important;
+}
+
+.cain-dice-panel-window.theme-light .window-header {
+  background: linear-gradient(135deg, #e9d5ff 0%, #f3e8ff 100%) !important;
+  border-bottom-color: #c084fc !important;
+}
+
+.cain-dice-panel-window.theme-light .window-header .window-title {
+  color: #581c87 !important;
+}
+
+.cain-dice-panel-window.theme-blood {
+  background: #1a0a0a !important;
+  border-color: #7f1d1d !important;
+}
+
+.cain-dice-panel-window.theme-blood .window-header {
+  background: linear-gradient(135deg, #450a0a 0%, #1a0a0a 100%) !important;
+  border-bottom-color: #991b1b !important;
+}
+
+.cain-dice-panel-window.theme-blood .window-header .window-title {
+  color: #fca5a5 !important;
+}
+
+/* ==========================================
+   CAIN Dice Roll Result Styles (Chat Messages)
+   ========================================== */
+
+.cain-roll-result {
+  background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 100%);
+  border: 2px solid #444;
+  border-radius: 8px;
+  padding: 12px;
+  font-family: 'Courier New', monospace;
+}
+
+.cain-roll-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #444;
+}
+
+.cain-roll-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 16px;
+  font-weight: bold;
+  color: #00bfff;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.cain-roll-hard {
+  background: #ef4444;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-roll-zero {
+  background: #f97316;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-roll-modifiers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.cain-dice-modifier {
+  background: #333;
+  color: #aaa;
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-roll-dice {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.cain-die {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #333;
+  border: 2px solid #555;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #888;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-die.success {
+  background: linear-gradient(135deg, #166534 0%, #14532d 100%);
+  border-color: #22c55e;
+  color: #4ade80;
+}
+
+.cain-die.crit {
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%);
+  border-color: #a855f7;
+  color: #e9d5ff;
+  box-shadow: 0 0 10px rgba(168, 85, 247, 0.6), 0 0 20px rgba(124, 58, 237, 0.3);
+}
+
+.cain-die.discarded {
+  opacity: 0.4;
+  text-decoration: line-through;
+}
+
+.cain-roll-successes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+}
+
+.cain-success-label {
+  color: #888;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-success-value {
+  font-size: 24px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Risk and Fate Roll Styles */
+.cain-roll-outcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 10px;
+}
+
+.cain-outcome-value {
+  font-size: 48px;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1;
+}
+
+.cain-outcome-text {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* Rest Roll Styles */
+.cain-rest-roll .cain-roll-dice {
+  justify-content: center;
+}
+
+.cain-die.rest-die {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  background: linear-gradient(135deg, #1e3a5f 0%, #1e293b 100%);
+  border-color: #3b82f6;
+  color: #93c5fd;
+}
+
+.cain-rest-info {
+  background: #1a1a1a;
+  border: 1px dashed #444;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 12px;
+  color: #888;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.cain-rest-info p {
+  margin: 0 0 6px 0;
+  color: #aaa;
+}
+
+.cain-rest-info ul {
+  margin: 0;
+  padding-left: 16px;
+}
+
+.cain-rest-info li {
+  margin-bottom: 4px;
+}
+
+/* Divine Agony Styles (Dice Panel) - Theme Aware */
+.cain-divine-agony-row {
+  margin-top: 2px;
+  padding: 4px 6px;
+  background: var(--divine-agony-bg, rgba(239, 68, 68, 0.1));
+  border: 1px solid var(--divine-agony-border, rgba(239, 68, 68, 0.3));
+  border-radius: 4px;
+  transition: all 0.3s ease;
+}
+
+.cain-divine-agony-row.disabled {
+  opacity: 0.5;
+  background: var(--dice-bg-start);
+  border-color: var(--dice-border);
+}
+
+.cain-divine-agony-row.has-agony {
+  background: var(--divine-agony-bg-active, rgba(239, 68, 68, 0.2));
+  border-color: var(--divine-agony-border-active, rgba(239, 68, 68, 0.5));
+  animation: divineAgonyPulse 2s ease-in-out infinite;
+}
+
+@keyframes divineAgonyPulse {
+  0%, 100% { box-shadow: 0 0 3px var(--divine-agony-glow, rgba(239, 68, 68, 0.3)); }
+  50% { box-shadow: 0 0 8px var(--divine-agony-glow, rgba(239, 68, 68, 0.6)); }
+}
+
+.cain-divine-agony-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.cain-divine-agony-row.disabled .cain-divine-agony-label {
+  cursor: not-allowed;
+}
+
+.cain-divine-agony-text {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-grow: 1;
+  font-size: 9px;
+  font-weight: bold;
+  color: var(--divine-agony-text, #ef4444);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.cain-divine-agony-row.disabled .cain-divine-agony-text {
+  color: var(--dice-text-dim);
+}
+
+.cain-divine-agony-text i {
+  font-size: 10px;
+}
+
+.cain-divine-agony-value {
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+  font-weight: bold;
+  color: var(--divine-agony-text);
+  background: var(--dice-bg-start);
+  border: 1px solid var(--divine-agony-border);
+  padding: 2px 6px;
+  border-radius: 3px;
+  min-width: 32px;
+  text-align: center;
+}
+
+.cain-divine-agony-row.disabled .cain-divine-agony-value {
+  color: var(--dice-text-dim);
+}
+
+.cain-divine-agony-row.has-agony .cain-divine-agony-value {
+  color: var(--divine-agony-text-bright, #ff6b6b);
+  text-shadow: 0 0 4px var(--divine-agony-glow, rgba(239, 68, 68, 0.5));
+}
+
+.cain-dice-panel .cain-use-divine-agony {
+  width: 12px;
+  height: 12px;
+  accent-color: var(--divine-agony-text, #ef4444);
+  cursor: pointer;
+}
+
+.cain-dice-panel .cain-use-divine-agony:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Divine Agony Styles (Chat Messages) */
+.cain-divine-agony-modifier {
+  background: linear-gradient(135deg, #7f1d1d 0%, #991b1b 100%) !important;
+  color: #fca5a5 !important;
+  border: 1px solid #ef4444;
+}
+
+.cain-divine-agony-modifier i {
+  color: #f87171;
+  margin-right: 2px;
+}
+
+.cain-roll-result.used-divine-agony {
+  border-color: #ef4444;
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+.cain-divine-agony-gained {
+  margin-top: 8px;
+  padding: 6px;
+  background: linear-gradient(135deg, rgba(127, 29, 29, 0.4) 0%, rgba(153, 27, 27, 0.4) 100%);
+  border: 1px solid #ef4444;
+  border-radius: 4px;
+  color: #fca5a5;
+  font-size: 11px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-align: center;
+  animation: divineAgonyGain 0.5s ease-out;
+}
+
+.cain-divine-agony-gained i {
+  color: #f87171;
+  margin-right: 4px;
+}
+
+@keyframes divineAgonyGain {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Quick Roll Dialog */
+.cain-quick-roll-dialog .form-group {
+  margin-bottom: 10px;
+}
+
+.cain-quick-roll-dialog label {
+  display: block;
+  margin-bottom: 4px;
+  color: #aaa;
+  font-size: 12px;
+  text-transform: uppercase;
+}

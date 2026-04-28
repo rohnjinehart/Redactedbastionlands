@@ -1,0 +1,167 @@
+{
+  "CAIN": {
+    "Skills": "Skills",
+    "Skill": {
+      "force": { 
+        "long": "Force", 
+        "abbr": "force", 
+        "description": "Apply direct and close force or violence. Smash, fight, cut, grapple."
+      },
+      "conditioning": { 
+        "long": "Conditioning", 
+        "abbr": "conditioning", 
+        "description": "Get around on foot. Sprint, climb, swim, balance."
+      },
+      "coordination": { 
+        "long": "Coordination", 
+        "abbr": "coordination", 
+        "description": "Use your hand-eye coordination. Shoot, throw, catch."
+      },
+      "covert": { 
+        "long": "Covert", 
+        "abbr": "covert", 
+        "description": "Move with stealth and act with sleight of hand. Sneak, lock pick, steal."
+      },
+      "interfacing": { 
+        "long": "Interfacing", 
+        "abbr": "interfacing", 
+        "description": "Use, understand, build, or fix technology, vehicles, or devices. Drive, hack, repair."
+      },
+      "investigation": { 
+        "long": "Investigation", 
+        "abbr": "investigation", 
+        "description": "Examine something in detail, or uncover information about it. Research, study, sleuth."
+      },
+      "surveillance": { 
+        "long": "Surveillance", 
+        "abbr": "surveillance", 
+        "description": "Use your power of observation. Survey, track, spot."
+      },
+      "negotiation": { 
+        "long": "Negotiation", 
+        "abbr": "negotiation", 
+        "description": "Rely on your words to influence others. Sway, lie, bargain."
+      },
+      "authority": { 
+        "long": "Authority", 
+        "abbr": "authority", 
+        "description": "Wield your leadership and force of will. Lead, organize, order, intimidate."
+      },
+      "connection": { 
+        "long": "Connection", 
+        "abbr": "connection", 
+        "description": "Connect to others, and draw on those connections. Intuit, empathize, network."
+      },
+      "psyche": { 
+        "long": "Psyche", 
+        "abbr": "psyche", 
+        "description": "Govern the use of your psychic powers. Only roll it when using these powers."
+      }
+    },
+    "Ability": {
+      "Str": { "long": "Strength", "abbr": "str" },
+      "Con": { "long": "Constitution", "abbr": "con" },
+      "Dex": { "long": "Dexterity", "abbr": "dex" },
+      "Int": { "long": "Intelligence", "abbr": "int" },
+      "Wis": { "long": "Wisdom", "abbr": "wis" },
+      "Cha": { "long": "Charisma", "abbr": "cha" }
+    },
+    "SheetLabels": {
+      "Actor": "Cain Actor Sheet",
+      "Item": "Cain Item Sheet"
+    },
+    "Item": {
+      "Spell": {
+        "SpellLVL": "Level {level} Spells",
+        "AddLVL": "Add LVL {level}"
+      }
+    },
+    "Effect": {
+      "Source": "Source",
+      "Toggle": "Toggle Effect",
+      "Temporary": "Temporary Effects",
+      "Passive": "Passive Effects",
+      "Inactive": "Inactive Effects"
+    }
+  },
+  "TYPES": {
+    "Actor": {
+      "character": "Exorcist",
+      "sin": "Sin",
+      "mundane": "Mundane NPC",
+      "npc": "Sin (Deprecated - Use 'Sin' instead)"
+    },
+    "Item": {
+      "item": "Item",
+      "agenda": "Agenda",
+      "blasphemy": "Blasphemy",
+      "blasphemyPower": "Blasphemy Power",
+      "agendaTask": "Agenda Task",
+      "agendaAbility": "Agenda Ability",
+      "sinMark": "Sin Mark",
+      "sinMarkAbility": "Sin Mark Ability",
+      "affliction": "Affliction",
+      "domain": "Domain",
+      "bond": "Bond",
+      "bondAbility": "Bond Ability"
+    }
+  },
+  "SHEET": {
+    "SIN": {
+      "ROLLSIN": "Roll SIN (1D3)",
+      "ROLLRESIST": "Resist Roll (1D6 + SIN MARKS)",
+      "ADJUSTMAX": "Adjust maximum"
+    },
+    "TOOLTIPS": {
+      "SURVIVED": "Sins Hunted",
+      "CATSELECT": "Right click to set STAIN to 0",
+      "SINMAXADJUST": "Change maximum SIN capacity"
+    }
+  },
+  "RB": {
+    "Save": {
+      "Body":   { "long": "Body",   "abbr": "BOD" },
+      "Psyche": { "long": "Psyche", "abbr": "PSY" },
+      "Virtue": { "long": "Virtue", "abbr": "VIR" },
+      "Grace":  { "long": "Grace",  "abbr": "GRC" }
+    },
+    "Vital": {
+      "Body":   "Body",
+      "Psyche": "Psyche",
+      "Virtue": "Virtue",
+      "Grace":  "Grace"
+    },
+    "Combat": {
+      "Attack":     "Attack",
+      "TakeDamage": "Take Damage",
+      "VirtueLoss": "Virtue Loss",
+      "Resolve":    "Resolve",
+      "Armor":      "Armor",
+      "Burnout":    "Burnout"
+    },
+    "Outcome": {
+      "Evaded":      "Evaded",
+      "Scar":        "Scar",
+      "Wounded":     "Wounded",
+      "MortalWound": "Mortal Wound",
+      "Slain":       "Slain",
+      "Success":     "Success",
+      "Failure":     "Failure",
+      "Exhausted":   "Exhausted",
+      "Exposed":     "Exposed",
+      "Impaired":    "Impaired"
+    },
+    "Item": {
+      "Weapon":  "Weapon",
+      "Coat":    "Coat",
+      "Plate":   "Plate",
+      "Shield":  "Shield",
+      "Helm":    "Helm",
+      "Ability": "Ability"
+    },
+    "SheetLabels": {
+      "Actor": "[Redacted] Bastionlands Actor",
+      "Item":  "[Redacted] Bastionlands Item"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "Actor": {
+    "types": ["character", "sin", "mundane", "npc", "opponent", "human", "mook"]
+  },
+  "Item": {
+    "types": ["agendaAbility", "blasphemyPower", "coat", "domain", "sinMark", "weapon", "misc"]
+  }
+}

@@ -1,0 +1,28 @@
+<div class="tab" data-group="primary" data-tab="description">
+
+  <div class="content-card">
+    <h3 class="card-header">Trauma Questions</h3>
+    <div class="list-container">
+      {{#each system.traumas as |trauma index|}}
+      <div class="npc-trauma-row">
+        <input type="checkbox"
+               name="system.traumas.{{index}}.answered"
+               {{#if trauma.answered}}checked{{/if}}
+               class="npc-trauma-checkbox trauma-checkbox"/>
+        <input type="text"
+               name="system.traumas.{{index}}.question"
+               value="{{trauma.question}}"
+               class="npc-trauma-input trauma-question-input {{#if trauma.answered}}trauma-answered crossed-out{{/if}}"/>
+      </div>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="content-card">
+    <h3 class="card-header">Biography &amp; Appearance</h3>
+    <div class="editor-wrap">
+      {{editor enrichedBiography target='system.biography' engine='prosemirror' button=true editable=editable}}
+    </div>
+  </div>
+
+</div>

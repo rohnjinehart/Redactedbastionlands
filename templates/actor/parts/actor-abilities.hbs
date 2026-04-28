@@ -1,0 +1,846 @@
+<div class="abilities-page abilities-page-drop-target">
+
+  {{!-- Psyche section hidden — kept for reference --}}
+  {{!-- <div class="psyche-section" style="text-align: center; margin-bottom: 20px;">
+    ...psyche roll buttons and burst checkboxes...
+  </div> --}}
+
+  {{!-- ===== Agendas ===== --}}
+  <div class="agendas-section">
+    <h1>Agendas</h1>
+
+    <div class="agenda-av-panel">
+
+    {{!-- Appetites --}}
+    <div class="agenda-av-col">
+      <div class="agenda-av-col-header">
+        <h3 class="agenda-av-heading">Appetite</h3>
+        <a class="av-add-btn" data-field="agendaAppetites" title="Add Appetite">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+      {{#each system.agendaAppetites}}
+      <div class="av-card">
+        <div class="av-card-header">
+          <a class="av-chat-btn" data-field="agendaAppetites" data-index="{{@index}}" title="Post to Chat"><i class="fas fa-comment"></i></a>
+          <a class="av-edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+          <a class="av-delete-btn" data-field="agendaAppetites" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></a>
+        </div>
+        <p class="av-desc-view">{{#if this.description}}{{this.description}}{{else}}<em class="av-desc-placeholder">Click pencil to edit…</em>{{/if}}</p>
+        <textarea name="system.agendaAppetites.{{@index}}.description"
+                  class="av-desc-input"
+                  placeholder="Description…">{{this.description}}</textarea>
+      </div>
+      {{else}}
+      <p class="av-empty">No appetites yet. Click <i class="fas fa-plus"></i> to create one.</p>
+      {{/each}}
+    </div>
+
+    {{!-- Aversions --}}
+    <div class="agenda-av-col">
+      <div class="agenda-av-col-header">
+        <h3 class="agenda-av-heading">Aversion</h3>
+        <a class="av-add-btn" data-field="agendaAversions" title="Add Aversion">
+          <i class="fas fa-plus"></i>
+        </a>
+      </div>
+      {{#each system.agendaAversions}}
+      <div class="av-card">
+        <div class="av-card-header">
+          <a class="av-chat-btn" data-field="agendaAversions" data-index="{{@index}}" title="Post to Chat"><i class="fas fa-comment"></i></a>
+          <a class="av-edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+          <a class="av-delete-btn" data-field="agendaAversions" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></a>
+        </div>
+        <p class="av-desc-view">{{#if this.description}}{{this.description}}{{else}}<em class="av-desc-placeholder">Click pencil to edit…</em>{{/if}}</p>
+        <textarea name="system.agendaAversions.{{@index}}.description"
+                  class="av-desc-input"
+                  placeholder="Description…">{{this.description}}</textarea>
+      </div>
+      {{else}}
+      <p class="av-empty">No aversions yet. Click <i class="fas fa-plus"></i> to create one.</p>
+      {{/each}}
+    </div>
+
+    </div>
+
+    {{!-- Agenda Abilities drop zone --}}
+    <h3 class="agenda-av-heading bl-powers-heading">Traits</h3>
+    <div class="aa-dropzone character-drop-target">
+      {{#if currentAgendaAbilities.length}}
+        {{#each currentAgendaAbilities}}
+        <div class="aa-card" draggable="true" data-item-id="{{this._id}}" data-index="{{@index}}">
+          <img src="{{this.img}}" class="drop-card-icon" title="{{this.system.abilityName}}"/>
+          <button type="button" class="aa-open-btn">{{this.system.abilityName}}</button>
+          <a class="aa-chat-btn" title="Post to chat"><i class="fas fa-comment"></i></a>
+          <a class="aa-remove-btn" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></a>
+        </div>
+        {{/each}}
+      {{else}}
+        <p class="aa-drop-hint"><i class="fas fa-arrow-down"></i> Drag Agenda Abilities here…</p>
+      {{/if}}
+    </div>
+
+  </div>{{!-- end .agendas-section --}}
+
+  {{!-- ===== Blasphemies ===== --}}
+  <div class="items-section" style="width: 100%;">
+    <div class="blasphemy" style="width: 100%;">
+      <h1>Blasphemies</h1>
+
+      {{!-- ===== Animas ===== --}}
+      <div class="av-animas-panel">
+        <div class="agenda-av-col-header">
+          <h3 class="agenda-av-heading">Anima</h3>
+          <a class="av-add-btn" data-field="animas" title="Add Anima">
+            <i class="fas fa-plus"></i>
+          </a>
+        </div>
+        <div class="av-animas-cards">
+          {{#each system.animas}}
+          <div class="av-card">
+            <div class="av-card-header">
+              <a class="av-chat-btn" data-field="animas" data-index="{{@index}}" title="Post to Chat"><i class="fas fa-comment"></i></a>
+              <a class="av-edit-btn" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+              <a class="av-delete-btn" data-field="animas" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></a>
+            </div>
+            <p class="av-desc-view">{{#if this.description}}{{this.description}}{{else}}<em class="av-desc-placeholder">Click pencil to edit…</em>{{/if}}</p>
+            <textarea name="system.animas.{{@index}}.description"
+                      class="av-desc-input"
+                      placeholder="Description…">{{this.description}}</textarea>
+          </div>
+          {{else}}
+          <p class="av-empty">No animas yet. Click <i class="fas fa-plus"></i> to create one.</p>
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Blasphemy Powers drop zone --}}
+      <h3 class="agenda-av-heading bl-powers-heading">Powers</h3>
+      <div class="blp-dropzone character-drop-target">
+        {{#if currentBlasphemyPowers.length}}
+          {{#each currentBlasphemyPowers}}
+          <div class="blp-card" draggable="true" data-item-id="{{this._id}}" data-index="{{@index}}">
+            <img src="{{this.img}}" class="drop-card-icon" title="{{this.system.powerName}}"/>
+            <button type="button" class="blp-open-btn">{{this.system.powerName}}</button>
+            <a class="blp-chat-btn" title="Post to chat"><i class="fas fa-comment"></i></a>
+            <a class="blp-remove-btn" data-index="{{@index}}" title="Remove"><i class="fas fa-trash"></i></a>
+          </div>
+          {{/each}}
+        {{else}}
+          <p class="blp-drop-hint"><i class="fas fa-arrow-down"></i> Drag Blasphemy Powers here…</p>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+
+  {{!-- ===== Sin Marks ===== --}}
+  <div class="sm-section">
+    <h1>Sin Marks</h1>
+
+    <div class="sm-dropzone character-drop-target">
+      {{#if currentSinMarks.length}}
+        {{#each currentSinMarks}}
+        <div class="sm-card" draggable="true" data-item-id="{{this.uuid}}" data-index="{{@index}}">
+          <img src="{{this.img}}" class="drop-card-icon" title="{{this.system.bodyPartName}}"/>
+          <button type="button" class="sm-open-btn">{{this.system.bodyPartName}}</button>
+          <a class="sm-remove-btn delete-sin-mark" data-markid="{{this.uuid}}" title="Remove"><i class="fas fa-trash"></i></a>
+        </div>
+        {{/each}}
+      {{else}}
+        <p class="sm-drop-hint"><i class="fas fa-arrow-down"></i> Drag Sin Marks here…</p>
+      {{/if}}
+    </div>
+  </div>
+
+</div>
+
+<style>
+  /* ===== Agendas section ===== */
+  .agendas-section {
+    margin-bottom: 20px;
+  }
+
+/* ===== Agenda Abilities drop zone ===== */
+  .aa-dropzone {
+    margin-top: 10px;
+    min-height: 48px;
+    border: 1px dashed #444;
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .aa-dropzone.dragover { border-color: #00bfff; background: #0a1a22; }
+
+  .aa-drop-hint {
+    color: #444;
+    font-style: italic;
+    font-size: 0.82em;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    margin: 0;
+  }
+
+  .aa-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 5px 8px;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+  }
+
+  .drop-card-icon { width: 24px; height: 24px; border-radius: 3px; object-fit: cover; flex-shrink: 0; border: none; }
+
+  .aa-open-btn {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.88em;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .aa-open-btn:hover { color: #00bfff; text-decoration: underline; }
+
+  .aa-chat-btn { color: #555; cursor: pointer; font-size: 0.8em; flex-shrink: 0; }
+  .aa-chat-btn:hover { color: #4CAF50; }
+  .aa-remove-btn { color: #555; cursor: pointer; font-size: 0.8em; flex-shrink: 0; }
+  .aa-remove-btn:hover { color: #e94560; }
+
+  /* ===== Appetites & Aversions ===== */
+  .agenda-av-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .agenda-av-col {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .agenda-av-col-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #444;
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+  }
+
+  .agenda-av-heading {
+    font-size: 0.95em;
+    font-weight: bold;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0;
+  }
+
+  .av-add-btn {
+    color: #4CAF50;
+    cursor: pointer;
+    font-size: 0.9em;
+    line-height: 1;
+  }
+
+  .av-add-btn:hover { color: #88ff88; }
+
+  .av-card {
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .av-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+
+  .av-chat-btn {
+    color: #555;
+    cursor: pointer;
+    font-size: 0.8em;
+    flex-shrink: 0;
+  }
+
+  .av-chat-btn:hover { color: #4CAF50; }
+
+  .av-edit-btn {
+    color: #555;
+    cursor: pointer;
+    font-size: 0.75em;
+    flex-shrink: 0;
+  }
+
+  .av-edit-btn:hover { color: #00bfff; }
+
+  .av-delete-btn {
+    color: #555;
+    cursor: pointer;
+    font-size: 0.8em;
+    flex-shrink: 0;
+  }
+
+  .av-delete-btn:hover { color: #e94560; }
+
+  /* View mode: show paragraph, hide textarea */
+  .av-desc-view {
+    margin: 0;
+    padding: 4px 6px;
+    font-size: 0.82em;
+    line-height: 1.5;
+    color: #aaa;
+    min-height: 1.8em;
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  .av-desc-placeholder { color: #444; font-style: italic; }
+
+  .av-desc-input {
+    display: none;
+    width: 100%;
+    min-height: 4em;
+    background: #141414;
+    color: #ccc;
+    border: 1px solid #333;
+    border-radius: 3px;
+    padding: 6px 8px;
+    font-size: 0.82em;
+    line-height: 1.5;
+    resize: vertical;
+    box-sizing: border-box;
+    font-family: inherit;
+  }
+
+  .av-desc-input:focus {
+    outline: none;
+    border-color: #00bfff;
+  }
+
+  /* Edit mode: hide view paragraph, show textarea */
+  .av-card.editing .av-desc-view { display: none; }
+  .av-card.editing .av-desc-input { display: block; }
+  .av-card.editing .av-edit-btn { color: #00bfff; }
+
+  .av-empty {
+    color: #555;
+    font-style: italic;
+    font-size: 0.82em;
+    padding: 4px 2px;
+  }
+
+  /* ===== Animas ===== */
+  .av-animas-panel {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .av-animas-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  /* ===== Blasphemy & Blasphemy Power drop zones ===== */
+  .bl-dropzone, .blp-dropzone {
+    min-height: 48px;
+    border: 1px dashed #444;
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+  }
+
+  .bl-dropzone { margin-top: 8px; }
+  .blp-dropzone { margin-top: 6px; }
+  .bl-powers-heading { margin-top: 16px !important; margin-bottom: 0 !important; display: block !important; margin-left: 0 !important; }
+
+  .bl-dropzone.dragover, .blp-dropzone.dragover { border-color: #ff00cc; background: #1a0022; }
+
+  .bl-drop-hint, .blp-drop-hint {
+    color: #444;
+    font-style: italic;
+    font-size: 0.82em;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    margin: 0;
+  }
+
+  .bl-card, .blp-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 5px 8px;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+  }
+
+  .blp-open-btn {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.88em;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .blp-open-btn:hover { color: #bf5fff; text-decoration: underline; }
+
+  .blp-chat-btn { color: #555; cursor: pointer; font-size: 0.8em; flex-shrink: 0; }
+  .blp-chat-btn:hover { color: #bf5fff; }
+  .bl-remove-btn, .blp-remove-btn { color: #555; cursor: pointer; font-size: 0.8em; flex-shrink: 0; }
+  .bl-remove-btn:hover, .blp-remove-btn:hover { color: #e94560; }
+
+  /* ===== Sin Marks section ===== */
+  .sm-section {
+    margin-top: 20px;
+    width: 100%;
+  }
+
+  .sm-dropzone {
+    min-height: 48px;
+    border: 1px dashed #444;
+    border-radius: 4px;
+    padding: 6px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    align-items: flex-start;
+    margin-top: 6px;
+  }
+
+  .sm-dropzone.dragover { border-color: #e94560; background: #1a0008; }
+
+  .sm-drop-hint {
+    color: #444;
+    font-style: italic;
+    font-size: 0.82em;
+    width: 100%;
+    text-align: center;
+    padding: 8px 0;
+    margin: 0;
+  }
+
+  .sm-card {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #1e1e1e;
+    border: 1px solid #333;
+    border-radius: 4px;
+    padding: 5px 8px;
+    flex: 0 0 100%;
+    box-sizing: border-box;
+  }
+
+  .sm-open-btn {
+    flex: 1;
+    min-width: 0;
+    text-align: left;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.88em;
+    cursor: pointer;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .sm-open-btn:hover { color: #e94560; text-decoration: underline; }
+
+  .sm-remove-btn { color: #555; cursor: pointer; font-size: 0.8em; flex-shrink: 0; }
+  .sm-remove-btn:hover { color: #e94560; }
+
+  /* ===== Drag-to-reorder states ===== */
+  .aa-card.rb-dragging, .blp-card.rb-dragging, .sm-card.rb-dragging { opacity: 0.4; }
+  .aa-card.rb-drag-over  { border-color: #00bfff; box-shadow: 0 0 4px #00bfff; }
+  .blp-card.rb-drag-over { border-color: #bf5fff; box-shadow: 0 0 4px #bf5fff; }
+  .sm-card.rb-drag-over  { border-color: #e94560; box-shadow: 0 0 4px #e94560; }
+
+  /* ===== Existing blasphemy styles (preserved) ===== */
+  .abilities-page {
+    padding: 20px;
+  }
+
+  .abilities-page .blasphemy-passive:hover,
+  .abilities-page .blasphemy-power:hover {
+    color: #ff00cc;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .abilities-page .items-section {
+    margin-top: 20px;
+  }
+
+  .abilities-page .item-controls a {
+    color: #e0e0e0;
+    margin-left: 5px;
+  }
+
+  .abilities-page .item-controls a:hover {
+    color: #ff0000;
+  }
+
+  .abilities-page .psychedelic-text {
+    color: #9933ff;
+    font-family: "Lacquer", system-ui;
+    font-size: 18px;
+    text-shadow: 2px 2px 4px #000;
+    animation: psychedelic-animation 1s infinite alternate;
+  }
+
+  @keyframes psychedelic-animation {
+    from { color: #ff00cc; }
+    to   { color: #3333ff; }
+  }
+
+  .abilities-page .blasphemy h3 {
+    color: #ff00cc;
+    font-family: "Lacquer", system-ui;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px #520088;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+
+  .abilities-page .blasphemy .agenda-av-heading {
+    color: #fff;
+    font-family: inherit;
+    font-size: 0.95em;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    text-shadow: none;
+    display: block;
+    margin: 0;
+    vertical-align: unset;
+  }
+
+  .abilities-page .blasphemy h4 {
+    color: #9933ff;
+    font-family: "Lacquer", system-ui;
+    font-size: 20px;
+    text-shadow: 2px 2px 4px #000;
+  }
+
+  .abilities-page .blasphemy .blasphemy-image {
+    width: 50px;
+    height: 50px;
+    vertical-align: middle;
+  }
+
+  .abilities-page .blasphemy-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .abilities-page .form-group {
+    margin-top: 10px;
+  }
+
+  .abilities-page .blasphemy .form-group label {
+    margin-right: 10px;
+    color: #ff00cc;
+    font-family: "Lacquer", system-ui;
+  }
+
+  .abilities-page .blasphemy .form-group select {
+    background-color: #1a1a1a;
+    color: #ff00cc;
+    border: 1px solid #ff00cc;
+    font-family: "Lacquer", system-ui;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .abilities-page .blasphemy .form-group select:hover {
+    background-color: #ff00cc;
+    color: #1a1a1a;
+  }
+
+  .abilities-page .blasphemy .add-blasphemy-power-button {
+    margin-left: 10px;
+    background-color: #1a1a1a;
+    color: #ff00cc;
+    border: 1px solid #ff00cc;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: "Lacquer", system-ui;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .abilities-page .blasphemy .add-blasphemy-power-button:hover {
+    background-color: #ff00cc;
+    color: #1a1a1a;
+  }
+
+  .abilities-page .power-description-card {
+    font-family: "Courier New", Courier, monospace;
+    background-color: #1a1a1a;
+    color: #ff00cc;
+    border: 1px solid #ff00cc;
+    padding: 10px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    transition: opacity 1s ease-in-out, max-height 1s ease-in-out, transform 1s ease-in-out, background-color 1s ease-in-out, box-shadow 1s ease-in-out, color 1s ease-in-out;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transform: scale(0.4) rotate(-10deg);
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: 0 0 15px rgba(128, 0, 128, 0);
+    color: #4b0082;
+    position: relative;
+  }
+
+  .abilities-page .power-description-card.visible {
+    opacity: 1;
+    max-height: 1000px;
+    transform: scale(0.95);
+    background-color: rgba(75, 0, 130, 0.9);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 50px rgba(75, 0, 130, 0.7);
+    color: #dda0dd;
+  }
+
+  .abilities-page .power-description-card h4 {
+    margin: 0 0 10px 0;
+    font-family: "Lacquer", system-ui;
+    text-decoration: underline;
+  }
+
+  .abilities-page .power-description-card p {
+    margin: 0;
+    font-family: "Lacquer", system-ui;
+    font-size: medium;
+  }
+
+  .abilities-page .available-power-description-card {
+    margin-top: 10px;
+    opacity: 1;
+    max-height: 1000px;
+    padding: 10px;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background-color: rgba(75, 0, 130, 0.9);
+    box-shadow: 0 0 30px rgba(138, 43, 226, 1), 0 0 50px rgba(75, 0, 130, 0.7);
+    color: #dda0dd;
+  }
+
+  .abilities-page .psyche-icons-in-card {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    display: flex;
+    gap: 5px;
+  }
+
+  .abilities-page .power-psyche-icon-large {
+    width: 70px;
+    height: 70px;
+    filter: drop-shadow(0 0 4px #ff00cc);
+  }
+
+  .abilities-page .power-plus-large {
+    width: 70px;
+    height: 70px;
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+  }
+
+  .blasphemy-search-container {
+    margin: 10px 0 15px 0;
+    position: relative;
+  }
+
+  .blasphemy-search-input {
+    width: 100%;
+    padding: 8px 12px;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+  }
+
+  .blasphemy-search-input:focus {
+    outline: none;
+    border-color: #ff00cc;
+    box-shadow: 0 0 8px rgba(255, 0, 204, 0.3);
+  }
+
+  .blasphemy-search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: #1a1a1a;
+    border: 1px solid #ff00cc;
+    border-top: none;
+    border-radius: 0 0 4px 4px;
+    z-index: 1000;
+    display: none;
+  }
+
+  .blasphemy-search-results.active {
+    display: block;
+    box-shadow: 0 0 15px rgba(255, 0, 204, 0.3);
+  }
+
+  .blasphemy-search-result {
+    padding: 10px 12px;
+    color: #e0e0e0;
+    cursor: pointer;
+    border-bottom: 1px solid #2a2a2a;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .blasphemy-search-result:hover {
+    background-color: #2a2a2a;
+    color: #ff00cc;
+  }
+
+  .blasphemy-search-result img {
+    width: 32px;
+    height: 32px;
+    border-radius: 3px;
+    border: 1px solid #444;
+  }
+
+  .blasphemy-search-result-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blasphemy-search-result-name {
+    font-weight: bold;
+    color: #fff;
+    font-family: "Lacquer", system-ui;
+    font-size: 16px;
+  }
+
+  .blasphemy-search-result-desc {
+    font-size: 11px;
+    color: #888;
+    margin-top: 2px;
+    font-family: 'Courier New', Courier, monospace;
+  }
+
+  .blasphemy-search-no-results {
+    padding: 12px;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    font-family: "Lacquer", system-ui;
+  }
+
+  .abilities-page .available-powers-section {
+    margin-top: 15px;
+    border: 1px dashed #444;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+
+  .abilities-page .available-powers-toggle {
+    padding: 8px 12px;
+    cursor: pointer;
+    color: #888;
+    font-size: 12px;
+    font-family: 'Courier New', Courier, monospace;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+  }
+
+  .abilities-page .available-powers-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .abilities-page .available-powers-toggle:hover {
+    color: #ff00cc;
+  }
+
+  .abilities-page .available-powers-toggle i {
+    transition: transform 0.2s;
+  }
+
+  .abilities-page .available-powers-section[open] .available-powers-toggle i {
+    transform: rotate(45deg);
+  }
+
+  .abilities-page .available-powers-content {
+    padding: 10px;
+    border-top: 1px dashed #444;
+  }
+
+  .animation-toggle {
+    display: inline-block;
+    position: relative;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+
+  .toggle-animation { display: none; }
+
+  .toggle-animation+label { position: relative; cursor: pointer; user-select: none; }
+  .toggle-animation+label .fa-sync-alt { display: inline; }
+  .toggle-animation+label .fa-ban { display: none; }
+  .toggle-animation:checked+label .fa-sync-alt { display: none; }
+  .toggle-animation:checked+label .fa-ban { display: inline; }
+</style>

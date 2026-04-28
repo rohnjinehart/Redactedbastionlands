@@ -1,0 +1,252 @@
+<form class='{{cssClass}} item-kit' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}'/>
+    <div class='header-fields'>
+      <h1 class='charname'><input name='name' type='text' value='{{item.name}}' placeholder='Name'/></h1>
+      <div class='grid grid-3col'>
+        <div class='resource'>
+          <label class='resource-label'>Damage Die</label>
+          <input type='text' name='system.damage' value='{{system.damage}}' placeholder='d6'/>
+        </div>
+        <div class='resource'>
+          <label class='resource-label'>Armor Value</label>
+          <input type='number' name='system.armor' value='{{system.armor}}' min='0' data-dtype='Number' placeholder='0'/>
+        </div>
+        <div class='resource rb-weapon-props'>
+          <label class='resource-label'>Properties</label>
+          <div class='rb-prop-checks'>
+            <label><input type='checkbox' name='system.hefty' {{#if system.hefty}}checked{{/if}}/> Hefty</label>
+            <label><input type='checkbox' name='system.long'  {{#if system.long}}checked{{/if}}/> Long</label>
+            <label><input type='checkbox' name='system.slow'  {{#if system.slow}}checked{{/if}}/> Slow</label>
+            <label><input type='checkbox' name='system.blast' {{#if system.blast}}checked{{/if}}/> Blast</label>
+            <label class='rb-range-label'>
+              <input type='checkbox' name='system.range' {{#if system.range}}checked{{/if}}/> Range
+              {{#if system.range}}
+              <select name='system.rangeType' class='rb-range-select'>
+                <option value='engaged' {{#if (eq system.rangeType "engaged")}}selected{{/if}}>Engaged</option>
+                <option value='near'    {{#if (eq system.rangeType "near")}}selected{{/if}}>Near</option>
+                <option value='far'     {{#if (eq system.rangeType "far")}}selected{{/if}}>Far</option>
+              </select>
+              {{/if}}
+            </label>
+            <label><input type='checkbox' name='system.magazine' {{#if system.magazine}}checked{{/if}}/> Magazine</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Magazine section --}}
+  {{#if system.magazine}}
+  <div class='rb-magazine-section'>
+    <div class='rb-mag-header'>
+      <span class='rb-mag-title'><i class='fas fa-crosshairs'></i> Magazine</span>
+      <div class='rb-mag-ammo-display'>
+        <span class='rb-mag-count {{#if (eq system.magazineCurrent 0)}}rb-mag-empty{{/if}}'>{{system.magazineCurrent}}</span>
+        <span class='rb-mag-sep'>/</span>
+        <span class='rb-mag-max'>{{system.magazineSize}}</span>
+      </div>
+    </div>
+
+    <div class='rb-mag-bar-wrap'>
+      <div class='rb-mag-bar-fill' style='width:{{magazinePercent}}%;'></div>
+    </div>
+
+    <div class='rb-mag-controls'>
+      <div class='rb-mag-row'>
+        <label class='rb-mag-size-label'>Max rounds</label>
+        <input type='number' name='system.magazineSize' value='{{system.magazineSize}}' min='1' class='rb-mag-size-input'/>
+        <button type='button' class='rb-mag-dec' title='Use 1 round'>−</button>
+        <button type='button' class='rb-mag-inc' title='Add 1 round manually'>+</button>
+        <button type='button' class='rb-reload-btn'><i class='fas fa-redo-alt'></i> Reload</button>
+      </div>
+
+      <div class='rb-ammo-link-row'>
+        <span class='rb-ammo-link-label'><i class='fas fa-box-open'></i> Ammo stock:</span>
+        {{#if ammoItemName}}
+          <span class='rb-ammo-name'>{{ammoItemName}}</span>
+          <span class='rb-ammo-qty'>({{ammoItemQuantity}} remaining)</span>
+          <button type='button' class='rb-ammo-unlink' title='Unlink ammo item'><i class='fas fa-times'></i></button>
+        {{else}}
+          <div class='rb-ammo-drop-target' title='Drop a gear item here to link it as the ammo source'>
+            <i class='fas fa-arrow-down'></i> Drop gear item…
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  {{/if}}
+
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Description</a>
+  </nav>
+
+  <section class='sheet-body'>
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{editor enrichedDescription target='system.description' engine='prosemirror' button=true editable=editable}}
+    </div>
+  </section>
+
+  <style>
+    .rb-weapon-props .resource-label { margin-bottom: 4px; display: block; }
+    .rb-prop-checks { display: flex; gap: 12px; flex-wrap: wrap; }
+    .rb-prop-checks label { display: flex; align-items: center; gap: 4px; color: #e0e0e0; font-size: 0.9em; }
+
+    .rb-range-label { display: flex; align-items: center; gap: 4px; }
+    .rb-range-select {
+      margin-left: 2px;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      border-radius: 3px;
+      font-size: 0.82em;
+      padding: 1px 4px;
+    }
+
+    /* ===== Magazine section ===== */
+    .rb-magazine-section {
+      margin: 8px 12px 4px;
+      background: #161616;
+      border: 1px solid #333;
+      border-radius: 5px;
+      padding: 10px 12px;
+    }
+
+    .rb-mag-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+
+    .rb-mag-title {
+      font-size: 0.88em;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #aaa;
+    }
+
+    .rb-mag-ammo-display {
+      display: flex;
+      align-items: baseline;
+      gap: 3px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 1.2em;
+    }
+
+    .rb-mag-count { color: #4CAF50; font-weight: bold; }
+    .rb-mag-count.rb-mag-empty { color: #e94560; }
+    .rb-mag-sep { color: #555; }
+    .rb-mag-max { color: #888; }
+
+    .rb-mag-bar-wrap {
+      height: 6px;
+      background: #2a2a2a;
+      border-radius: 3px;
+      overflow: hidden;
+      margin-bottom: 8px;
+    }
+
+    .rb-mag-bar-fill {
+      height: 100%;
+      background: #4CAF50;
+      border-radius: 3px;
+      transition: width 0.2s ease;
+      min-width: 0;
+    }
+
+    .rb-mag-controls { display: flex; flex-direction: column; gap: 6px; }
+
+    .rb-mag-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .rb-mag-size-label { font-size: 0.8em; color: #888; white-space: nowrap; }
+
+    .rb-mag-size-input {
+      width: 48px;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      border-radius: 3px;
+      padding: 2px 4px;
+      font-size: 0.85em;
+      text-align: center;
+    }
+
+    .rb-mag-dec, .rb-mag-inc {
+      width: 26px;
+      height: 26px;
+      background: #252525;
+      border: 1px solid #444;
+      border-radius: 3px;
+      color: #e0e0e0;
+      font-size: 1em;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .rb-mag-dec:hover { background: #3a1a1a; border-color: #e94560; color: #e94560; }
+    .rb-mag-inc:hover { background: #1a3a1a; border-color: #4CAF50; color: #4CAF50; }
+
+    .rb-reload-btn {
+      margin-left: auto;
+      background: #1a2a3a;
+      border: 1px solid #2a5a8a;
+      border-radius: 3px;
+      color: #6ab4f5;
+      font-size: 0.8em;
+      padding: 3px 10px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+    .rb-reload-btn:hover { background: #1e3a5a; border-color: #6ab4f5; }
+
+    .rb-ammo-link-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.8em;
+      color: #888;
+      flex-wrap: wrap;
+    }
+
+    .rb-ammo-link-label { color: #666; white-space: nowrap; }
+    .rb-ammo-name { color: #e0e0e0; font-weight: bold; }
+    .rb-ammo-qty { color: #888; }
+
+    .rb-ammo-unlink {
+      background: none;
+      border: none;
+      color: #555;
+      cursor: pointer;
+      font-size: 0.9em;
+      padding: 0 2px;
+      line-height: 1;
+    }
+    .rb-ammo-unlink:hover { color: #e94560; }
+
+    .rb-ammo-drop-target {
+      border: 1px dashed #444;
+      border-radius: 3px;
+      padding: 3px 8px;
+      color: #555;
+      font-style: italic;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .rb-ammo-drop-target.dragover,
+    .rb-ammo-drop-target:hover { border-color: #6ab4f5; color: #6ab4f5; }
+  </style>
+</form>
