@@ -34,11 +34,11 @@
       <li class="inv-list-header">
         <span class="inv-col inv-name">Name</span>
         <span class="inv-col inv-damage">Damage</span>
+        <span class="inv-col inv-scrip-val">Scrip</span>
         <span class="inv-col inv-armor-val">Armor</span>
         <span class="inv-col inv-props">Properties</span>
         <span class="inv-col inv-mag-col">Ammo</span>
         <span class="inv-col inv-range-col">Range</span>
-        <span class="inv-col inv-scrip-val">Scrip</span>
         <span class="inv-col inv-equip">Equip</span>
         <span class="inv-col inv-reload"></span>
         <span class="inv-col inv-controls"></span>
@@ -53,6 +53,7 @@
           <div class="inv-col inv-damage">
             <strong class="inv-damage-die">{{item.system.damage}}</strong>
           </div>
+          <div class="inv-col inv-scrip-val inv-muted">{{#if item.system.scripValue}}{{item.system.scripValue}}{{/if}}</div>
           <div class="inv-col inv-armor-val">
             {{#if item.system.armor}}<strong>A{{item.system.armor}}</strong>{{/if}}
           </div>
@@ -71,7 +72,6 @@
               <option value="far"      {{#if (eq item.system.rangeType "far")}}selected{{/if}}>Far</option>
             </select>
           </div>
-          <div class="inv-col inv-scrip-val inv-muted">{{#if item.system.scripValue}}{{item.system.scripValue}}{{/if}}</div>
           <div class="inv-col inv-equip">
             <button type="button"
                     class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"
@@ -114,8 +114,8 @@
       <li class="inv-list-header">
         <span class="inv-col inv-name">Name</span>
         <span class="inv-col inv-armor-val">Armor</span>
-        <span class="inv-col inv-type-label">Type</span>
         <span class="inv-col inv-scrip-val">Scrip</span>
+        <span class="inv-col inv-type-label">Type</span>
         <span class="inv-col inv-equip">Equip</span>
         <span class="inv-col inv-controls"></span>
       </li>
@@ -129,8 +129,8 @@
           <div class="inv-col inv-armor-val">
             <strong>A{{item.system.armor}}</strong>
           </div>
-          <div class="inv-col inv-type-label inv-muted">{{item.type}}</div>
           <div class="inv-col inv-scrip-val inv-muted">{{#if item.system.scripValue}}{{item.system.scripValue}}{{/if}}</div>
+          <div class="inv-col inv-type-label inv-muted">{{item.type}}</div>
           <div class="inv-col inv-equip">
             <button type="button"
                     class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"

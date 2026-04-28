@@ -3,7 +3,7 @@
     <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}'/>
     <div class='header-fields'>
       <h1 class='charname'><input name='name' type='text' value='{{item.name}}' placeholder='Name'/></h1>
-      <div class='grid grid-3col'>
+      <div class='grid grid-4col'>
         <div class='resource'>
           <label class='resource-label'>Damage Die</label>
           <input type='text' name='system.damage' value='{{system.damage}}' placeholder='d6'/>
@@ -11,6 +11,10 @@
         <div class='resource'>
           <label class='resource-label'>Armor Value</label>
           <input type='number' name='system.armor' value='{{system.armor}}' min='0' data-dtype='Number' placeholder='0'/>
+        </div>
+        <div class='resource'>
+          <label class='resource-label'>Scrip Value</label>
+          <input type='number' name='system.scripValue' value='{{system.scripValue}}' min='0' data-dtype='Number' placeholder='0'/>
         </div>
         <div class='resource rb-weapon-props'>
           <label class='resource-label'>Properties</label>
