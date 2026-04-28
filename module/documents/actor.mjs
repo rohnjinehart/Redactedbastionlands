@@ -50,14 +50,12 @@ export class CainActor extends Actor {
   }
 
   _onDelete(options, userId) {
-    // If character, unlink pathos tracker so it doesn't get deleted
     if (this.type === 'character') {
       delete this.apps['pathos-tracker'];
+      if (ui.pathosTracker) ui.pathosTracker.render({ force: true });
     }
     super._onDelete(options, userId);
-
-    // force a re-render of the pathos element
-    ui.pathosTracker.render({ force: true });
+    ui.actors?.render();
   }
 
   /** @override */
