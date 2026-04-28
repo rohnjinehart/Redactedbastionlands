@@ -1,6 +1,8 @@
-# Redacted Bastionlands — FoundryVTT System
+# [Redacted]lands — FoundryVTT System
 
-An unofficial, custom FoundryVTT system for playing **Mythic Bastionland** by Chris McDowall, built on the **CAIN** FoundryVTT system framework by Adam Kostandy.
+An unofficial FoundryVTT system for playing **[Redacted]lands**, a custom modified ruleset built on top of **Mythic Bastionland** by Chris McDowall. It combines Mythic Bastionland's core resolution mechanics with the character systems from **CAIN** by Tom Bloom, adapted for a unique setting and playstyle.
+
+This system is not an official product of Bastionland Press or Tom Bloom.
 
 ---
 
@@ -9,18 +11,22 @@ An unofficial, custom FoundryVTT system for playing **Mythic Bastionland** by Ch
 All Mythic Bastionland content and materials are used with explicit permission from **Chris McDowall**.  
 Mythic Bastionland is copyright © 2023 Chris McDowall.
 
-This system is a derivative work built upon the [CAIN FoundryVTT System](https://github.com/diabeatz96/cain), used in accordance with its MIT License.
+CAIN is copyright © Tom Bloom.
 
-This project is not affiliated with or endorsed by Chris McDowall or Bastionland Press.
+This system is built upon the [CAIN FoundryVTT System](https://github.com/diabeatz96/cain) by Adam Kostandy, used in accordance with its MIT License.
 
 ---
 
-## About Mythic Bastionland
+## About [Redacted]lands
 
-Embark on a quest like no other with Mythic Bastionland, a tabletop RPG set in the imagined past of *Into the Odd* and *Electric Bastionland*, built on the same lightning fast, ultra-streamlined rules system.
+[Redacted]lands is a custom tabletop RPG ruleset that takes the lightning-fast, streamlined resolution system of Mythic Bastionland and layers on the character-driven systems of CAIN — agendas, blasphemies, sin marks, and afflictions — to create a unique hybrid experience.
 
-- [Buy the Book](https://bastionlandpress.com/products/mythic-bastionland-hardback-book-plus-pdf)
-- [Quickstart Rules](https://chrismcdee.itch.io/mythic-bastionland)
+**Mythic Bastionland** is a tabletop RPG set in the imagined past of *Into the Odd* and *Electric Bastionland*, designed by Chris McDowall.
+
+**CAIN** is a tabletop RPG designed by Tom Bloom.
+
+- [Buy Mythic Bastionland](https://bastionlandpress.com/products/mythic-bastionland-hardback-book-plus-pdf)
+- [Mythic Bastionland Quickstart Rules](https://chrismcdee.itch.io/mythic-bastionland)
 - [Bastionland Blog](https://www.bastionland.com/)
 
 ---
@@ -40,25 +46,27 @@ Embark on a quest like no other with Mythic Bastionland, a tabletop RPG set in t
 
 - **Code:** [MIT License](LICENSE.txt)
 - **Mythic Bastionland content:** All materials used with special permission from Chris McDowall.
-- **CAIN system code:** MIT License — see [CAIN repository](https://github.com/diabeatz96/cain)
+- **CAIN content:** Copyright © Tom Bloom.
+- **CAIN FoundryVTT system code:** MIT License — see [CAIN repository](https://github.com/diabeatz96/cain)
 - **Icons:** [game-icons.net](https://game-icons.net/) under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/)
 
 ---
 
 ## Credits
 
-**Mythic Bastionland**
-- Chris McDowall — Creator of Mythic Bastionland, Into the Odd, and Electric Bastionland
+**[Redacted]lands Ruleset**
+- Chris McDowall — Creator of Mythic Bastionland, the rules foundation this project is built on
+- Tom Bloom — Creator of CAIN, whose character systems are adapted here
 
-**CAIN FoundryVTT System** *(the framework this system is built upon)*
+**CAIN FoundryVTT System** *(the system framework this is built upon)*
 - Adam Kostandy (Diabeatz96) — Original creator and lead developer
 - bugeso & loupgarou — Development contributions and v1.3 updates
 - ahandleman & Benji — Developers
 - Myco — Icon assets (from the Pilot.NET/CAIN Discord)
 - Ghostie — Icon assets
 
-**Redacted Bastionlands**
-- rohnjinehart — System customisation, mechanics, and UI for Mythic Bastionland
+**[Redacted]lands FoundryVTT System**
+- rohnjinehart — Custom ruleset design, system mechanics, and FoundryVTT implementation
 
 ---
 
