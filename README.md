@@ -8,8 +8,7 @@ This system is not an official product of Bastionland Press or Tom Bloom.
 
 ## Legal & Permissions
 
-All Mythic Bastionland content and materials are used with explicit permission from **Chris McDowall**.  
-Mythic Bastionland is copyright © 2023 Chris McDowall.
+ Mythic Bastionland is copyright © 2023 Chris McDowall.
 
 CAIN is copyright © Tom Bloom.
 
@@ -21,7 +20,7 @@ Reference was also made to the [Mythic Bastionland FoundryVTT System](https://gi
 
 ## About [Redacted]lands
 
-[Redacted]lands is a custom tabletop RPG ruleset that takes the lightning-fast, streamlined resolution system of Mythic Bastionland and layers on the character-driven systems of CAIN — agendas, blasphemies, sin marks, and afflictions — to create a unique hybrid experience.
+[Redacted]lands is a custom tabletop RPG ruleset that takes the lightning-fast, streamlined resolution system of Mythic Bastionland and layers on the character-driven systems of CAIN such as agendas, blasphemies, and sin marks to create.
 
 **Mythic Bastionland** is a tabletop RPG set in the imagined past of *Into the Odd* and *Electric Bastionland*, designed by Chris McDowall.
 
@@ -47,10 +46,10 @@ Reference was also made to the [Mythic Bastionland FoundryVTT System](https://gi
 ## License
 
 - **Code:** [MIT License](LICENSE.txt)
-- **Mythic Bastionland content:** All materials used with special permission from Chris McDowall.
+- **Mythic Bastionland content:** Copyright © Chris McDowall.
 - **CAIN content:** Copyright © Tom Bloom.
-- **CAIN FoundryVTT system code:** MIT License — see [CAIN repository](https://github.com/diabeatz96/cain)
-- **Mythic Bastionland FoundryVTT system code:** MIT License — see [maqloner's repository](https://github.com/maqloner/mythic-bastionland-fvtt)
+- **CAIN FoundryVTT system code:** MIT License see [CAIN repository](https://github.com/diabeatz96/cain)
+- **Mythic Bastionland FoundryVTT system code:** MIT License see [maqloner's repository](https://github.com/maqloner/mythic-bastionland-fvtt)
 - **Icons:** [game-icons.net](https://game-icons.net/) under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/)
 
 ---
