@@ -60,9 +60,6 @@ Hooks.once('init', async function () {
     // Mythic Bastionlands item types
     weapon: models.RBWeapon,
     coat: models.RBArmor,
-    plate: models.RBArmor,
-    shield: models.RBArmor,
-    helm: models.RBArmor,
     ability: models.RBAbility,
     misc: models.RBMiscItem,
   }

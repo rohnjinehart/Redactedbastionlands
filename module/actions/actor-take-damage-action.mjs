@@ -8,7 +8,7 @@
 export async function openTakeDamageDialog(actor, prefilledDamage = 0) {
   const armor = actor.items
     .filter(i => (
-      (['coat', 'plate', 'shield', 'helm'].includes(i.type) || i.type === 'weapon') &&
+      (i.type === 'coat' || i.type === 'weapon') &&
       i.system.equipped &&
       (i.system.armor ?? 0) > 0
     ))

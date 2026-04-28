@@ -16,7 +16,7 @@ RB.saveAbbreviations = {
 };
 
 // Armor item sub-types (each carries a numeric armor value).
-RB.armorTypes = ['coat', 'plate', 'shield', 'helm'];
+RB.armorTypes = ['coat'];
 
 // Weapon damage die sizes for the UI dropdown.
 RB.damageDice = ['d4', 'd6', 'd8', 'd10', 'd12'];

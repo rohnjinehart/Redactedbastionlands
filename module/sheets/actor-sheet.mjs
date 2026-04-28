@@ -392,7 +392,7 @@ export class CainActorSheet extends BaseActorSheet {
     const weapons = [];
     const armor   = [];
 
-    const ARMOR_TYPES     = ['coat', 'plate', 'shield', 'helm'];
+    const ARMOR_TYPES     = ['coat'];
     const EQUIPPABLE_TYPES = ['weapon', ...ARMOR_TYPES];
 
     for (let i of context.items) {
@@ -519,6 +519,7 @@ export class CainActorSheet extends BaseActorSheet {
       if (!item) return;
       item.update({ 'system.rangeType': ev.currentTarget.value });
     });
+
 
     // Equip / unequip toggle for weapons and armor.
     html.on('click', '.item-equip-toggle', (ev) => {
@@ -1373,9 +1374,6 @@ export class CainActorSheet extends BaseActorSheet {
             break;
           case "weapon":
           case "coat":
-          case "plate":
-          case "shield":
-          case "helm":
           case "item":
           case "misc":
             if (itemDrop.parent?.id !== this.actor.id) {
