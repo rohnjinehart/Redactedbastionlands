@@ -29,6 +29,7 @@ Reference was also made to the [Mythic Bastionland FoundryVTT System](https://gi
 - [Buy Mythic Bastionland](https://bastionlandpress.com/products/mythic-bastionland-hardback-book-plus-pdf)
 - [Mythic Bastionland Quickstart Rules](https://chrismcdee.itch.io/mythic-bastionland)
 - [Bastionland Blog](https://www.bastionland.com/)
+- [Buy CAIN](https://tombloom.itch.io/cain)
 
 ---
 
