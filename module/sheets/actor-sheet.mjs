@@ -520,7 +520,42 @@ export class CainActorSheet extends BaseActorSheet {
       const li   = $(ev.currentTarget).closest('[data-item-id]');
       const item = this.actor.items.get(li.data('itemId'));
       if (!item) return;
-      item.update({ 'system.equipped': !item.system.equipped });
+
+      // Unequipping is always allowed.
+      if (item.system.equipped) {
+        item.update({ 'system.equipped': false });
+        return;
+      }
+
+      // Enforce weapon equip limits.
+      if (item.type === 'weapon') {
+        const equippedWeapons = this.actor.items.filter(i => i.type === 'weapon' && i.system.equipped);
+
+        if (equippedWeapons.length >= 2) {
+          ui.notifications.warn('You can only equip 2 weapons at a time.');
+          return;
+        }
+
+        const hasHefty      = equippedWeapons.some(i => i.system.hefty);
+        const hasSlowOrLong = equippedWeapons.some(i => i.system.slow || i.system.long);
+
+        if (hasSlowOrLong) {
+          ui.notifications.warn('You already have a slow or long weapon equipped — you cannot equip another weapon.');
+          return;
+        }
+
+        if (item.system.hefty && hasHefty) {
+          ui.notifications.warn('You cannot equip two hefty weapons.');
+          return;
+        }
+
+        if ((item.system.slow || item.system.long) && equippedWeapons.length >= 1) {
+          ui.notifications.warn('Slow and long weapons can only be equipped alone.');
+          return;
+        }
+      }
+
+      item.update({ 'system.equipped': true });
     });
   
     // Gear quantity +/- buttons
