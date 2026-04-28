@@ -1,0 +1,55 @@
+<form class='{{cssClass}} agenda-background' autocomplete='off'>
+  <header class='sheet-header agenda-header'>
+    <img
+      class='profile-img'
+      src='{{img}}'
+      data-edit='img'
+      title='{{name}}'
+    />
+    <div class='header-fields'>
+      <h1 class='charname agenda-ability-name'><input
+          name='name'
+          type='text'
+          value='{{name}}'
+          placeholder='Name'
+          style='color: white; background-color: transparent; border: none; border-bottom: 2px solid #555;'
+        /></h1>
+    </div>
+  </header>
+
+  <nav class='sheet-tabs tabs agenda-tabs' data-group='primary'>
+    <a class='item' data-tab='sinmark'>Sin Mark</a>
+  </nav>
+
+  <section class='sheet-body agenda-body'>
+    <div class='tab agenda-text-color' data-group='primary' data-tab='sinmark'>
+
+      <div class='form-group' style='display:flex; flex-direction:column; gap:6px;'>
+        <label style='color: #e94560; font-weight: bold;'>
+          <i class='fas fa-hand-paper' style='margin-right: 4px;'></i>Body Part Name
+        </label>
+        <input
+          type='text'
+          name='system.bodyPartName'
+          value='{{system.bodyPartName}}'
+          data-dtype='String'
+          style='width: 100%; color: white; background-color: #333; border: 1px solid #555; border-radius: 4px; padding: 8px; box-sizing: border-box;'
+        />
+      </div>
+
+      <div class='form-group' style='display:flex; flex-direction:column; gap:6px; margin-top: 16px;'>
+        <label style='color: #e94560; font-weight: bold;'>
+          <i class='fas fa-scroll' style='margin-right: 4px;'></i>Description
+        </label>
+        <textarea
+          name='system.description'
+          data-dtype='String'
+          rows='14'
+          placeholder='Describe what this sin mark does…'
+          style='width: 100%; color: white; background-color: #333; border: 1px solid #555; border-radius: 4px; padding: 8px; box-sizing: border-box; resize: vertical;'
+        >{{system.description}}</textarea>
+      </div>
+
+    </div>
+  </section>
+</form>

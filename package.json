@@ -1,0 +1,23 @@
+{
+  "name": "cain",
+  "version": "2.0.0",
+  "description": "Foundry VTT system for CAIN",
+  "type": "module",
+  "scripts": {
+    "build": "npm run build:css && npm run build:packs",
+    "build:css": "sass src/scss/cain.scss css/cain.css --style=expanded --no-source-map",
+    "build:packs": "node ./tools/pack.mjs",
+    "extract:packs": "node ./tools/unpack.mjs",
+    "watch": "sass src/scss/cain.scss css/cain.css --style=expanded --source-map --watch"
+  },
+  "browserslist": [
+    "last 3 versions"
+  ],
+  "author": "Asacolips",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@foundryvtt/foundryvtt-cli": "^3.0.2",
+    "sass": "^1.53.0"
+  }
+}

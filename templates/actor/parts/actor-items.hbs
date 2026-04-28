@@ -1,0 +1,315 @@
+{{#if totalArmor}}
+<div class="total-armor-row">
+  <span>Total Equipped Armor: <strong>{{totalArmor}}</strong></span>
+</div>
+{{/if}}
+
+{{!-- Scrip tracker --}}
+<div class="inv-scrip-tracker inv-scrip-tracker-top">
+  <span class="inv-scrip-label">Scrip</span>
+  <button type="button" class="inv-scrip-btn inv-scrip-dec" title="Spend scrip">−</button>
+  <input type="number" class="inv-scrip-input" name="system.scrip"
+         value="{{system.scrip}}" min="0" max="1000" data-dtype="Number"/>
+  <button type="button" class="inv-scrip-btn inv-scrip-inc" title="Gain scrip">+</button>
+</div>
+
+{{!-- ===== WEAPONS ===== --}}
+<section class="inv-section inv-drop-target" data-drop-types="weapon">
+  <div class="inv-section-header">
+    <h3 class="inv-heading">Weapons</h3>
+    <a class="item-control item-create inv-add-btn"
+       title="Add Weapon" data-type="weapon">
+      <i class="fas fa-plus"></i>
+    </a>
+  </div>
+
+  {{#if weapons.length}}
+    <ol class="inv-list">
+      <li class="inv-list-header">
+        <span class="inv-col inv-name">Name</span>
+        <span class="inv-col inv-damage">Damage</span>
+        <span class="inv-col inv-armor-val">Armor</span>
+        <span class="inv-col inv-props">Properties</span>
+        <span class="inv-col inv-mag-col">Ammo</span>
+        <span class="inv-col inv-range-col">Range</span>
+        <span class="inv-col inv-equip">Equip</span>
+        <span class="inv-col inv-reload"></span>
+        <span class="inv-col inv-controls"></span>
+      </li>
+      {{#each weapons as |item|}}
+        <li class="item inv-list-row {{#if item.system.equipped}}inv-equipped{{/if}}"
+            draggable="true" data-item-id="{{item._id}}">
+          <div class="inv-col inv-name">
+            <img src="{{item.img}}" class="inv-icon" title="{{item.name}}"/>
+            <span>{{item.name}}</span>
+          </div>
+          <div class="inv-col inv-damage">
+            <strong class="inv-damage-die">{{item.system.damage}}</strong>
+          </div>
+          <div class="inv-col inv-armor-val">
+            {{#if item.system.armor}}<strong>A{{item.system.armor}}</strong>{{/if}}
+          </div>
+          <div class="inv-col inv-props inv-muted">{{item.extra.propString}}</div>
+          <div class="inv-col inv-mag-col">
+            {{#if item.system.magazine}}
+              <span class="inv-mag-label {{#if (eq item.system.magazineCurrent 0)}}inv-mag-empty{{/if}}">
+                {{item.system.magazineCurrent}}/{{item.system.magazineSize}}
+              </span>
+            {{/if}}
+          </div>
+          <div class="inv-col inv-range-col">
+            <select class="item-range-select" title="Range">
+              <option value="engaged" {{#if (eq item.system.rangeType "engaged")}}selected{{/if}}>Engaged</option>
+              <option value="near"     {{#if (eq item.system.rangeType "near")}}selected{{/if}}>Near</option>
+              <option value="far"      {{#if (eq item.system.rangeType "far")}}selected{{/if}}>Far</option>
+            </select>
+          </div>
+          <div class="inv-col inv-equip">
+            <button type="button"
+                    class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"
+                    title="{{#if item.system.equipped}}Unequip{{else}}Equip{{/if}}">
+              <i class="fas fa-fist-raised {{#if item.system.equipped}}inv-equipped-icon{{/if}}"></i>
+            </button>
+          </div>
+          <div class="inv-col inv-reload">
+            {{#if item.system.magazine}}
+              <button type="button" class="item-reload-btn"
+                      title="Reload ({{item.system.magazineCurrent}}/{{item.system.magazineSize}})">
+                <i class="fas fa-redo-alt"></i>
+              </button>
+            {{/if}}
+          </div>
+          <div class="inv-col inv-controls">
+            <a class="item-control item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  {{else}}
+    <p class="inv-empty">No weapons. Drag one here or click + to create.</p>
+  {{/if}}
+</section>
+
+{{!-- ===== ARMOR ===== --}}
+<section class="inv-section inv-drop-target" data-drop-types="coat plate shield helm">
+  <div class="inv-section-header">
+    <h3 class="inv-heading">Armor</h3>
+    <a class="item-control item-create inv-add-btn"
+       title="Add Armor" data-type="coat">
+      <i class="fas fa-plus"></i>
+    </a>
+  </div>
+
+  {{#if armor.length}}
+    <ol class="inv-list">
+      <li class="inv-list-header">
+        <span class="inv-col inv-name">Name</span>
+        <span class="inv-col inv-armor-val">Armor</span>
+        <span class="inv-col inv-type-label">Type</span>
+        <span class="inv-col inv-equip">Equip</span>
+        <span class="inv-col inv-controls"></span>
+      </li>
+      {{#each armor as |item|}}
+        <li class="item inv-list-row {{#if item.system.equipped}}inv-equipped{{/if}}"
+            draggable="true" data-item-id="{{item._id}}">
+          <div class="inv-col inv-name">
+            <img src="{{item.img}}" class="inv-icon" title="{{item.name}}"/>
+            <span>{{item.name}}</span>
+          </div>
+          <div class="inv-col inv-armor-val">
+            <strong>A{{item.system.armor}}</strong>
+          </div>
+          <div class="inv-col inv-type-label inv-muted">{{item.type}}</div>
+          <div class="inv-col inv-equip">
+            <button type="button"
+                    class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"
+                    title="{{#if item.system.equipped}}Unequip{{else}}Equip{{/if}}">
+              <i class="fas {{#if item.system.equipped}}fa-shield-alt inv-equipped-icon{{else}}fa-fist-raised{{/if}}"></i>
+            </button>
+          </div>
+          <div class="inv-col inv-controls">
+            <a class="item-control item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  {{else}}
+    <p class="inv-empty">No armor. Drag a piece here or click + to create.</p>
+  {{/if}}
+</section>
+
+{{!-- ===== GEAR (misc kit items) ===== --}}
+<section class="inv-section inv-drop-target" data-drop-types="item misc">
+  <div class="inv-section-header">
+    <h3 class="inv-heading">Gear</h3>
+    <a class="item-control item-create inv-add-btn"
+       title="Add Item" data-type="misc">
+      <i class="fas fa-plus"></i>
+    </a>
+  </div>
+
+  {{#if gear.length}}
+    <ol class="inv-list">
+      <li class="inv-list-header">
+        <span class="inv-col inv-name">Name</span>
+        <span class="inv-col inv-type-label">Type</span>
+        <span class="inv-col">KP</span>
+        <span class="inv-col">Scrip</span>
+        <span class="inv-col inv-qty-col">Qty</span>
+        <span class="inv-col inv-controls"></span>
+      </li>
+      {{#each gear as |item|}}
+        <li class="item inv-list-row" draggable="true" data-item-id="{{item._id}}">
+          <div class="inv-col inv-name">
+            <img src="{{item.img}}" class="inv-icon" title="{{item.name}}"/>
+            <span>{{item.name}}</span>
+          </div>
+          <div class="inv-col inv-type-label inv-muted">{{item.system.type}}</div>
+          <div class="inv-col">{{item.system.kitPoint}}</div>
+          <div class="inv-col">{{item.system.scripValue}}</div>
+          <div class="inv-col inv-qty-col">
+            <button type="button" class="item-qty-btn item-qty-dec" title="Decrease quantity">−</button>
+            <span class="item-qty-label">{{item.system.quantity}}</span>
+            <button type="button" class="item-qty-btn item-qty-inc" title="Increase quantity">+</button>
+          </div>
+          <div class="inv-col inv-controls">
+            <a class="item-control item-edit" title="Edit"><i class="fas fa-edit"></i></a>
+            <a class="item-control item-delete" title="Delete"><i class="fas fa-trash"></i></a>
+          </div>
+        </li>
+      {{/each}}
+    </ol>
+  {{else}}
+    <p class="inv-empty">No gear.</p>
+  {{/if}}
+</section>
+
+<style>
+/* ---- Header ---- */
+.total-armor-row { color: #f39c12; font-size: 0.9em; margin-bottom: 8px; padding: 4px 6px; border-bottom: 1px solid #333; }
+
+/* ---- Scrip tracker ---- */
+.inv-scrip-tracker {
+  display: flex; align-items: center; gap: 4px; margin-right: 8px;
+}
+.inv-scrip-label {
+  font-size: 0.75em; color: #f39c12; text-transform: uppercase;
+  letter-spacing: 0.05em; margin-right: 2px;
+}
+.inv-scrip-input {
+  width: 44px; text-align: center; background: #1e1e1e; color: #f39c12;
+  border: 1px solid #555; border-radius: 3px; padding: 1px 3px;
+  font-size: 0.88em; font-weight: bold;
+}
+.inv-scrip-input:focus { outline: none; border-color: #f39c12; }
+.inv-scrip-btn {
+  background: transparent; border: 1px solid #555; border-radius: 3px;
+  color: #888; width: 20px; height: 20px; padding: 0; cursor: pointer;
+  font-size: 0.95em; line-height: 1;
+  display: flex; align-items: center; justify-content: center;
+}
+.inv-scrip-btn:hover { border-color: #f39c12; color: #f39c12; }
+
+/* ---- Sections ---- */
+.inv-section { margin-bottom: 16px; }
+.inv-section-header {
+  display: flex; align-items: center; justify-content: space-between;
+  border-bottom: 1px solid #444; padding-bottom: 4px; margin-bottom: 6px;
+}
+.inv-heading { margin: 0; font-size: 1em; color: #e0e0e0; text-transform: uppercase; letter-spacing: 0.05em; }
+.inv-add-btn { color: #4CAF50; cursor: pointer; font-size: 0.9em; }
+.inv-add-btn:hover { color: #88ff88; }
+
+/* ---- List ---- */
+.inv-list { list-style: none; margin: 0; padding: 0; }
+.inv-list-header {
+  display: flex; align-items: center;
+  background: #2a2a2a; padding: 3px 6px;
+  font-size: 0.75em; color: #888; text-transform: uppercase;
+}
+.inv-list-row {
+  display: flex; align-items: center;
+  padding: 5px 6px;
+  border-bottom: 1px solid #222;
+  transition: background 0.15s;
+}
+.inv-list-row:hover { background: #252525; }
+.inv-equipped { background: #1a2a1a; border-left: 3px solid #4CAF50; }
+
+/* ---- Columns ---- */
+.inv-col { display: flex; align-items: center; }
+.inv-name { flex: 2; gap: 6px; overflow: hidden; }
+.inv-name span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: #e0e0e0; }
+.inv-damage { flex: 0 0 60px; justify-content: center; }
+.inv-damage-die { color: #e94560; font-size: 1em; }
+.inv-props { flex: 1; font-size: 0.8em; }
+.inv-armor-val { flex: 0 0 55px; justify-content: center; color: #f39c12; }
+.inv-type-label { flex: 1; font-size: 0.8em; text-transform: capitalize; }
+.inv-mag-col { flex: 0 0 52px; justify-content: center; }
+.inv-mag-label { font-size: 0.82em; font-family: monospace; color: #4CAF50; font-weight: bold; }
+.inv-mag-empty { color: #e94560; }
+.inv-range-col { flex: 0 0 80px; justify-content: center; }
+.item-range-select {
+  background: #1e1e1e; color: #e0e0e0; border: 1px solid #444;
+  border-radius: 3px; padding: 2px 4px; font-size: 0.78em;
+  cursor: pointer; width: 100%;
+}
+.item-range-select:focus { outline: none; border-color: #666; }
+.inv-equip { flex: 0 0 44px; justify-content: center; }
+.inv-reload { flex: 0 0 32px; justify-content: center; }
+.inv-controls { flex: 0 0 54px; justify-content: flex-end; gap: 6px; }
+
+/* ---- Gear quantity controls ---- */
+.inv-qty-col { flex: 0 0 80px; justify-content: center; align-items: center; gap: 4px; }
+.item-qty-btn {
+  background: transparent; border: 1px solid #555; border-radius: 3px;
+  color: #888; padding: 0; cursor: pointer; font-size: 0.95em; line-height: 1;
+  width: 22px; height: 22px; display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+}
+.item-qty-btn:hover { border-color: #aaa; color: #ddd; }
+.item-qty-label { min-width: 20px; text-align: center; font-size: 0.9em; color: #e0e0e0; }
+
+/* ---- Reload button ---- */
+.item-reload-btn {
+  background: transparent; border: 1px solid #555; border-radius: 3px;
+  color: #888; padding: 2px 5px; cursor: pointer; font-size: 0.85em;
+  display: flex; align-items: center; justify-content: center; width: 26px; height: 26px;
+}
+.item-reload-btn:hover { border-color: #6ab4f5; color: #6ab4f5; background: #0d1a2a; }
+.inv-muted { color: #888; }
+.inv-icon { width: 24px; height: 24px; border-radius: 2px; object-fit: cover; border: none; flex-shrink: 0; }
+.inv-empty { color: #555; font-style: italic; font-size: 0.85em; padding: 4px 6px; }
+
+/* ---- Equip button ---- */
+.item-equip-toggle {
+  background: transparent; border: 1px solid #555; border-radius: 3px;
+  color: #888; padding: 2px 5px; cursor: pointer; font-size: 0.85em;
+}
+.item-equip-toggle:hover { border-color: #aaa; color: #ddd; }
+.item-equip-toggle.equipped { border-color: #4CAF50; color: #4CAF50; background: #1a2a1a; }
+.inv-equipped-icon { color: #4CAF50; }
+
+/* ---- Item controls ---- */
+.item-control { color: #666; cursor: pointer; padding: 0 3px; }
+.item-control:hover { color: #ddd; }
+
+/* ---- Drop targets ---- */
+.inv-drop-target { transition: background 0.15s, border-color 0.15s; }
+.inv-drop-target.inv-drag-over { background: #1a2a1a; border: 1px dashed #4CAF50; border-radius: 4px; }
+
+/* ---- Drag-to-reorder states ---- */
+.inv-list-row.rb-dragging { opacity: 0.4; }
+.inv-list-row.rb-drag-over { border-top: 2px solid #00bfff; }
+
+/* ---- Top scrip tracker ---- */
+.inv-scrip-tracker-top {
+  margin-bottom: 10px;
+  padding: 5px 8px;
+  background: #1a1a1a;
+  border: 1px solid #444;
+  border-radius: 4px;
+  justify-content: center;
+}
+</style>

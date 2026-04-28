@@ -1,0 +1,310 @@
+<form class="{{cssClass}} {{actor.type}} flexcol mob-psycho-theme no-border" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header mob-psycho-header character-drop-target">
+
+    <img class="profile-img mob-psycho-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200"/>
+
+    <div class="header-fields mob-psycho-header-fields">
+      <h1 class="charname mob-psycho-charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+
+      <div class="grid grid-4col">
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Sex</label>
+          <input type="text" name="system.sex" value="{{system.sex}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Height</label>
+          <input type="text" name="system.height" value="{{system.height}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Weight</label>
+          <input type="text" name="system.weight" value="{{system.weight}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Hair</label>
+          <input type="text" name="system.hair" value="{{system.hair}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Eyes</label>
+          <input type="text" name="system.eyes" value="{{system.eyes}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Agenda</label>
+          <input type="text" name="system.agenda" value="{{system.agenda}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">Blasphemy</label>
+          <input type="text" name="system.blasphemy" value="{{system.blasphemy}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+        <div class="flex-group-center mob-psycho-flex-group">
+          <label class="resource-label mob-psycho-label">XID</label>
+          <input type="text" name="system.XID" value="{{system.XID}}" data-dtype="String" class="mob-psycho-input"/>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs mob-psycho-tabs" data-group="primary">
+    <a class="item mob-psycho-tab-item" data-tab="features">Stats &amp; Combat</a>
+    {{!-- <a class="item mob-psycho-tab-item" data-tab="description">Bio &amp; Bonds</a> --}}
+    <a class="item mob-psycho-tab-item" data-tab="items">Kit and Items</a>
+    <a class="item mob-psycho-tab-item" data-tab="abilities">Abilities</a>
+    {{!-- <a class="item mob-psycho-tab-item" data-tab="sin">Sin</a> --}}
+    {{!-- <a class="item mob-psycho-tab-item" data-tab="talismans">Talismans</a> --}}
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body mob-psycho-body character-drop-target">
+
+    {{!-- Stats & Combat Tab --}}
+    <div class="tab" data-group="primary" data-tab="features">
+
+      {{!-- Sin box embedded above the grid --}}
+      <div class="sin-inline-box">
+        {{> "systems/bastionlands/templates/actor/parts/actor-sin.hbs"}}
+      </div>
+
+      <section class="grid grid-3col mob-psycho-grid">
+
+        {{!-- LEFT SIDEBAR --}}
+        <aside class="sidebar mob-psycho-sidebar">
+
+          {{!-- REST --}}
+          <button type="button" class="rb-rest-btn mob-psycho-button rb-rest-open-btn">Rest</button>
+
+          {{!-- VITALS / SAVES --}}
+          <h3 class="mob-psycho-heading" style="margin-top:10px;">Vitals &amp; Saves</h3>
+          <p style="font-size:0.75em;color:#aaa;margin:0 0 6px;">Roll d20 ≤ value to succeed.</p>
+
+          {{!-- Body --}}
+          <div class="virtue-row">
+            <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="body">Body</button>
+            <div class="virtue-inputs">
+              <input type="number" name="system.body.value" value="{{system.body.value}}" data-dtype="Number" min="0"/>
+              <span>/</span>
+              <input type="number" name="system.body.max" value="{{system.body.max}}" data-dtype="Number" min="0"/>
+            </div>
+            <progress class="virtue-progress body-progress" value="{{system.body.value}}" max="{{system.body.max}}"></progress>
+          </div>
+
+          {{!-- Psyche (stored as system.spirit to avoid conflict with CAIN's flat psyche pool field) --}}
+          <div class="virtue-row">
+            <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="spirit">Psyche</button>
+            <div class="virtue-inputs">
+              <input type="number" name="system.spirit.value" value="{{system.spirit.value}}" data-dtype="Number" min="0"/>
+              <span>/</span>
+              <input type="number" name="system.spirit.max" value="{{system.spirit.max}}" data-dtype="Number" min="0"/>
+            </div>
+            <progress class="virtue-progress psyche-progress" value="{{system.spirit.value}}" max="{{system.spirit.max}}"></progress>
+          </div>
+
+          {{!-- Virtue --}}
+          <div class="virtue-row">
+            <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="virtue">Virtue</button>
+            <div class="virtue-inputs">
+              <input type="number" name="system.virtue.value" value="{{system.virtue.value}}" data-dtype="Number" min="0"/>
+              <span>/</span>
+              <input type="number" name="system.virtue.max" value="{{system.virtue.max}}" data-dtype="Number" min="0"/>
+            </div>
+            <progress class="virtue-progress virtue-stat-progress" value="{{system.virtue.value}}" max="{{system.virtue.max}}"></progress>
+          </div>
+
+          {{!-- Grace --}}
+          <div class="virtue-row">
+            <button type="button" class="rb-save-btn mob-psycho-button virtue-name-btn" data-virtue="grace">Grace</button>
+            <div class="virtue-inputs">
+              <input type="number" name="system.grace.value" value="{{system.grace.value}}" data-dtype="Number" min="0"/>
+              <span>/</span>
+              <input type="number" name="system.grace.max" value="{{system.grace.max}}" data-dtype="Number" min="0"/>
+            </div>
+            <progress class="virtue-progress grace-progress" value="{{system.grace.value}}" max="{{system.grace.max}}"></progress>
+          </div>
+
+          {{!-- Burnout --}}
+          <div class="fatigue-row">
+            <input type="checkbox" name="system.burnout" {{#if system.burnout}}checked{{/if}} id="burnout-check"/>
+            <label for="burnout-check" class="resource-label mob-psycho-label">Burnout</label>
+            <button type="button" class="burnout-recover-btn{{#unless system.burnout}} burnout-recover-disabled{{/unless}}" data-tooltip="Sin Raise - roll 2d4 sin and recover from burnout" {{#unless system.burnout}}disabled{{/unless}}>Sin Raise</button>
+          </div>
+
+          {{!-- RESOLVE --}}
+          <h3 class="mob-psycho-heading guard-heading">Resolve</h3>
+          <div class="virtue-inputs">
+            <input type="number" name="system.resolve.value" value="{{system.resolve.value}}" data-dtype="Number" min="0"/>
+            <span>/</span>
+            <input type="number" name="system.resolve.max" value="{{system.resolve.max}}" data-dtype="Number" min="0"/>
+          </div>
+          <progress class="virtue-progress guard-progress"
+                    value="{{system.resolve.value}}"
+                    max="{{#if (gt system.resolve.max 0)}}{{system.resolve.max}}{{else}}1{{/if}}"></progress>
+
+          {{!-- RESISTANCE (sum of equipped armor) --}}
+          <h3 class="mob-psycho-heading guard-heading">Resistance</h3>
+          <div class="resistance-display">{{totalArmor}}</div>
+
+          {{!-- COMBAT ACTIONS --}}
+          <h3 class="mob-psycho-heading" style="margin-top:12px;">Combat</h3>
+          <button type="button" class="rb-attack-btn mob-psycho-button rb-combat-btn">⚔ Attack</button>
+          <button type="button" class="rb-blasphemy-btn mob-psycho-button rb-combat-btn">✦ Use Blasphemy</button>
+          <button type="button" class="rb-take-damage-btn mob-psycho-button rb-combat-btn">🛡 Take Damage</button>
+          <button type="button" class="rb-virtue-loss-btn mob-psycho-button rb-combat-btn">💀 Vital Loss</button>
+
+
+        </aside>
+
+        {{!-- Main features area spans right two columns --}}
+        <section class="grid-span-2 mob-psycho-main">
+          {{> "systems/bastionlands/templates/actor/parts/actor-features.hbs"}}
+        </section>
+
+      </section>
+    </div>
+
+    {{!-- Bio & Bonds Tab (hidden — kept for reference) --}}
+    {{!-- <div class="tab biography mob-psycho-tab" data-group="primary" data-tab="description">
+      <section class="bio-section">
+        <h3 class="mob-psycho-heading">Biography</h3>
+        {{editor enrichedBiography target="system.biography" button=True engine="prosemirror" button=true editable=editable class="mob-psycho-editor"}}
+      </section>
+      <section class="bonds-section">
+        <h3 class="mob-psycho-heading">Bonds</h3>
+        <p class="bonds-info">
+          <i class="fas fa-info-circle"></i>
+          Pick a virtue to bond with at the start of a mission. Surviving missions increases your bond level (max 3).
+        </p>
+        <div class="character-bonds-list">
+          {{#each characterBonds}}
+            <div class="character-bond-entry" data-bond-id="{{this._id}}">
+              <div class="bond-header-row">
+                <img src="{{this.img}}" class="bond-img" alt="{{this.name}}"/>
+                <div class="bond-info">
+                  <h4 class="bond-name">{{this.name}}</h4>
+                  <span class="virtue-name">Virtue: {{this.system.virtueName}}</span>
+                </div>
+                <div class="bond-level-tracker">
+                  <span class="bond-level-label">Bond Level:</span>
+                  <div class="bond-level-dots">
+                    <input type="checkbox" class="bond-level-checkbox" data-bond-id="{{this._id}}" data-level="0" {{#if (gte this.system.currentLevel 1)}}checked{{/if}}/>
+                    <input type="checkbox" class="bond-level-checkbox" data-bond-id="{{this._id}}" data-level="1" {{#if (gte this.system.currentLevel 2)}}checked{{/if}}/>
+                    <input type="checkbox" class="bond-level-checkbox" data-bond-id="{{this._id}}" data-level="2" {{#if (gte this.system.currentLevel 3)}}checked{{/if}}/>
+                  </div>
+                </div>
+              </div>
+              {{#if this.system.strictures.length}}
+                <div class="bond-strictures-reminder">
+                  <strong><i class="fas fa-exclamation-triangle"></i> Strictures:</strong>
+                  <ul>{{#each this.system.strictures}}<li>{{this}}</li>{{/each}}</ul>
+                </div>
+              {{/if}}
+              <div class="bond-current-abilities">
+                {{#each this.abilities}}
+                  {{#if (lte this.system.bondLevel ../system.currentLevel)}}
+                    <div class="bond-ability-unlocked" data-ability-id="{{this._id}}" data-bond-id="{{../_id}}">
+                      <div class="bond-ability-header-row">
+                        <span class="ability-level">Lvl {{this.system.bondLevel}}</span>
+                        <strong class="ability-name">{{this.name}}</strong>
+                        {{#if this.system.isPermanent}}<span class="ability-permanent-tag">Permanent</span>{{/if}}
+                      </div>
+                      <p class="ability-description">{{this.system.abilityDescription}}</p>
+                      <div class="ability-actions">
+                        <button type="button" class="bond-ability-chat" data-ability-id="{{this._id}}" title="Send to Chat">
+                          <i class="fas fa-comment"></i>
+                        </button>
+                      </div>
+                    </div>
+                  {{/if}}
+                {{/each}}
+              </div>
+              <div class="bond-actions">
+                <button type="button" class="open-bond-sheet" data-bond-id="{{this._id}}"><i class="fas fa-book-open"></i> View Full Bond</button>
+                <button type="button" class="remove-bond" data-bond-id="{{this._id}}"><i class="fas fa-trash"></i> Remove</button>
+              </div>
+            </div>
+          {{else}}
+            <p class="no-bonds">No bonds assigned. Drag a Bond item here to add one.</p>
+          {{/each}}
+        </div>
+      </section>
+    </div> --}}
+
+    {{!-- Kit and Items Tab --}}
+    <div class="tab items mob-psycho-tab" data-group="primary" data-tab="items">
+      {{> "systems/bastionlands/templates/actor/parts/actor-items.hbs"}}
+    </div>
+
+    {{!-- Abilities Tab --}}
+    <div class="tab spells mob-psycho-tab" data-group="primary" data-tab="abilities">
+      {{> "systems/bastionlands/templates/actor/parts/actor-abilities.hbs"}}
+    </div>
+
+    {{!-- Sin Tab --}}
+    {{!-- <div class="tab effects flexcol mob-psycho-tab" data-group="primary" data-tab="sin">
+      {{> "systems/bastionlands/templates/actor/parts/actor-sin.hbs"}}
+    </div> --}}
+
+    {{!-- Talismans Tab (hidden — kept for reference) --}}
+    {{!-- <div class="tab effects flexcol mob-psycho-tab" data-group="primary" data-tab="talismans">
+      {{> "systems/bastionlands/templates/actor/parts/actor-talismans.hbs"}}
+    </div> --}}
+
+  </section>
+</form>
+
+<style>
+/* Virtue rows */
+.virtue-row { margin-bottom:10px; }
+.virtue-name-btn { display:block; width:100%; text-align:left; font-size:0.95em; font-weight:bold; margin-bottom:3px; }
+.virtue-inputs { display:flex; align-items:center; gap:4px; margin-top:3px; }
+.virtue-inputs input { width:42px; text-align:center; }
+.virtue-progress { width:100%; height:6px; margin-top:3px; display:block; }
+.body-progress        { accent-color:#e94560; }
+.psyche-progress      { accent-color:#9b59b6; }
+.virtue-stat-progress { accent-color:#4a90d9; }
+.grace-progress       { accent-color:#2ecc71; }
+.guard-progress   { accent-color:#f39c12; margin-bottom:4px; }
+.guard-heading    { margin-top:12px; }
+.resistance-display { font-size:1.1em; font-weight:bold; color:#f39c12; padding:2px 0 6px; }
+.fatigue-row { display:flex; align-items:center; gap:6px; margin:6px 0 10px; }
+/* Combat buttons */
+.rb-combat-btn { width:100%; margin-bottom:6px; cursor:pointer; }
+/* Bonds */
+.bio-section { margin-bottom:1.5em; }
+.bio-section .editor { min-height:400px; }
+.bonds-section { margin-top:2em; padding:1em; background-color:#1a1a1a; border-radius:8px; }
+.bonds-info { color:#e0e0e0; font-style:italic; margin-bottom:1em; padding:0.5em; background-color:#252525; border-radius:4px; border-left:3px solid #e94560; }
+.bonds-info i { color:#e94560; margin-right:0.5em; }
+.character-bonds-list { display:flex; flex-direction:column; gap:1em; }
+.character-bond-entry { background-color:#252525; border-radius:8px; padding:1em; }
+.bond-header-row { display:flex; align-items:center; gap:1em; margin-bottom:0.5em; }
+.bond-img { width:50px; height:50px; border-radius:50%; border:2px solid #e94560; }
+.bond-info { flex-grow:1; }
+.bond-name { margin:0; color:#fff; font-size:1.2em; }
+.virtue-name { color:#e94560; font-size:0.9em; }
+.bond-level-tracker { display:flex; flex-direction:column; align-items:center; }
+.bond-level-label { color:#aaa; font-size:0.8em; margin-bottom:0.3em; }
+.bond-level-dots { display:flex; gap:0.3em; }
+.bond-level-checkbox { width:16px; height:16px; cursor:pointer; }
+.bond-current-abilities { margin:0.5em 0; display:flex; flex-direction:column; gap:0.5em; }
+.bond-ability-unlocked { background-color:#1a1a1a; border-radius:4px; padding:0.5em; color:#e0e0e0; }
+.bond-ability-header-row { display:flex; align-items:center; gap:0.5em; margin-bottom:0.3em; }
+.ability-level { background-color:#e94560; color:#fff; padding:0.1em 0.4em; border-radius:3px; font-size:0.75em; flex-shrink:0; }
+.ability-name { flex-grow:1; }
+.ability-permanent-tag { background-color:#5cb85c; color:#fff; padding:0.1em 0.4em; border-radius:3px; font-size:0.7em; flex-shrink:0; }
+.ability-description { margin:0.5em 0; font-size:0.9em; line-height:1.5; padding:0.5em; background-color:#202020; border-radius:4px; min-height:3em; }
+.ability-actions { display:flex; gap:0.3em; margin-top:0.4em; justify-content:flex-end; }
+.ability-actions button { padding:0.2em 0.5em; border:none; border-radius:3px; cursor:pointer; font-size:0.8em; }
+.bond-ability-chat { background-color:#4a90d9; color:#fff; }
+.bond-ability-chat:hover { background-color:#357abd; }
+.bond-strictures-reminder { background-color:#1a1a1a; border-left:3px solid #f39c12; border-radius:4px; padding:0.5em; margin:0.5em 0; color:#f39c12; font-size:0.9em; }
+.bond-strictures-reminder ul { margin:0.3em 0 0 1.5em; padding:0; }
+.bond-strictures-reminder li { margin-bottom:0.2em; }
+.bond-actions { display:flex; gap:0.5em; margin-top:0.5em; }
+.bond-actions button { padding:0.4em 0.8em; border:none; border-radius:4px; cursor:pointer; font-size:0.85em; }
+.open-bond-sheet { background-color:#333; color:#fff; border:none; }
+.open-bond-sheet:hover { background-color:#e94560; }
+.remove-bond { background-color:#1a1a1a; color:#888; border:none; }
+.remove-bond:hover { background-color:#d9534f; color:#fff; }
+.no-bonds { color:#888; font-style:italic; text-align:center; padding:2em; }
+</style>

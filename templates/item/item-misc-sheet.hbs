@@ -1,0 +1,122 @@
+<form class='{{cssClass}} item-kit' autocomplete='off'>
+  <header class='sheet-header'>
+    <img class='profile-img' src='{{item.img}}' data-edit='img' title='{{item.name}}'/>
+    <div class='header-fields'>
+      <h1 class='charname'><input name='name' type='text' value='{{item.name}}' placeholder='Name'/></h1>
+      <div class='misc-stats-row'>
+        <div class='misc-stat'>
+          <label class='resource-label'>Quantity</label>
+          <input type='number' name='system.quantity' value='{{system.quantity}}' min='0' data-dtype='Number'/>
+        </div>
+        <div class='misc-stat'>
+          <label class='resource-label'>Kit Points</label>
+          <input type='number' name='system.kitPoint' value='{{system.kitPoint}}' min='0' data-dtype='Number'/>
+        </div>
+        <div class='misc-stat'>
+          <label class='resource-label'>Scrip</label>
+          <input type='number' name='system.scripValue' value='{{system.scripValue}}' min='0' data-dtype='Number'/>
+        </div>
+        <div class='misc-stat misc-ammo-toggle'>
+          <label class='resource-label'>Ammo</label>
+          <label class='misc-ammo-label' title='When checked this item can be dragged onto a weapon as its ammo stock'>
+            <input type='checkbox' name='system.isAmmo' {{#if system.isAmmo}}checked{{/if}}/>
+            <span class='misc-ammo-text'>Is Ammo</span>
+            {{#if system.isAmmo}}<i class='fas fa-bullseye misc-ammo-icon'></i>{{/if}}
+          </label>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  {{#if system.isAmmo}}
+  <div class='misc-ammo-notice'>
+    <i class='fas fa-info-circle'></i>
+    Drag this item onto a weapon's <strong>Ammo stock</strong> drop zone to link it as that weapon's ammo supply.
+    Each reload consumes rounds equal to the bullets loaded — the weapon cannot load more than the quantity here.
+  </div>
+  {{/if}}
+
+  <nav class='sheet-tabs tabs' data-group='primary'>
+    <a class='item' data-tab='description'>Description</a>
+  </nav>
+
+  <section class='sheet-body'>
+    <div class='tab' data-group='primary' data-tab='description'>
+      {{editor enrichedDescription target='system.description' engine='prosemirror' button=true editable=editable}}
+    </div>
+  </section>
+
+  <style>
+    .misc-stats-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      margin-top: 4px;
+    }
+
+    .misc-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      min-width: 64px;
+    }
+
+    .misc-stat input[type='number'] {
+      width: 64px;
+      background: #1e1e1e;
+      color: #e0e0e0;
+      border: 1px solid #444;
+      border-radius: 3px;
+      padding: 2px 4px;
+      font-size: 0.9em;
+      text-align: center;
+    }
+
+    .misc-ammo-toggle { min-width: auto; }
+
+    .misc-ammo-label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 3px 7px;
+      border: 1px solid #444;
+      border-radius: 3px;
+      background: #1e1e1e;
+      transition: border-color 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+
+    .misc-ammo-label:hover { border-color: #6ab4f5; }
+
+    .misc-ammo-label input[type='checkbox'] {
+      width: 14px;
+      height: 14px;
+      accent-color: #6ab4f5;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    .misc-ammo-text { font-size: 0.85em; color: #aaa; }
+
+    .misc-ammo-icon { color: #6ab4f5; font-size: 0.8em; }
+
+    /* Highlight the whole toggle when ammo is active */
+    input[name='system.isAmmo']:checked ~ .misc-ammo-text { color: #6ab4f5; font-weight: bold; }
+
+    .misc-ammo-notice {
+      margin: 6px 12px 2px;
+      padding: 7px 10px;
+      background: #0d1a2a;
+      border: 1px solid #2a5a8a;
+      border-radius: 4px;
+      font-size: 0.8em;
+      color: #6ab4f5;
+      line-height: 1.5;
+    }
+
+    .misc-ammo-notice i { margin-right: 4px; }
+    .misc-ammo-notice strong { color: #90caf9; }
+  </style>
+</form>

@@ -1,0 +1,81 @@
+<div class="tab" data-group="primary" data-tab="attacks">
+  {{log system}}
+  {{log system.sinType}}
+
+  {{!-- Complications & Threats --}}
+  <div class="two-column">
+    <div class="content-card">
+      <h3 class="card-header"><i class="fas fa-exclamation-triangle"></i> Complications</h3>
+      {{#if (eq system.sinType "redacted")}}
+        <textarea name="system.complications" rows="4" placeholder="Complications...">{{system.complications}}</textarea>
+      {{else}}
+        <p class="npc-text-display">{{system.complications}}</p>
+      {{/if}}
+    </div>
+    <div class="content-card">
+      <h3 class="card-header"><i class="fas fa-skull-crossbones"></i> Threats</h3>
+      {{#if (eq system.sinType "redacted")}}
+        <textarea name="system.threats" rows="4" placeholder="Threats...">{{system.threats}}</textarea>
+      {{else}}
+        <p class="npc-text-display">{{system.threats}}</p>
+      {{/if}}
+    </div>
+  </div>
+
+  {{!-- Attack action buttons --}}
+  <div class="npc-attack-actions">
+    <button type="button" class="stress-roll-btn attack-player">
+      <i class="fas fa-crosshairs"></i> Attack
+    </button>
+    <button type="button" class="stress-roll-btn npc-severe-roll-btn severe-attack">
+      <i class="fas fa-bolt"></i> Severe Attack
+    </button>
+  </div>
+
+  {{!-- Severe Attack Description --}}
+  <div class="content-card">
+    <h3 class="card-header"><i class="fas fa-bolt"></i> Severe Attack</h3>
+    <div class="editor-wrap">
+      {{editor enrichedDescription target='system.severeAttack.description' engine='prosemirror' button=true editable=editable}}
+    </div>
+  </div>
+
+  {{!-- Severe Ability Questions --}}
+  <div class="content-card">
+    <h3 class="card-header">Severe Ability Questions</h3>
+    <div class="list-container" id="severe-ability-questions-section">
+      {{#each system.severeAbilityQuestions}}
+      <div class="list-item npc-question-row">
+        <span class="bullet">Q{{@index}}</span>
+        <textarea name="system.severeAbilityQuestions.{{@index}}"
+                  class="question-input"
+                  rows="2"
+                  placeholder="Question...">{{this}}</textarea>
+        <button type="button" class="remove-btn delete-btn"><i class="fas fa-trash"></i></button>
+      </div>
+      {{/each}}
+    </div>
+    <button type="button" class="add-btn"><i class="fas fa-plus"></i> Add Question</button>
+  </div>
+
+  {{!-- Afflictions --}}
+  <div class="content-card afflictions-card" id="afflictions-section">
+    <h3 class="card-header"><i class="fas fa-biohazard"></i> Afflictions</h3>
+    <div class="npc-afflictions-list afflictions-list">
+      {{#each system.afflictions}}
+      <div class="affliction-item">
+        {{#if (eq ../system.sinType "redacted")}}
+          <input type="text"
+                 class="npc-affliction-input affliction-input"
+                 name="system.afflictions.{{@index}}"
+                 value="{{this}}"/>
+        {{else}}
+          <span class="affliction-name affliction-text">{{this}}</span>
+        {{/if}}
+      </div>
+      {{/each}}
+    </div>
+    <button type="button" class="add-btn roll-btn"><i class="fas fa-dice-d20"></i> Roll Affliction</button>
+  </div>
+
+</div>

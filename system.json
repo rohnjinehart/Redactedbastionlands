@@ -1,0 +1,141 @@
+{
+  "id": "bastionlands",
+  "title": "[Redacted] Bastionlands",
+  "description": "Combines the dice resolution mechanics of Mythic Bastionlands (d20 saves, weapons, attacks, guard/armor) with the character systems of CAIN (agendas, blasphemies, bonds, sin marks, afflictions).",
+  "authors": [
+    {
+      "name": "Community Build"
+    }
+  ],
+  "flags": {
+    "hotReload": {
+      "extensions": ["mjs", "hbs", "json", "css"],
+      "paths": ["lang", "module", "src", "css", "templates"]
+    }
+  },
+  "version": "0.1.0",
+  "compatibility": {
+    "minimum": 11,
+    "verified": "13",
+    "maximum": "13"
+  },
+  "esmodules": ["module/bastionlands.mjs"],
+  "styles": ["css/cain.css", "css/accessibility.css"],
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "packs": [
+    {
+      "name": "items",
+      "label": "Kit and Items",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/items"
+    },
+    {
+      "name": "agendas",
+      "label": "Agendas",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/agenda2"
+    },
+    {
+      "name": "blasphemies",
+      "label": "Blasphemies",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/blasphemy2"
+    },
+    {
+      "name": "tables",
+      "label": "Roll Tables",
+      "system": "bastionlands",
+      "type": "RollTable",
+      "path": "packs/tables"
+    },
+    {
+      "name": "sin-marks",
+      "label": "Sin Marks",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/sin-marks"
+    },
+    {
+      "name": "afflictions",
+      "label": "Afflictions",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/afflictions"
+    },
+    {
+      "name": "opponents",
+      "label": "Opponents & Drifters",
+      "system": "bastionlands",
+      "type": "Actor",
+      "path": "packs/opponents"
+    },
+    {
+      "name": "domains",
+      "label": "Domains",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/domains"
+    },
+    {
+      "name": "virtues",
+      "label": "Virtues (Bonds)",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/virtues"
+    },
+    {
+      "name": "mb-weapons",
+      "label": "Weapons",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/mb-weapons"
+    },
+    {
+      "name": "mb-abilities",
+      "label": "Abilities & Feats",
+      "system": "bastionlands",
+      "type": "Item",
+      "path": "packs/mb-abilities"
+    }
+  ],
+  "packFolders": [],
+  "relationships": {},
+  "documentTypes": {
+    "Actor": {
+      "character": {},
+      "sin": {},
+      "mundane": {},
+      "npc": {},
+      "opponent": {},
+      "human": {},
+      "mook": {}
+    },
+    "Item": {
+      "agendaAbility": {},
+      "blasphemyPower": {},
+      "coat": {},
+      "domain": {},
+      "sinMark": {},
+      "weapon": {},
+      "misc": {}
+    }
+  },
+  "socket": true,
+  "grid": {
+    "distance": 5,
+    "units": "ft"
+  },
+  "gridDistance": 5,
+  "gridUnits": "ft",
+  "primaryTokenAttribute": "body",
+  "secondaryTokenAttribute": "resolve"
+}

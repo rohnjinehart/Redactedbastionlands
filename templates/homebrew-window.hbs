@@ -1,0 +1,2628 @@
+<form class='{{cssClass}} homebrew-background' autocomplete='off'>
+  <header class='sheet-header homebrew-header'>
+    <h1 class="homebrew-title">
+      <i class="fas fa-flask"></i> Homebrew Laboratory
+    </h1>
+    <p class="homebrew-subtitle">Create custom content for your CAIN game</p>
+  </header>
+
+  {{! Sheet Tab Navigation }}
+  <nav class='sheet-tabs tabs homebrew-tabs' data-group='primary'>
+    <a class='item' data-tab='agenda'><i class="fas fa-tasks"></i> Agenda</a>
+    <a class='item' data-tab='blasphemy'><i class="fas fa-book-dead"></i> Blasphemy</a>
+    <a class='item' data-tab='blasphemyPower'><i class="fas fa-hand-sparkles"></i> Powers</a>
+    <a class='item' data-tab='bond'><i class="fas fa-heart"></i> Bond</a>
+    <a class='item' data-tab='bondAbility'><i class="fas fa-handshake"></i> Bond Abilities</a>
+    <a class='item' data-tab='affliction'><i class="fas fa-skull-crossbones"></i> Afflictions</a>
+    <a class='item' data-tab='item'><i class="fas fa-briefcase"></i> Items</a>
+    <a class='item' data-tab='sinMark'><i class="fas fa-exclamation-triangle"></i> Sin Marks</a>
+    <a class='item' data-tab='import-export'><i class="fas fa-file-import"></i> Import/Export</a>
+    <a class='item' data-tab='history'><i class="fas fa-history"></i> History</a>
+    <a class='item' data-tab='settings'><i class="fas fa-cog"></i> Settings</a>
+  </nav>
+
+  {{! Sheet Body }}
+  <section class='sheet-body homebrew-body'>
+
+    {{!-- AGENDA TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='agenda'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Agenda</h2>
+
+        <div class="form-section">
+          <label for="agenda-name">Agenda Name</label>
+          <input type="text" id="agenda-name" class="homebrew-input homebrew-agenda-name-input" placeholder="Enter agenda name..." value="{{agendaOptions.name}}">
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3><i class="fas fa-list-ul"></i> Agenda Tasks</h3>
+            <button type="button" class="btn-add homebrew-new-task"><i class="fas fa-plus"></i> Add Task</button>
+          </div>
+          <ul class="task-list">
+          {{#each agendaOptions.tasks}}
+            <li class='task-item'>
+              <textarea class="homebrew-input homebrew-task-input" data-task-index="{{@index}}" placeholder="Task description..." style="font-weight: {{#if this.isBold}}bold{{else}}normal{{/if}};">{{this.task}}</textarea>
+              <div class="task-controls">
+                <button type="button" class="btn-icon homebrew-toggle-bold" data-task-index="{{@index}}" title="Bold Text">
+                  <i class="fas fa-bold {{#if this.isBold}}active{{/if}}"></i>
+                </button>
+                <button type="button" class="btn-icon btn-delete homebrew-remove-task" data-task-index="{{@index}}" title="Remove">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3><i class="fas fa-star"></i> Agenda Abilities</h3>
+            <button type="button" class="btn-add homebrew-new-ability"><i class="fas fa-plus"></i> Add Ability</button>
+          </div>
+          <ul class="ability-list">
+          {{#each agendaOptions.abilities}}
+            <li class='ability-item'>
+              <input type="text" class="homebrew-input homebrew-ability-name-input" data-ability-index="{{@index}}" placeholder="Ability name..." value="{{this.name}}">
+              <textarea class="homebrew-input homebrew-ability-input" data-ability-index="{{@index}}" placeholder="Ability description (use {<CAT> type modifier} for CAT formatting)...">{{this.abilityDescription}}</textarea>
+              <button type="button" class="btn-icon btn-delete homebrew-remove-ability" data-ability-index="{{@index}}" title="Remove">
+                <i class="fas fa-trash"></i>
+              </button>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+
+        <div class="cat-help">
+          <details>
+            <summary><i class="fas fa-question-circle"></i> CAT Formatting Help</summary>
+            <div class="cat-help-content">
+              <p><strong>Syntax:</strong> <code>{"{<CAT> type modifier}"}</code> or <code>{"{<CAT operation> type modifier}"}</code></p>
+              <p><strong>Valid types:</strong></p>
+              <ul class="cat-type-list">
+                <li><code>people</code> - one, a few, small group, large group, a crowd, a huge crowd, thousands, many thousands</li>
+                <li><code>size</code> - human, heavy furniture, large animal, vehicle, large vehicle, building, large building, skyscraper</li>
+                <li><code>area</code> - personal, a few people, entire room, few rooms, whole building, city block, whole neighborhood, whole town</li>
+                <li><code>range</code> - touch, same room, across the street, down the block, a few blocks away, across town, visual range, over the horizon</li>
+                <li><code>speed</code> - average human, fast human, fast animal, car, train, maglev, airliner, jet fighter</li>
+                <li><code>magnitude</code> - small, noticeable, large, very large, massive, destructive, overwhelming, cataclysmic</li>
+              </ul>
+              <p><strong>Modifier:</strong> A number (0, +1, -1, +2, etc.) that adjusts the CAT level</p>
+              <p><strong>Operations (optional):</strong> <code>/2</code>, <code>*2</code>, <code>+1</code>, <code>-1</code> applied before modifier</p>
+              <p><strong>Examples:</strong></p>
+              <ul class="cat-example-list">
+                <li><code>{"{<CAT> size 0}"}</code> - size at current CAT level</li>
+                <li><code>{"{<CAT> people +1}"}</code> - people at CAT+1</li>
+                <li><code>{"{<CAT/2> area 0}"}</code> - area at half CAT (rounded up)</li>
+              </ul>
+            </div>
+          </details>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-agenda"><i class="fas fa-check-circle"></i> Create Agenda</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- BLASPHEMY TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='blasphemy'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Blasphemy</h2>
+
+        <div class="form-section">
+          <label for="blasphemy-name">Blasphemy Name</label>
+          <input type="text" id="blasphemy-name" class="homebrew-input homebrew-blasphemy-name-input" placeholder="Enter blasphemy name..." value="{{blasphemyOptions.name}}">
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3><i class="fas fa-hand-sparkles"></i> Powers</h3>
+            <button type="button" class="btn-add homebrew-new-power"><i class="fas fa-plus"></i> Add Power</button>
+          </div>
+          <ul class="power-list">
+          {{#each blasphemyOptions.powers}}
+            <li class='power-item'>
+              <div class="power-header-row">
+                <input type="text" class="homebrew-input homebrew-power-name-input" data-power-index="{{@index}}" placeholder="Power name..." value="{{this.name}}">
+                <label class="checkbox-label">
+                  <input type="checkbox" class="homebrew-power-passive-input" data-power-index="{{@index}}" {{#if this.isPassive}}checked{{/if}}>
+                  <span>Passive</span>
+                </label>
+                <button type="button" class="btn-icon btn-delete homebrew-remove-power" data-power-index="{{@index}}" title="Remove">
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+              <div class="power-details">
+                <div class="psyche-burst-options">
+                  <label class="psyche-label">Psyche Burst:</label>
+                  <label class="checkbox-label small">
+                    <input type="checkbox" class="homebrew-power-psyche-cost" data-power-index="{{@index}}" {{#if this.psycheBurstCost}}checked{{/if}}>
+                    <span><i class="fas fa-circle"></i> Uses</span>
+                  </label>
+                  <label class="checkbox-label small">
+                    <input type="checkbox" class="homebrew-power-psyche-no-cost" data-power-index="{{@index}}" {{#if this.psycheBurstNoCost}}checked{{/if}}>
+                    <span><i class="fas fa-times"></i> No-Cost Mode</span>
+                  </label>
+                  <label class="checkbox-label small">
+                    <input type="checkbox" class="homebrew-power-psyche-mult" data-power-index="{{@index}}" {{#if this.psycheBurstMultCost}}checked{{/if}}>
+                    <span><i class="fas fa-plus"></i> Multiple</span>
+                  </label>
+                </div>
+                <input type="text" class="homebrew-input homebrew-power-tags-input" data-power-index="{{@index}}" placeholder="Keywords (comma-separated)..." value="{{this.keywords}}">
+                <textarea class="homebrew-input homebrew-power-input" data-power-index="{{@index}}" placeholder="Power description (use CAT formatting)...">{{this.powerDescription}}</textarea>
+              </div>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+
+        <div class="cat-help">
+          <details>
+            <summary><i class="fas fa-question-circle"></i> CAT Formatting Help</summary>
+            <div class="cat-help-content">
+              <p><strong>Syntax:</strong> <code>{"{<CAT> type modifier}"}</code> or <code>{"{<CAT operation> type modifier}"}</code></p>
+              <p><strong>Valid types:</strong> <code>people</code>, <code>size</code>, <code>area</code>, <code>range</code>, <code>speed</code>, <code>magnitude</code></p>
+              <p><strong>Examples:</strong> <code>{"{<CAT> size 0}"}</code>, <code>{"{<CAT> people +1}"}</code>, <code>{"{<CAT/2> area 0}"}</code></p>
+            </div>
+          </details>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-blasphemy"><i class="fas fa-check-circle"></i> Create Blasphemy</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- BLASPHEMY POWER TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='blasphemyPower'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Standalone Power</h2>
+
+        <div class="form-section">
+          <label for="power-standalone-name">Power Name</label>
+          <input type="text" id="power-standalone-name" class="homebrew-input" placeholder="Enter power name...">
+        </div>
+
+        <div class="form-section">
+          <label class="checkbox-label">
+            <input type="checkbox" id="power-standalone-passive">
+            <span>Is Passive Power</span>
+          </label>
+        </div>
+
+        <div class="form-section">
+          <label>Psyche Burst Options</label>
+          <div class="psyche-burst-options">
+            <label class="checkbox-label">
+              <input type="checkbox" id="power-standalone-psyche-cost">
+              <span><i class="fas fa-circle"></i> Uses Psyche Burst</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="power-standalone-psyche-no-cost">
+              <span><i class="fas fa-times"></i> Has No-Psyche Mode</span>
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="power-standalone-psyche-mult">
+              <span><i class="fas fa-plus"></i> Can Use Multiple Bursts</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <label for="power-standalone-keywords">Keywords</label>
+          <input type="text" id="power-standalone-keywords" class="homebrew-input" placeholder="Keywords (comma-separated)...">
+        </div>
+
+        <div class="form-section">
+          <label for="power-standalone-description">Power Description</label>
+          <textarea id="power-standalone-description" class="homebrew-input" rows="6" placeholder="Power description (use CAT formatting)..."></textarea>
+        </div>
+
+        <div class="cat-help">
+          <details>
+            <summary><i class="fas fa-question-circle"></i> CAT Formatting Help</summary>
+            <div class="cat-help-content">
+              <p><strong>Syntax:</strong> <code>{"{<CAT> type modifier}"}</code> or <code>{"{<CAT operation> type modifier}"}</code></p>
+              <p><strong>Valid types:</strong> <code>people</code>, <code>size</code>, <code>area</code>, <code>range</code>, <code>speed</code>, <code>magnitude</code></p>
+              <p><strong>Examples:</strong> <code>{"{<CAT> size 0}"}</code>, <code>{"{<CAT> people +1}"}</code>, <code>{"{<CAT/2> area 0}"}</code></p>
+            </div>
+          </details>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-standalone-power"><i class="fas fa-check-circle"></i> Create Power</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- BOND TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='bond'>
+      <div class="creation-panel bond-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Bond (Virtue)</h2>
+
+        <div class="form-section">
+          <label for="bond-name">Bond Name</label>
+          <input type="text" id="bond-name" class="homebrew-input" placeholder="Enter bond name (e.g., 'Bond of Justice')...">
+        </div>
+
+        <div class="form-section">
+          <label for="bond-virtue-name">Virtue Name</label>
+          <input type="text" id="bond-virtue-name" class="homebrew-input" placeholder="Enter virtue name (e.g., 'Justice')...">
+        </div>
+
+        <div class="form-section">
+          <label for="bond-high-blasphemy-level">High Blasphemy Unlock Level</label>
+          <select id="bond-high-blasphemy-level" class="homebrew-input">
+            <option value="0">Level 0 - Immediate</option>
+            <option value="1" selected>Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+          </select>
+          <p class="settings-hint">The bond level at which the associated High Blasphemy is unlocked.</p>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3><i class="fas fa-scroll"></i> Strictures</h3>
+            <button type="button" class="btn-add homebrew-new-stricture"><i class="fas fa-plus"></i> Add Stricture</button>
+          </div>
+          <p class="settings-hint">Rules that must be followed while bonding with this virtue. Breaking a stricture costs 1d3 stress.</p>
+          <ul class="stricture-list" id="bond-stricture-list">
+          {{#each bondOptions.strictures}}
+            <li class='stricture-item'>
+              <span class="stricture-number"></span>
+              <textarea class="homebrew-input homebrew-stricture-input" data-stricture-index="{{@index}}" placeholder="Enter stricture (e.g., 'Never lie', 'Always help the innocent')...">{{this}}</textarea>
+              <button type="button" class="btn-icon btn-delete homebrew-remove-stricture" data-stricture-index="{{@index}}" title="Remove Stricture">
+                <i class="fas fa-trash"></i>
+              </button>
+            </li>
+          {{else}}
+            <li class="stricture-empty-state">
+              <i class="fas fa-scroll"></i>
+              <span>No strictures added yet. Click "Add Stricture" to define the rules of this bond.</span>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+
+        <div class="bond-info">
+          <details>
+            <summary><i class="fas fa-info-circle"></i> Bond System Info</summary>
+            <div class="bond-info-content">
+              <p><strong>Bonds</strong> represent a character's connection to a Virtue. As bonds level up (0-3), characters gain abilities.</p>
+              <p><strong>Strictures</strong> are rules that must be followed while bonding. Breaking them costs 1d3 stress.</p>
+              <p><strong>High Blasphemies</strong> are special powers gained at the specified bond level - they're "free" and don't increase XP cap.</p>
+              <p><strong>Bond Abilities</strong> should be created separately using the Bond Abilities tab, then linked to this bond.</p>
+            </div>
+          </details>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-bond"><i class="fas fa-check-circle"></i> Create Bond</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- BOND ABILITY TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='bondAbility'>
+      <div class="creation-panel bond-ability-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Bond Ability</h2>
+
+        <div class="form-section">
+          <label for="bond-ability-name">Ability Name</label>
+          <input type="text" id="bond-ability-name" class="homebrew-input" placeholder="Enter ability name...">
+        </div>
+
+        <div class="form-section">
+          <label for="bond-ability-level">Bond Level Required</label>
+          <select id="bond-ability-level" class="homebrew-input">
+            <option value="0">Level 0 - Immediate</option>
+            <option value="1">Level 1 - 1 Sin Hunted</option>
+            <option value="2">Level 2 - 2 Sins Hunted</option>
+            <option value="3">Level 3 - 3 Sins Hunted (Max)</option>
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="bond-ability-description">Ability Description</label>
+          <textarea id="bond-ability-description" class="homebrew-input" rows="6" placeholder="Describe what this ability does..."></textarea>
+        </div>
+
+        <div class="form-section">
+          <label class="checkbox-label">
+            <input type="checkbox" id="bond-ability-permanent" checked>
+            <span>Permanent Ability</span>
+          </label>
+          <p class="settings-hint">Permanent abilities persist even when not actively bonding with this virtue.</p>
+        </div>
+
+        <div class="form-section psyche-section">
+          <h3><i class="fas fa-brain"></i> Psyche Burst Requirements</h3>
+          <label class="checkbox-label">
+            <input type="checkbox" id="bond-ability-requires-psyche">
+            <span>Requires Psyche Burst</span>
+          </label>
+          <p class="settings-hint">Check this if the ability requires spending Psyche Bursts to activate.</p>
+
+          <div class="psyche-cost-field" id="bond-ability-psyche-cost-field" style="display: none;">
+            <label for="bond-ability-psyche-cost">Psyche Burst Cost</label>
+            <input type="number" id="bond-ability-psyche-cost" class="homebrew-input" value="1" min="0">
+            <p class="settings-hint">Set to 0 for "all remaining Psyche Bursts (minimum 1)"</p>
+          </div>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-bond-ability"><i class="fas fa-check-circle"></i> Create Bond Ability</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- AFFLICTION TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='affliction'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Affliction</h2>
+
+        <div class="form-section">
+          <label for="affliction-name">Affliction Name</label>
+          <input type="text" id="affliction-name" class="homebrew-input" placeholder="Enter affliction name...">
+        </div>
+
+        <div class="form-section">
+          <label for="affliction-description">Description</label>
+          <textarea id="affliction-description" class="homebrew-input" rows="6" placeholder="Affliction description (use CAT formatting)..."></textarea>
+        </div>
+
+        <div class="cat-help">
+          <details>
+            <summary><i class="fas fa-question-circle"></i> CAT Formatting Help</summary>
+            <div class="cat-help-content">
+              <p><strong>Syntax:</strong> <code>{"{<CAT> type modifier}"}</code> or <code>{"{<CAT operation> type modifier}"}</code></p>
+              <p><strong>Valid types:</strong> <code>people</code>, <code>size</code>, <code>area</code>, <code>range</code>, <code>speed</code>, <code>magnitude</code></p>
+              <p><strong>Examples:</strong> <code>{"{<CAT> size 0}"}</code>, <code>{"{<CAT> people +1}"}</code>, <code>{"{<CAT/2> area 0}"}</code></p>
+            </div>
+          </details>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-affliction"><i class="fas fa-check-circle"></i> Create Affliction</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- ITEM TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='item'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Item</h2>
+
+        <div class="form-section">
+          <label for="item-name">Item Name</label>
+          <input type="text" id="item-name" class="homebrew-input" placeholder="Enter item name...">
+        </div>
+
+        <div class="form-section">
+          <label for="item-description">Description</label>
+          <textarea id="item-description" class="homebrew-input" rows="6" placeholder="Item description..."></textarea>
+        </div>
+
+        <div class="form-section">
+          <label for="item-quantity">Quantity</label>
+          <input type="number" id="item-quantity" class="homebrew-input" min="1" value="1">
+        </div>
+
+        <div class="form-section">
+          <label for="item-weight">Weight</label>
+          <input type="number" id="item-weight" class="homebrew-input" min="0" step="0.1" value="0">
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-item"><i class="fas fa-check-circle"></i> Create Item</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- SIN MARK TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='sinMark'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-plus-circle"></i> Create Sin Mark</h2>
+
+        <div class="form-section">
+          <label for="sinmark-name">Sin Mark Name</label>
+          <input type="text" id="sinmark-name" class="homebrew-input" placeholder="Enter sin mark name...">
+        </div>
+
+        <div class="form-section">
+          <label for="sinmark-description">Description</label>
+          <textarea id="sinmark-description" class="homebrew-input" rows="4" placeholder="Sin mark description..."></textarea>
+        </div>
+
+        <div class="form-section">
+          <div class="section-header">
+            <h3><i class="fas fa-star"></i> Sin Mark Abilities</h3>
+            <button type="button" class="btn-add homebrew-new-sinmark-ability"><i class="fas fa-plus"></i> Add Ability</button>
+          </div>
+          <ul class="ability-list">
+          {{#each sinMarkOptions.abilities}}
+            <li class='ability-item'>
+              <input type="text" class="homebrew-input homebrew-sinmark-ability-name-input" data-sinmark-ability-index="{{@index}}" placeholder="Ability name..." value="{{this.name}}">
+              <textarea class="homebrew-input homebrew-sinmark-ability-description-input" data-sinmark-ability-index="{{@index}}" placeholder="Ability description (use {<CAT> type modifier} for CAT formatting)...">{{this.abilityDescription}}</textarea>
+              <button type="button" class="btn-icon btn-delete homebrew-remove-sinmark-ability" data-sinmark-ability-index="{{@index}}" title="Remove">
+                <i class="fas fa-trash"></i>
+              </button>
+            </li>
+          {{/each}}
+          </ul>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-submit-sinmark"><i class="fas fa-check-circle"></i> Create Sin Mark</button>
+        </footer>
+      </div>
+    </div>
+
+    {{!-- IMPORT/EXPORT TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='import-export'>
+      <div class="import-export-panel">
+        <h2><i class="fas fa-exchange-alt"></i> Import & Export Homebrew Content</h2>
+
+        <div class="import-export-grid">
+          {{!-- EXPORT SECTION --}}
+          <div class="export-section">
+            <div class="section-card">
+              <h3><i class="fas fa-file-export"></i> Export Content</h3>
+              <p class="section-description">Export individual items or all your homebrew content to share with others or backup your work.</p>
+
+              <div class="export-options">
+                <div class="form-section">
+                  <label>Select Items to Export:</label>
+                  <div class="export-checklist">
+                    <label class="checkbox-label">
+                      <input type="checkbox" id="export-select-all" class="export-checkbox">
+                      <span><strong>Select All</strong></span>
+                    </label>
+                  </div>
+                  <div class="export-items-list" id="export-items-list">
+                    <p class="empty-state"><i class="fas fa-inbox"></i> No items to export. Create some homebrew content first!</p>
+                  </div>
+                </div>
+
+                <button type="button" class="btn-primary homebrew-export-selected">
+                  <i class="fas fa-download"></i> Export Selected Items
+                </button>
+                <button type="button" class="btn-secondary homebrew-export-all-content">
+                  <i class="fas fa-file-archive"></i> Export All Content
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {{!-- IMPORT SECTION --}}
+          <div class="import-section">
+            <div class="section-card">
+              <h3><i class="fas fa-file-import"></i> Import Content</h3>
+              <p class="section-description">Import homebrew content from JSON files created by you or shared by others.</p>
+
+              <div class="import-instructions">
+                <h4><i class="fas fa-info-circle"></i> How to Import:</h4>
+                <ol>
+                  <li>Click the "Choose File" button below</li>
+                  <li>Select a valid homebrew JSON file from your computer</li>
+                  <li>Review the items to be imported</li>
+                  <li>Click "Import" to add them to your world</li>
+                </ol>
+
+                <div class="import-warning">
+                  <i class="fas fa-exclamation-triangle"></i>
+                  <strong>Note:</strong> Imported items will be added to your world. If an item with the same name exists, it will be overwritten.
+                </div>
+              </div>
+
+              <div class="import-controls">
+                <input type="file" id="homebrew-import-file" accept=".json" style="display: none;">
+                <button type="button" class="btn-primary homebrew-choose-file">
+                  <i class="fas fa-folder-open"></i> Choose File
+                </button>
+                <div class="selected-file" id="selected-file-name">
+                  <i class="fas fa-file"></i> No file selected
+                </div>
+              </div>
+
+              <div class="import-preview" id="import-preview" style="display: none;">
+                <h4>Preview:</h4>
+                <div class="import-preview-content" id="import-preview-content"></div>
+                <div class="form-section">
+                  <label for="import-target-folder">Import To Folder:</label>
+                  <select id="import-target-folder" class="homebrew-input">
+                    <option value="">Use Settings Default</option>
+                    {{#each availableFolders}}
+                      <option value="{{this.id}}">{{this.name}}</option>
+                    {{/each}}
+                  </select>
+                  <p class="settings-hint">Choose where imported items should be saved. Leave as default to use your configured folder settings.</p>
+                </div>
+                <button type="button" class="btn-primary homebrew-confirm-import">
+                  <i class="fas fa-check-circle"></i> Import Content
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {{!-- REVERSE IMPORT SECTION --}}
+        <div class="reverse-import-section">
+          <div class="section-card">
+            <h3><i class="fas fa-undo-alt"></i> Load Existing Item for Editing</h3>
+            <p class="section-description">Select an existing item from your world to load into the editor for modification or duplication.</p>
+
+            <div class="reverse-import-controls">
+              <div class="form-section">
+                <label for="reverse-import-type">Item Type:</label>
+                <select id="reverse-import-type" class="homebrew-input">
+                  <option value="">-- Select Type --</option>
+                  <option value="agenda">Agenda</option>
+                  <option value="blasphemy">Blasphemy</option>
+                  <option value="blasphemyPower">Blasphemy Power</option>
+                  <option value="bond">Bond</option>
+                  <option value="bondAbility">Bond Ability</option>
+                  <option value="affliction">Affliction</option>
+                  <option value="item">Item</option>
+                  <option value="sinMark">Sin Mark</option>
+                </select>
+              </div>
+
+              <div class="form-section">
+                <label for="reverse-import-item">Select Item:</label>
+                <select id="reverse-import-item" class="homebrew-input" disabled>
+                  <option value="">-- Select Type First --</option>
+                </select>
+              </div>
+
+              <button type="button" class="btn-primary homebrew-load-item" disabled>
+                <i class="fas fa-edit"></i> Load into Editor
+              </button>
+            </div>
+
+            <div class="reverse-import-info">
+              <i class="fas fa-info-circle"></i>
+              <span>This will load the item's data into the corresponding creation tab. You can then modify it and save as a new item or update the original.</span>
+            </div>
+          </div>
+        </div>
+
+        {{!-- EXPORT FORMAT GUIDE --}}
+        <div class="format-guide">
+          <details>
+            <summary><i class="fas fa-book"></i> Export Format Guide</summary>
+            <div class="guide-content">
+              <p><strong>File Format:</strong> All exports are in JSON format for easy sharing and version control.</p>
+              <p><strong>File Naming:</strong> Exported files are automatically named with timestamps (e.g., <code>cain-homebrew-2024-01-15.json</code>)</p>
+              <p><strong>Compatibility:</strong> Exported files can be imported into any CAIN world using this system.</p>
+              <p><strong>Sharing:</strong> Share your JSON files with other GMs via Discord, Google Drive, or any file-sharing service.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    {{!-- HISTORY TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='history'>
+      <div class="history-panel">
+        <div class="history-header">
+          <h2><i class="fas fa-history"></i> Creation History</h2>
+          <div class="history-controls">
+            <button type="button" class="btn-secondary homebrew-export-all"><i class="fas fa-file-export"></i> Export All</button>
+            <button type="button" class="btn-secondary homebrew-import"><i class="fas fa-file-import"></i> Import</button>
+            <button type="button" class="btn-secondary homebrew-clear-history"><i class="fas fa-trash-alt"></i> Clear History</button>
+          </div>
+        </div>
+
+        <div class="filter-bar">
+          <label>Filter by type:</label>
+          <select id="history-filter" class="homebrew-input">
+            <option value="all">All Types</option>
+            <option value="agenda">Agendas</option>
+            <option value="blasphemy">Blasphemies</option>
+            <option value="blasphemyPower">Powers</option>
+            <option value="bond">Bonds</option>
+            <option value="bondAbility">Bond Abilities</option>
+            <option value="affliction">Afflictions</option>
+            <option value="item">Items</option>
+            <option value="sinMark">Sin Marks</option>
+          </select>
+        </div>
+
+        <div class="history-list" id="history-list">
+          <p class="empty-state"><i class="fas fa-inbox"></i> No items created yet. Start creating homebrew content!</p>
+        </div>
+      </div>
+    </div>
+
+    {{!-- SETTINGS TAB --}}
+    <div class='tab homebrew-tab' data-group='primary' data-tab='settings'>
+      <div class="creation-panel">
+        <h2><i class="fas fa-cog"></i> Homebrew Settings</h2>
+
+        <div class="form-section">
+          <h3><i class="fas fa-folder"></i> Default Save Locations</h3>
+          <p class="settings-description">Choose where to save each type of homebrew item. Items will be organized in subfolders within the selected folder.</p>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-agenda-folder">Agenda Folder</label>
+          <select id="settings-agenda-folder" class="homebrew-input settings-folder-select" data-item-type="agenda">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.agendaFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-blasphemy-folder">Blasphemy Folder</label>
+          <select id="settings-blasphemy-folder" class="homebrew-input settings-folder-select" data-item-type="blasphemy">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.blasphemyFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-power-folder">Blasphemy Powers Folder</label>
+          <select id="settings-power-folder" class="homebrew-input settings-folder-select" data-item-type="blasphemyPower">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.powerFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-affliction-folder">Afflictions Folder</label>
+          <select id="settings-affliction-folder" class="homebrew-input settings-folder-select" data-item-type="affliction">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.afflictionFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-item-folder">Items Folder</label>
+          <select id="settings-item-folder" class="homebrew-input settings-folder-select" data-item-type="item">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.itemFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <label for="settings-sinmark-folder">Sin Marks Folder</label>
+          <select id="settings-sinmark-folder" class="homebrew-input settings-folder-select" data-item-type="sinMark">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.sinMarkFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+        </div>
+
+        <div class="form-section">
+          <h3><i class="fas fa-file-import"></i> Import Settings</h3>
+          <label for="settings-import-folder">Default Import Folder</label>
+          <select id="settings-import-folder" class="homebrew-input settings-folder-select" data-item-type="import">
+            <option value="">Homebrew (Default)</option>
+            {{#each availableFolders}}
+              <option value="{{this.id}}" {{#if (eq this.id ../settings.importFolder)}}selected{{/if}}>{{this.name}}</option>
+            {{/each}}
+          </select>
+          <p class="settings-hint">This folder will be used when importing items, unless you select a different folder during import.</p>
+        </div>
+
+        <footer class="form-footer">
+          <button type="button" class="btn-primary homebrew-save-settings"><i class="fas fa-save"></i> Save Settings</button>
+          <button type="button" class="btn-secondary homebrew-reset-settings"><i class="fas fa-undo"></i> Reset to Defaults</button>
+        </footer>
+      </div>
+    </div>
+
+  </section>
+</form>
+
+<style>
+
+/* ==================== RESET GLOBAL .cain STYLES ==================== */
+/* Override conflicting styles from cain.css that affect homebrew window */
+.cain.homebrew-background .sheet-header {
+  display: block !important;
+  flex-direction: unset !important;
+  flex: unset !important;
+  overflow: visible !important;
+  flex-wrap: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+  margin-bottom: 0 !important;
+  min-height: unset !important;
+}
+
+.cain.homebrew-background .sheet-header .profile-img {
+  flex: unset !important;
+  width: auto !important;
+  height: auto !important;
+  margin-right: 0 !important;
+  object-fit: unset !important;
+  align-self: unset !important;
+}
+
+.cain.homebrew-background .sheet-header .header-fields {
+  flex: unset !important;
+  display: block !important;
+  flex-direction: unset !important;
+  justify-content: unset !important;
+  align-items: unset !important;
+  min-height: unset !important;
+}
+
+.cain.homebrew-background .sheet-tabs {
+  flex: unset !important;
+}
+
+.cain.homebrew-background .sheet-body,
+.cain.homebrew-background .sheet-body .tab,
+.cain.homebrew-background .sheet-body .tab .editor {
+  height: auto !important;
+}
+
+.cain.homebrew-background .tabs .item {
+  /* Reset any global .item styles */
+  line-height: normal !important;
+}
+
+/* Reset form element styles */
+.cain.homebrew-background input[type="text"],
+.cain.homebrew-background input[type="number"],
+.cain.homebrew-background textarea,
+.cain.homebrew-background select {
+  /* Allow homebrew-specific styles to take precedence */
+  background-color: unset !important;
+  color: unset !important;
+  border: unset !important;
+  padding: unset !important;
+  font-size: unset !important;
+  height: unset !important;
+  line-height: unset !important;
+}
+
+.cain.homebrew-background label {
+  font-weight: unset !important;
+  color: unset !important;
+  text-transform: unset !important;
+  font-size: unset !important;
+  margin-bottom: unset !important;
+  display: unset !important;
+}
+
+.cain.homebrew-background select option {
+  background-color: unset !important;
+  color: unset !important;
+  padding: unset !important;
+}
+
+/* ==================== CSS CUSTOM PROPERTIES ==================== */
+:root {
+  --agenda-color: #00bcd4;
+  --blasphemy-color: #7c4dff;
+  --power-color: #ff9800;
+  --bond-color: #e91e63;
+  --bond-ability-color: #9c27b0;
+  --affliction-color: #d32f2f;
+  --item-color: #4caf50;
+  --sinmark-color: #ffc107;
+  --history-color: #607d8b;
+
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #242424;
+  --bg-tertiary: #2e2e2e;
+  --bg-elevated: #323232;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-muted: #808080;
+
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-medium: rgba(255, 255, 255, 0.15);
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+}
+
+/* ==================== GLOBAL STYLES ==================== */
+.homebrew-background {
+  background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+  color: var(--text-primary);
+  padding: var(--spacing-md);
+  border-radius: 12px;
+  width: 100%;
+  max-width: none;
+  margin: auto;
+  font-family: "Courier New", Courier, monospace;
+  border: 1px solid var(--border-medium);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+
+.homebrew-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background: radial-gradient(ellipse at top, rgba(124, 77, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.homebrew-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== HEADER ==================== */
+.homebrew-header {
+  text-align: center;
+  padding: 0;
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.15) 0%, rgba(124, 77, 255, 0.05) 100%);
+  border-radius: 8px 8px 0 0;
+  margin: calc(var(--spacing-md) * -1) calc(var(--spacing-md) * -1) 0 calc(var(--spacing-md) * -1);
+  border-bottom: 1px solid var(--border-medium);
+  position: relative;
+  overflow: hidden;
+  display: block !important;
+  flex-direction: unset !important;
+}
+
+.homebrew-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--blasphemy-color) 50%, transparent 100%);
+}
+
+.homebrew-title {
+  font-size: 1.75em;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0 0 var(--spacing-sm) 0;
+  padding: var(--spacing-md) 0 0 0;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 2px 8px rgba(124, 77, 255, 0.3);
+}
+
+.homebrew-title i {
+  color: var(--blasphemy-color);
+  margin-right: var(--spacing-sm);
+  font-size: 1em;
+  filter: drop-shadow(0 0 8px rgba(124, 77, 255, 0.5));
+  animation: flask-glow 3s ease-in-out infinite;
+}
+
+@keyframes flask-glow {
+  0%, 100% { filter: drop-shadow(0 0 8px rgba(124, 77, 255, 0.5)); }
+  50% { filter: drop-shadow(0 0 16px rgba(124, 77, 255, 0.8)); }
+}
+
+.homebrew-subtitle {
+  color: var(--text-secondary);
+  font-size: 0.9em;
+  margin: 0;
+  padding: 0 0 var(--spacing-md) 0;
+  font-family: "Courier New", Courier, monospace;
+  letter-spacing: 1px;
+  font-weight: 400;
+  text-align: center;
+}
+
+/* ==================== NAVIGATION TABS ==================== */
+.homebrew-tabs {
+  display: flex;
+  justify-content: center;
+  margin: 0 calc(var(--spacing-md) * -1) var(--spacing-md) calc(var(--spacing-md) * -1);
+  padding: 0 var(--spacing-md);
+  background: var(--bg-secondary);
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.homebrew-tabs .item {
+  flex: 0 0 auto;
+  text-align: center;
+  padding: var(--spacing-sm) var(--spacing-md);
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-bottom: 3px solid transparent;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85em;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  border-radius: 6px 6px 0 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.homebrew-tabs .item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: currentColor;
+  transform: scaleX(0);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.homebrew-tabs .item i {
+  font-size: 1.1em;
+  transition: transform 0.3s ease;
+}
+
+.homebrew-tabs .item:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+  transform: translateY(-2px);
+}
+
+.homebrew-tabs .item:hover i {
+  transform: scale(1.1);
+}
+
+.homebrew-tabs .item:focus {
+  outline: 2px solid var(--blasphemy-color);
+  outline-offset: 2px;
+}
+
+.homebrew-tabs .item.active {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.homebrew-tabs .item.active::before {
+  transform: scaleX(1);
+}
+
+/* Color-coded tabs */
+.homebrew-tabs .item[data-tab="agenda"].active { color: var(--agenda-color); }
+.homebrew-tabs .item[data-tab="blasphemy"].active { color: var(--blasphemy-color); }
+.homebrew-tabs .item[data-tab="blasphemyPower"].active { color: var(--power-color); }
+.homebrew-tabs .item[data-tab="bond"].active { color: var(--bond-color); }
+.homebrew-tabs .item[data-tab="bondAbility"].active { color: var(--bond-ability-color); }
+.homebrew-tabs .item[data-tab="affliction"].active { color: var(--affliction-color); }
+.homebrew-tabs .item[data-tab="item"].active { color: var(--item-color); }
+.homebrew-tabs .item[data-tab="sinMark"].active { color: var(--sinmark-color); }
+.homebrew-tabs .item[data-tab="import-export"].active { color: var(--item-color); }
+.homebrew-tabs .item[data-tab="history"].active { color: var(--history-color); }
+
+/* ==================== TAB CONTENT ==================== */
+.homebrew-body {
+  position: relative;
+  padding: var(--spacing-md);
+  background: transparent;
+  min-height: 500px;
+}
+
+.homebrew-tab {
+  display: none;
+  animation: fadeIn 0.4s ease-out;
+}
+
+.homebrew-tab.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==================== PANELS ==================== */
+.creation-panel, .history-panel {
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: var(--spacing-xl);
+  box-shadow: var(--shadow-md), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  position: relative;
+  overflow: visible;
+}
+
+.creation-panel::before, .history-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--blasphemy-color) 0%, transparent 100%);
+}
+
+.creation-panel h2 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5em;
+  font-weight: 700;
+  margin: 0 0 var(--spacing-lg) 0;
+  padding-bottom: var(--spacing-sm);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+}
+
+.creation-panel h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60%;
+  height: 3px;
+  background: linear-gradient(90deg, currentColor 0%, transparent 100%);
+}
+
+.creation-panel h2 i {
+  margin-right: var(--spacing-sm);
+  color: var(--blasphemy-color);
+  font-size: 1.1em;
+}
+
+/* ==================== FORM SECTIONS ==================== */
+.form-section {
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-subtle);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+.form-section:hover {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: var(--border-medium);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-section label {
+  display: block;
+  color: #ffffff !important;
+  font-weight: 500;
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.875em;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.form-section label.required::after {
+  content: ' *';
+  color: var(--affliction-color);
+  font-weight: 700;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.08) 0%, rgba(124, 77, 255, 0.03) 100%);
+  border-left: 3px solid var(--blasphemy-color);
+  border-radius: 0 4px 4px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  overflow: visible;
+}
+
+.section-header h3 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  flex-shrink: 1;
+  min-width: 0;
+}
+
+.section-header h3 i {
+  color: var(--blasphemy-color);
+  font-size: 1.1em;
+  filter: drop-shadow(0 0 4px rgba(124, 77, 255, 0.5));
+}
+
+.section-header .btn-add {
+  padding: 6px 12px;
+  font-size: 0.85em;
+  white-space: nowrap;
+  flex-shrink: 0;
+  min-width: fit-content;
+  max-width: fit-content;
+}
+
+/* ==================== INPUTS ==================== */
+.homebrew-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff !important;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-size: 0.95em;
+  font-family: "Courier New", Courier, monospace;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.homebrew-input:hover {
+  border-color: rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.4);
+}
+
+.homebrew-input:focus {
+  outline: none;
+  border-color: var(--blasphemy-color);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2), inset 0 1px 2px rgba(0, 0, 0, 0.2);
+  transform: translateY(-1px);
+}
+
+.homebrew-input::placeholder {
+  color: var(--text-muted);
+  opacity: 0.6;
+  font-style: italic;
+}
+
+textarea.homebrew-input {
+  resize: vertical;
+  min-height: 100px;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.6;
+  font-size: 1em;
+}
+
+input[type="number"].homebrew-input {
+  width: auto;
+  min-width: 100px;
+}
+
+/* Select dropdown specific styling */
+select.homebrew-input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--border-medium) !important;
+  border-radius: 6px;
+  padding: 10px 12px !important;
+  font-size: 0.95em !important;
+  font-family: "Courier New", Courier, monospace;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23ffffff' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 12px center !important;
+  padding-right: 36px !important;
+  height: auto !important;
+  line-height: 1.4 !important;
+}
+
+select.homebrew-input:hover {
+  border-color: rgba(255, 255, 255, 0.25) !important;
+  background-color: rgba(0, 0, 0, 0.4) !important;
+}
+
+select.homebrew-input:focus {
+  outline: none;
+  border-color: var(--blasphemy-color) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.2);
+}
+
+select.homebrew-input option {
+  background-color: #1a1a1a !important;
+  color: #ffffff !important;
+  padding: 10px !important;
+}
+
+/* ==================== BUTTONS ==================== */
+.btn-primary, .btn-secondary, .btn-add, .btn-icon {
+  position: relative;
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-tertiary) 100%);
+  color: var(--text-primary);
+  border: 1px solid var(--border-medium);
+  border-radius: 4px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.75em;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.btn-primary::before, .btn-secondary::before, .btn-add::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-primary:hover, .btn-secondary:hover, .btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.btn-primary:hover::before, .btn-secondary:hover::before, .btn-add:hover::before {
+  opacity: 1;
+}
+
+.btn-primary:active, .btn-secondary:active, .btn-add:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:focus, .btn-secondary:focus, .btn-add:focus, .btn-icon:focus {
+  outline: 2px solid var(--blasphemy-color);
+  outline-offset: 2px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--blasphemy-color) 0%, #6a3fd6 100%);
+  border-color: var(--blasphemy-color);
+  box-shadow: 0 2px 8px rgba(124, 77, 255, 0.3), 0 0 20px rgba(124, 77, 255, 0.1);
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 16px rgba(124, 77, 255, 0.4), 0 0 30px rgba(124, 77, 255, 0.2);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--bg-elevated) 0%, var(--bg-tertiary) 100%);
+  border-color: var(--border-medium);
+}
+
+.btn-add {
+  padding: 6px 12px;
+  font-size: 0.85em;
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.2) 0%, rgba(0, 188, 212, 0.1) 100%);
+  border: 1px dashed var(--agenda-color);
+  color: var(--agenda-color);
+  text-transform: none;
+  letter-spacing: 0.3px;
+}
+
+.btn-add i {
+  font-size: 0.9em;
+  margin-right: 4px;
+}
+
+.btn-add:hover {
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.3) 0%, rgba(0, 188, 212, 0.15) 100%);
+  border-style: solid;
+  transform: translateY(-1px);
+}
+
+.btn-icon {
+  padding: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--border-subtle);
+  min-width: 28px;
+  min-height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+.btn-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: var(--border-medium);
+  transform: scale(1.1) rotate(5deg);
+}
+
+.btn-icon:active {
+  transform: scale(0.95);
+}
+
+.btn-icon i {
+  font-size: 0.9em;
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, var(--affliction-color) 0%, #a32626 100%);
+  border-color: var(--affliction-color);
+  box-shadow: 0 2px 8px rgba(211, 47, 47, 0.3);
+}
+
+.btn-delete:hover {
+  box-shadow: 0 4px 16px rgba(211, 47, 47, 0.4);
+  background: linear-gradient(135deg, #e53935 0%, var(--affliction-color) 100%);
+}
+
+.btn-delete:active {
+  background: linear-gradient(135deg, #a32626 0%, #8b1f1f 100%);
+}
+
+.btn-primary:disabled, .btn-secondary:disabled, .btn-add:disabled, .btn-icon:disabled {
+  background: var(--bg-secondary);
+  border-color: var(--border-subtle);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.4;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-icon i.active {
+  color: var(--text-primary);
+}
+
+/* ==================== LISTS ==================== */
+.task-list, .ability-list, .power-list, .sinmark-ability-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.task-item, .ability-item, .power-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--agenda-color);
+  border-radius: 6px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-sm);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.task-item:hover, .ability-item:hover, .power-item:hover {
+  border-color: var(--border-medium);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateX(4px);
+}
+
+.task-item:focus-within, .ability-item:focus-within, .power-item:focus-within {
+  border-left-color: var(--blasphemy-color);
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.2), 0 0 0 3px rgba(124, 77, 255, 0.1);
+}
+
+.task-item {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-start;
+}
+
+.task-input {
+  flex: 1;
+}
+
+.task-controls {
+  display: flex;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+}
+
+.ability-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  border-left-color: var(--agenda-color);
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.ability-item .homebrew-input.ability-name-input {
+  font-weight: 600;
+  font-size: 1.05em;
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.1) 0%, rgba(0, 188, 212, 0.05) 100%);
+  border-color: rgba(0, 188, 212, 0.4);
+}
+
+.ability-item .homebrew-input.ability-description-input {
+  min-height: 80px;
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(0, 188, 212, 0.2);
+}
+
+.ability-item .btn-delete {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  min-width: 24px;
+  min-height: 24px;
+  width: auto;
+  padding: 4px;
+  font-size: 0.7em;
+}
+
+.ability-item .btn-delete i {
+  font-size: 0.85em;
+}
+
+.power-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  border-left-color: var(--power-color);
+  position: relative;
+  padding-bottom: 40px;
+}
+
+.power-header-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: center;
+}
+
+.power-name-input {
+  flex: 1;
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.power-details {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+  border: 1px solid var(--border-subtle);
+}
+
+.power-item .btn-delete {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  min-width: 24px;
+  min-height: 24px;
+  width: auto;
+  padding: 4px;
+  font-size: 0.7em;
+}
+
+.power-item .btn-delete i {
+  font-size: 0.85em;
+}
+
+/* ==================== CHECKBOXES ==================== */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  cursor: pointer;
+  color: var(--text-primary);
+  font-weight: 400;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.875em;
+  padding: var(--spacing-sm);
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.checkbox-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+  accent-color: var(--blasphemy-color);
+  flex-shrink: 0;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.checkbox-label input[type="checkbox"]:focus {
+  outline: 2px solid var(--blasphemy-color);
+  outline-offset: 2px;
+}
+
+.checkbox-label input[type="checkbox"]:checked {
+  transform: scale(1.1);
+}
+
+.checkbox-label.small {
+  font-size: 0.8em;
+  padding: 6px;
+}
+
+.psyche-burst-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.1) 0%, rgba(124, 77, 255, 0.05) 100%);
+  border: 1px solid rgba(124, 77, 255, 0.3);
+  border-radius: 8px;
+  box-shadow: inset 0 0 20px rgba(124, 77, 255, 0.05);
+}
+
+.psyche-label {
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-right: var(--spacing-sm);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.875em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--blasphemy-color);
+}
+
+/* ==================== CAT HELP ==================== */
+.cat-help {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(0, 188, 212, 0.08) 0%, rgba(0, 188, 212, 0.03) 100%);
+  border: 1px solid rgba(0, 188, 212, 0.3);
+  border-left: 4px solid var(--agenda-color);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.cat-help details summary {
+  cursor: pointer;
+  color: var(--agenda-color);
+  font-weight: 600;
+  font-size: 0.875em;
+  padding: var(--spacing-sm);
+  transition: all 0.3s ease;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.cat-help details summary:hover {
+  color: var(--text-primary);
+  background: rgba(0, 188, 212, 0.1);
+}
+
+.cat-help details summary:focus {
+  outline: 2px solid var(--agenda-color);
+  outline-offset: 2px;
+}
+
+.cat-help details summary i {
+  font-size: 1em;
+  transition: transform 0.3s ease;
+}
+
+.cat-help details[open] summary i {
+  transform: rotate(90deg);
+}
+
+.cat-help p {
+  margin: var(--spacing-sm) 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.85em;
+  font-family: "Courier New", Courier, monospace;
+  padding-left: var(--spacing-lg);
+}
+
+.cat-help code {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--agenda-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid rgba(0, 188, 212, 0.3);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* ==================== FOOTER ==================== */
+.form-footer {
+  text-align: center;
+  margin-top: var(--spacing-lg);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--border-subtle);
+  position: relative;
+}
+
+.form-footer::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent 0%, var(--blasphemy-color) 50%, transparent 100%);
+}
+
+.form-footer .btn-primary {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  font-size: 0.95em;
+  font-weight: 600;
+}
+
+/* ==================== IMPORT/EXPORT TAB ==================== */
+.import-export-panel h2 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-lg) 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-medium);
+}
+
+.import-export-panel h2 i {
+  color: var(--item-color);
+}
+
+.import-export-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.section-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.section-card h3 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: 0 0 var(--spacing-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.section-card h3 i {
+  color: var(--item-color);
+}
+
+.section-card h4 {
+  color: var(--text-primary);
+  font-size: 1em;
+  margin: var(--spacing-md) 0 var(--spacing-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.section-card h4 i {
+  color: var(--agenda-color);
+}
+
+.section-description {
+  color: var(--text-secondary);
+  margin: 0 0 var(--spacing-lg) 0;
+  line-height: 1.6;
+  font-size: 0.9em;
+}
+
+.export-options, .import-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.export-checklist {
+  margin-bottom: var(--spacing-sm);
+}
+
+.export-items-list {
+  max-height: 300px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.export-items-list .checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs);
+  margin: var(--spacing-xs) 0;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+.export-items-list .checkbox-label:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.import-instructions {
+  background: rgba(0, 188, 212, 0.05);
+  border: 1px solid rgba(0, 188, 212, 0.2);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.import-instructions ol {
+  margin: var(--spacing-sm) 0;
+  padding-left: var(--spacing-lg);
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.import-instructions ol li {
+  margin: var(--spacing-xs) 0;
+}
+
+.import-warning {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  background: rgba(255, 193, 7, 0.1);
+  border: 1px solid rgba(255, 193, 7, 0.3);
+  border-radius: 6px;
+  padding: var(--spacing-sm);
+  margin-top: var(--spacing-md);
+  color: var(--sinmark-color);
+  font-size: 0.85em;
+}
+
+.import-warning i {
+  flex-shrink: 0;
+  font-size: 1.2em;
+  margin-top: 2px;
+}
+
+.selected-file {
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: var(--spacing-sm);
+  color: var(--text-muted);
+  font-size: 0.85em;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.selected-file.has-file {
+  color: var(--text-primary);
+  border-color: var(--item-color);
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.import-preview {
+  margin-top: var(--spacing-md);
+  background: rgba(0, 0, 0, 0.3);
+  border: 1px solid var(--border-medium);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+}
+
+.import-preview h4 {
+  margin-top: 0;
+}
+
+.import-preview-content {
+  max-height: 200px;
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid var(--border-subtle);
+  border-radius: 4px;
+  padding: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+  font-size: 0.85em;
+  color: var(--text-secondary);
+}
+
+/* ==================== REVERSE IMPORT SECTION ==================== */
+.reverse-import-section {
+  margin-top: var(--spacing-lg);
+}
+
+.reverse-import-section .section-card h3 i {
+  color: #9c27b0;
+}
+
+.reverse-import-controls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.reverse-import-controls .form-section {
+  margin-bottom: 0;
+}
+
+.reverse-import-info {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-sm);
+  background: rgba(156, 39, 176, 0.1);
+  border: 1px solid rgba(156, 39, 176, 0.3);
+  border-radius: 4px;
+  padding: var(--spacing-md);
+  margin-top: var(--spacing-md);
+  color: var(--text-secondary);
+  font-size: 0.85em;
+}
+
+.reverse-import-info i {
+  color: #9c27b0;
+  font-size: 1.1em;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.format-guide {
+  background: linear-gradient(135deg, rgba(124, 77, 255, 0.08) 0%, rgba(124, 77, 255, 0.03) 100%);
+  border: 1px solid rgba(124, 77, 255, 0.2);
+  border-radius: 8px;
+  padding: var(--spacing-md);
+}
+
+.format-guide details summary {
+  cursor: pointer;
+  color: var(--blasphemy-color);
+  font-weight: 600;
+  font-size: 0.9em;
+  padding: var(--spacing-sm);
+  transition: all 0.3s ease;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.format-guide details summary:hover {
+  color: var(--text-primary);
+  background: rgba(124, 77, 255, 0.1);
+}
+
+.format-guide details summary i {
+  font-size: 1em;
+  transition: transform 0.3s ease;
+}
+
+.format-guide details[open] summary i {
+  transform: rotate(90deg);
+}
+
+.guide-content {
+  padding: var(--spacing-md) var(--spacing-sm);
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.85em;
+}
+
+.guide-content p {
+  margin: var(--spacing-sm) 0;
+}
+
+.guide-content code {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--item-color);
+  padding: 2px 6px;
+  border-radius: 3px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid rgba(76, 175, 80, 0.3);
+  font-size: 0.9em;
+}
+
+/* ==================== HISTORY TAB ==================== */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md) 0;
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--border-medium);
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.history-header h2 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5em;
+  font-weight: 600;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  white-space: nowrap;
+}
+
+.history-header h2 i {
+  color: var(--history-color);
+}
+
+.history-controls {
+  display: flex;
+  gap: var(--spacing-sm);
+  flex-wrap: wrap;
+}
+
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 8px;
+}
+
+.filter-bar label {
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin: 0;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.875em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.filter-bar select {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 10px 16px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+  line-height: 1.5;
+  min-height: 42px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-bar select option {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 10px 16px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+}
+
+.filter-bar select:hover {
+  border-color: var(--border-medium);
+  background: #252525;
+}
+
+.filter-bar select:focus {
+  outline: none;
+  border-color: var(--history-color);
+  box-shadow: 0 0 0 3px rgba(96, 125, 139, 0.2);
+  background: #252525;
+}
+
+.history-list {
+  min-height: 300px;
+}
+
+.empty-state {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.95em;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  font-style: italic;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.empty-state i {
+  font-size: 3em;
+  display: block;
+  margin-bottom: var(--spacing-md);
+  opacity: 0.2;
+  color: var(--history-color);
+}
+
+.history-item {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--history-color);
+  border-radius: 6px;
+  padding: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  gap: var(--spacing-md);
+}
+
+.history-item:hover {
+  border-color: var(--border-medium);
+  border-left-color: var(--history-color);
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  transform: translateX(4px);
+}
+
+.history-item:focus-within {
+  border-left-color: var(--blasphemy-color);
+  box-shadow: 0 4px 12px rgba(124, 77, 255, 0.2), 0 0 0 3px rgba(124, 77, 255, 0.1);
+}
+
+.history-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(96, 125, 139, 0.2) 0%, rgba(96, 125, 139, 0.1) 100%);
+  border-radius: 8px;
+  border: 1px solid var(--border-subtle);
+}
+
+.history-item-icon i {
+  font-size: 1.2em;
+  color: var(--history-color);
+}
+
+.history-item-info {
+  flex: 1;
+}
+
+.history-item-meta {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  margin-top: var(--spacing-xs);
+}
+
+.history-item-actions {
+  display: flex;
+  gap: var(--spacing-xs);
+}
+
+.history-item-name {
+  font-weight: 600;
+  font-size: 1em;
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-xs);
+  font-family: "Courier New", Courier, monospace;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.history-item-type {
+  display: inline-block;
+  padding: 2px var(--spacing-sm);
+  background: rgba(96, 125, 139, 0.2);
+  color: var(--history-color);
+  font-size: 0.75em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-family: "Courier New", Courier, monospace;
+  border-radius: 4px;
+  font-weight: 600;
+  border: 1px solid rgba(96, 125, 139, 0.3);
+}
+
+.history-item-date {
+  color: var(--text-muted);
+  font-size: 0.75em;
+  font-family: "Courier New", Courier, monospace;
+}
+
+/* ==================== RESPONSIVE ==================== */
+@media (max-width: 768px) {
+  .homebrew-tabs {
+    justify-content: flex-start;
+  }
+
+  .homebrew-tabs .item {
+    flex: 1 1 auto;
+  }
+
+  .power-header-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .import-export-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .history-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-md);
+  }
+
+  .history-controls {
+    justify-content: center;
+  }
+
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-bar select {
+    max-width: none;
+  }
+
+  .section-header {
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .section-header .btn-add {
+    margin-left: auto;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+  }
+
+  .ability-item .btn-delete,
+  .task-item .btn-delete,
+  .power-item .btn-delete {
+    width: auto !important;
+  }
+}
+
+/* ==================== SCROLLBAR ==================== */
+.homebrew-background::-webkit-scrollbar {
+  width: 12px;
+}
+
+.homebrew-background::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+  border-radius: 6px;
+}
+
+.homebrew-background::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--blasphemy-color) 0%, rgba(124, 77, 255, 0.5) 100%);
+  border-radius: 6px;
+  border: 2px solid var(--bg-primary);
+}
+
+.homebrew-background::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #8a5aff 0%, var(--blasphemy-color) 100%);
+}
+
+/* ==================== SETTINGS TAB ==================== */
+.settings-description {
+  color: var(--text-secondary);
+  font-size: 0.95em;
+  margin-bottom: var(--spacing-md);
+  line-height: 1.5;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.settings-hint {
+  color: var(--text-muted);
+  font-size: 0.85em;
+  margin-top: var(--spacing-xs);
+  font-style: italic;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.settings-folder-select {
+  width: 100%;
+  background: #1a1a1a;
+  color: #e0e0e0;
+  border: 1px solid var(--border-medium);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+  line-height: 1.5;
+  min-height: 44px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.settings-folder-select:hover {
+  border-color: var(--blasphemy-color);
+  background: #222;
+}
+
+.settings-folder-select:focus {
+  border-color: var(--blasphemy-color);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(124, 77, 255, 0.2);
+}
+
+.settings-folder-select option {
+  background: #1a1a1a;
+  color: #e0e0e0;
+  padding: 12px 16px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+.creation-panel h3 {
+  color: var(--text-primary);
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.2em;
+  font-weight: 600;
+  margin: var(--spacing-lg) 0 var(--spacing-md) 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.creation-panel h3 i {
+  color: var(--blasphemy-color);
+}
+
+/* ==================== BOND PANELS ==================== */
+.bond-panel::before,
+.bond-ability-panel::before {
+  background: linear-gradient(180deg, var(--bond-color) 0%, transparent 100%);
+}
+
+.bond-panel h2 i,
+.bond-ability-panel h2 i {
+  color: var(--bond-color);
+}
+
+.bond-panel .section-header,
+.bond-ability-panel .section-header {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.08) 0%, rgba(233, 30, 99, 0.03) 100%);
+  border-left-color: var(--bond-color);
+}
+
+.bond-panel .section-header h3 i,
+.bond-ability-panel .section-header h3 i {
+  color: var(--bond-color);
+  filter: drop-shadow(0 0 4px rgba(233, 30, 99, 0.5));
+}
+
+.bond-panel .btn-add,
+.bond-ability-panel .btn-add {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.2) 0%, rgba(233, 30, 99, 0.1) 100%);
+  border-color: var(--bond-color);
+  color: var(--bond-color);
+}
+
+.bond-panel .btn-add:hover,
+.bond-ability-panel .btn-add:hover {
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.3) 0%, rgba(233, 30, 99, 0.15) 100%);
+}
+
+/* Stricture list styles */
+.stricture-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 8px 0 0 0 !important;
+  counter-reset: stricture-counter;
+}
+
+.stricture-item {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 12px !important;
+  align-items: center !important;
+  background: #2a2a35 !important;
+  border: 1px solid rgba(233, 30, 99, 0.4) !important;
+  border-left: 3px solid #e91e63 !important;
+  border-radius: 6px !important;
+  padding: 12px !important;
+  margin-bottom: 8px !important;
+  box-shadow: none !important;
+  counter-increment: stricture-counter;
+  position: relative !important;
+}
+
+.stricture-item:hover {
+  background: #32323d !important;
+  border-color: #e91e63 !important;
+}
+
+.stricture-item::before,
+.stricture-item::after {
+  display: none !important;
+}
+
+.stricture-item textarea.homebrew-input {
+  flex: 1 1 auto !important;
+  min-height: 40px !important;
+  max-height: 120px !important;
+  background: rgba(0, 0, 0, 0.4) !important;
+  border: 1px solid rgba(233, 30, 99, 0.3) !important;
+  border-radius: 4px !important;
+  padding: 8px 10px !important;
+  color: #ffffff !important;
+  font-size: 0.9em !important;
+  resize: vertical !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.stricture-item textarea.homebrew-input:focus {
+  border-color: #e91e63 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2) !important;
+  transform: none !important;
+}
+
+.stricture-item .btn-icon.btn-delete {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 32px !important;
+  min-height: 32px !important;
+  background: rgba(244, 67, 54, 0.15) !important;
+  border: 1px solid rgba(244, 67, 54, 0.4) !important;
+  border-radius: 4px !important;
+  color: #f44336 !important;
+  padding: 0 !important;
+  cursor: pointer !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+.stricture-item .btn-icon.btn-delete:hover {
+  background: rgba(244, 67, 54, 0.3) !important;
+  border-color: #f44336 !important;
+}
+
+.stricture-item .btn-icon.btn-delete i {
+  font-size: 0.85em !important;
+}
+
+.stricture-number {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 26px !important;
+  height: 26px !important;
+  min-width: 26px !important;
+  background: #e91e63 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 0.8em !important;
+  border-radius: 50% !important;
+  flex-shrink: 0 !important;
+  box-shadow: none !important;
+}
+
+.stricture-number::before {
+  content: counter(stricture-counter);
+}
+
+.stricture-empty-state {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 20px !important;
+  background: rgba(233, 30, 99, 0.05) !important;
+  border: 1px dashed rgba(233, 30, 99, 0.3) !important;
+  border-radius: 8px !important;
+  color: #888 !important;
+  font-style: italic !important;
+  justify-content: center !important;
+}
+
+.stricture-empty-state i {
+  font-size: 1.3em !important;
+  color: #e91e63 !important;
+  opacity: 0.5 !important;
+}
+
+/* Bond info section */
+.bond-info {
+  margin-top: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: linear-gradient(135deg, rgba(233, 30, 99, 0.08) 0%, rgba(233, 30, 99, 0.03) 100%);
+  border: 1px solid rgba(233, 30, 99, 0.3);
+  border-left: 4px solid var(--bond-color);
+  border-radius: 8px;
+}
+
+.bond-info details summary {
+  cursor: pointer;
+  color: var(--bond-color);
+  font-weight: 600;
+  font-size: 0.875em;
+  padding: var(--spacing-sm);
+  transition: all 0.3s ease;
+  font-family: "Courier New", Courier, monospace;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.bond-info details summary:hover {
+  color: var(--text-primary);
+  background: rgba(233, 30, 99, 0.1);
+}
+
+.bond-info-content {
+  padding: var(--spacing-md) var(--spacing-sm);
+}
+
+.bond-info-content p {
+  margin: var(--spacing-sm) 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.85em;
+  font-family: "Courier New", Courier, monospace;
+  padding-left: var(--spacing-lg);
+}
+
+/* Psyche section in bond ability panel */
+.psyche-section {
+  background: linear-gradient(135deg, rgba(156, 39, 176, 0.1) 0%, rgba(156, 39, 176, 0.05) 100%);
+  border: 1px solid rgba(156, 39, 176, 0.3);
+  border-radius: 8px;
+}
+
+.psyche-section h3 {
+  color: var(--bond-ability-color);
+  margin-top: 0;
+}
+
+.psyche-section h3 i {
+  color: var(--bond-ability-color);
+}
+
+.psyche-cost-field {
+  margin-top: var(--spacing-md);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid rgba(156, 39, 176, 0.2);
+}
+
+/* CAT help content styling */
+.cat-help-content {
+  padding: var(--spacing-md) var(--spacing-sm);
+}
+
+.cat-help-content p {
+  margin: var(--spacing-sm) 0;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-size: 0.85em;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.cat-type-list,
+.cat-example-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--spacing-sm) 0 var(--spacing-md) var(--spacing-lg);
+}
+
+.cat-type-list li,
+.cat-example-list li {
+  color: var(--text-secondary);
+  font-size: 0.85em;
+  padding: var(--spacing-xs) 0;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.cat-type-list li:last-child,
+.cat-example-list li:last-child {
+  border-bottom: none;
+}
+
+.cat-type-list code,
+.cat-example-list code {
+  background: rgba(0, 0, 0, 0.4);
+  color: var(--agenda-color);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'Courier New', Courier, monospace;
+  border: 1px solid rgba(0, 188, 212, 0.3);
+  font-size: 0.9em;
+  font-weight: 600;
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.fade-in {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.slide-up {
+  animation: slideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+</style>

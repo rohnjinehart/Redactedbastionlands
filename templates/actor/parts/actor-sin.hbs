@@ -1,0 +1,303 @@
+<div class="sin-overflow sin-page-drop-target">
+  <h3>Sin Overflow</h3>
+  <div class="sin-overflow-controls" style="display: flex; flex-direction: column; align-items: center;">
+    <div id="sinOverflow-checkboxes" style="display: flex; justify-content: center; margin-top: 10px;">
+      {{#range 0 system.sinOverflow.max}}
+        {{#if (lt index ../system.sinOverflow.value)}}
+          <img 
+            class="sinOverflow-icon sinOverflow-icon-anim sin-icon-anim-{{mod (CainOffset index ../sheetConstants.SINVisualOffset) 7}}"
+            data-sin="{{CainOffset index 1}}"
+            data-tooltip="Right click to clear"
+            />
+        {{else}}
+          <img 
+            class="sinOverflow-icon"
+            src="systems/bastionlands/assets/sheet/CAIN-sin-no.png"
+            data-sin="{{CainOffset index 1}}"
+            data-tooltip="Right click to clear"
+            />
+
+        {{/if}}
+      {{/range}}
+    </div>
+    <h3 style="margin-bottom: 1rem;">{{system.sinOverflow.value}} / {{system.sinOverflow.max}}</h3>
+    <div style="display: flex; justify-content: center; margin-top: 10px; margin-bottom: 20px">
+      <label class="resource-label rollable roll-sin flexlarge align-left mob-psycho-label" 
+             data-label="{{localize 'SHEET.SIN.ROLLSIN'}}" 
+             style="text-align: center;">
+        {{localize 'SHEET.SIN.ROLLSIN'}}
+      </label>
+      <label class="resource-label rollable align-left mob-psycho-label" 
+             data-roll="1d6+{{system.currentSinMarks.length}}" 
+             data-label="{{localize 'SHEET.SIN.ROLLRESIST'}}" 
+             style="text-align: center; flex: 2;">
+        {{localize 'SHEET.SIN.ROLLRESIST'}}
+      </label>
+    </div>
+<label for="sinOverflow-max">{{localize 'SHEET.SIN.ADJUSTMAX'}}</label>
+  <div id="sin-overflow" style="display: flex; align-items: center;">
+    <button type="button" class="sin-overflow-decrease">-</button>
+    <button type="button" class="sin-overflow-increase">+</button>
+  </div>
+
+  {{#if hasDemonTrait}}
+  <label class="demon-trait-toggle" title="When active, sin gain spends scrip first (1:1). Remaining sin after scrip is exhausted is gained normally.">
+    <input type="checkbox" name="system.demonTraitActive" {{#if system.demonTraitActive}}checked{{/if}}/>
+    <span class="demon-trait-label">Demon — spend scrip instead of sin</span>
+    <span class="demon-trait-scrip">({{system.scrip}} scrip)</span>
+  </label>
+  {{/if}}
+</div>
+</div>
+
+<div class="sin-marks sin-page-drop-target">
+  <h3>Sin Marks</h3>
+  <input 
+  class="sin-mark-description-input" 
+  name="system.sinMarkDescription" 
+  placeholder="Add a description of what your marks look like..." 
+  value="{{system.sinMarkDescription}}"> 
+   {{#if currentSinMarkData.length}}
+    <ul>
+      {{#each currentSinMarkData}}
+        <li class="sin-mark-over-size">
+          <div class="sin-mark-header">
+            <h1>{{this.sinMark.name}}</h1>
+            <button 
+              data-markid="{{this.id}}" 
+              class="delete-sin-mark">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+          <ul>
+            {{#each this.abilities}}
+              <li class="flexrow sin-mark sin-mark-body-part">
+                <div class="flexcol sin-mark-content" style="flex: 1 1 0;">
+                  <h3>{{this.name}}</h3>
+                  <p class="sin-mark-description">{{this.description}}</p>
+                </div>
+                <div class="flexcol remove-sin-mark-div">
+                  <button 
+                    data-markid="{{@../id}}" 
+                    data-abilityid="{{this.id}}" 
+                    class="remove-sin-mark-ability-button remove-sin-mark-button">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+          <button class="evolve-mark-button" data-markindex="{{@index}}"><h2 style="position: relative; background: inherit; border: none;"><span class="glitch" data-text="SUCCUMB"> EVOLVE </span></h2></button>
+        </li>
+      {{/each}}
+    </ul>
+  {{else}}
+    <p class="no-sin-marks">
+      A sin mark is a physical manifestation of wild power overflow on your body, evidence of your partial transformation into a sin. You can find a list of sin marks, their effects, and their table, on pg. 86. A sin mark is a new, permanent part of your character. It grants new, beneficial power, and grants you new abilities.
+    </p>
+  {{/if}}
+  <div class="button-row">
+    <button class="roll-sin-mark">Roll Sin Marks</button>
+    <button class="clear-sin-marks">Clear Sin Marks</button>
+  </div>
+</div>
+
+<style>
+.sin-mark {
+    display: flex;
+    position: relative;
+    align-items: center;
+    border: 2px solid black;
+    padding-right: 0px;
+    margin-top: 20px 0;
+    margin-bottom: 20px 0;
+    margin-left: 10px 0;
+    margin-right: 0px 0;
+    background-color: #404040;
+    color: aliceblue;
+}
+
+.sin-mark-content {
+    line-height: 1.4;
+    padding-right: 2px; /* Add padding to give space between content and trashcan */
+}
+
+.sin-mark-description {
+    margin: 5px 0;
+    color:aliceblue;
+    line-height: 1.4;
+}
+
+.remove-sin-mark-div {
+    padding-right: 0px;
+    padding-left: 0 0px;
+    margin: 0;
+    padding-top: 0 0px;
+    display: flex;
+    height: 100%;
+    border-radius: 0px;
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+    max-width: 30px; /* Optional: Set a max-width if you want to prevent it from becoming too large */
+}
+
+.remove-sin-mark-button {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    width: 30px;
+    margin: 0;
+    background-color: #606060;
+    border-radius: 0px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border: 0px solid white;
+} 
+
+.remove-sin-mark-button i {
+    color: white;
+    font-size: 16px;
+    text-align: center; /* Center the icon within its container */
+}
+
+.evolve-mark-button {
+  border: 2px solid #660066;;
+  background-color: #cc33ff;
+  border-radius: 8px;
+}
+
+.roll-sin-mark {
+  border: 2px solid #660066;;
+  background-color: #cc33ff;
+  border-radius: 8px;
+}
+
+.clear-sin-marks {
+  border: 2px solid #660066;;
+  background-color: #cc33ff;
+  border-radius: 8px;
+}
+
+.delete-sin-2 {
+  border: 2px solid #660066;;
+  background-color: #cc33ff;
+  border-radius: 8px;
+}
+
+.sin-mark-over-size {
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.sin-overflow-controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#sinOverflow-checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.sinOverflow-icon {
+  margin: 2px;
+}
+
+.demon-trait-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  padding: 5px 10px;
+  border: 1px solid #4a1a4a;
+  border-radius: 6px;
+  background: #1a0a1a;
+  transition: border-color 0.2s, background 0.2s;
+}
+.demon-trait-toggle:hover { border-color: #cc33ff; background: #220a22; }
+.demon-trait-toggle input[type="checkbox"] {
+  accent-color: #cc33ff;
+  width: 14px; height: 14px;
+  cursor: pointer; flex-shrink: 0;
+}
+.demon-trait-label { font-size: 0.82em; color: #cc33ff; font-weight: bold; }
+.demon-trait-scrip { font-size: 0.75em; color: #888; margin-left: 2px; }
+
+.sin-overflow-decrease,
+.sin-overflow-increase {
+  background-color: #cc33ff;
+  border: 2px solid #660066;
+  border-radius: 8px;
+  color: white;
+  font-size: 16px;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 0 5px;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.sin-overflow-decrease:hover,
+.sin-overflow-increase:hover {
+  background-color: #a329cc;
+  transform: scale(1.1);
+}
+
+.sin-overflow-decrease:active,
+.sin-overflow-increase:active {
+  background-color: #801999;
+  transform: scale(0.9);
+}
+
+.sin-mark-description-input {
+  width: 100%;
+  height: 50px;
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #555; /* Subtle border for a dark theme */
+  border-radius: 6px; /* Slightly rounded corners */
+  background-color: #2b2b2b; /* Dark background for the input field */
+  color: #e0e0e0; /* Light text color for readability */
+  font-size: 14px;
+  font-family: 'Arial', sans-serif; /* Clean font for better readability */
+  resize: vertical; /* Allow vertical resizing */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5); /* Subtle inner shadow for depth */
+  transition: border-color 0.3s, box-shadow 0.3s; /* Smooth transition for hover/focus effects */
+}
+
+.sin-mark-description-input:focus {
+  border-color: #cc33ff; /* Highlight border on focus */
+  box-shadow: 0 0 5px #cc33ff; /* Glow effect on focus */
+  outline: none; /* Remove default outline */
+}
+
+.sin-mark-description-input::placeholder {
+  color: #888; /* Subtle placeholder text color */
+  font-style: italic; /* Italicized placeholder for differentiation */
+}
+
+.sin-mark-header {
+  display: flex;
+  align-items: center; /* Align the button vertically with the text */
+  justify-content: space-between; /* Add spacing between the title and the button */
+}
+
+.sin-mark-header h1 {
+  margin: 0;
+  flex-grow: 1; /* Allow the title to take up available space */
+}
+
+.delete-sin-mark {
+  width: 7%;
+  margin-bottom: 4px;
+}
+
+</style>

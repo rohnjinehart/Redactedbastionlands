@@ -1,0 +1,1729 @@
+<form class="{{cssClass}} opponent flexcol opponent-theme {{system.opponentType}}" autocomplete="off">
+    {{!-- Header --}}
+    <header class="opponent-header">
+        {{!-- Top Row: Portrait, Name, Type --}}
+        <div class="header-top">
+            <div class="portrait-frame">
+                <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+            </div>
+            <div class="name-section">
+                <input class="name-input" name="name" type="text" value="{{actor.name}}" placeholder="Opponent Name"/>
+                <div class="type-line">
+                    <select name="system.opponentType" class="type-select">
+                        <option value="ogre" {{#if (eq system.opponentType "ogre")}}selected{{/if}}>Ogre</option>
+                        <option value="idol" {{#if (eq system.opponentType "idol")}}selected{{/if}}>Idol</option>
+                        <option value="hound" {{#if (eq system.opponentType "hound")}}selected{{/if}}>Hound</option>
+                        <option value="centipede" {{#if (eq system.opponentType "centipede")}}selected{{/if}}>Centipede</option>
+                        <option value="toad" {{#if (eq system.opponentType "toad")}}selected{{/if}}>Toad</option>
+                        <option value="lord" {{#if (eq system.opponentType "lord")}}selected{{/if}}>Lord</option>
+                        <option value="mother" {{#if (eq system.opponentType "mother")}}selected{{/if}}>Mother</option>
+                        <option value="imago" {{#if (eq system.opponentType "imago")}}selected{{/if}}>Imago</option>
+                        <option value="other" {{#if (eq system.opponentType "other")}}selected{{/if}}>Other</option>
+                    </select>
+                    <span class="type-divider">|</span>
+                    <span class="range-label">Form:</span>
+                    <select name="system.range" class="range-select">
+                        <option value="severed" {{#if (eq system.range "severed")}}selected{{/if}}>I - Severed</option>
+                        <option value="fused" {{#if (eq system.range "fused")}}selected{{/if}}>II - Fused</option>
+                        <option value="bound" {{#if (eq system.range "bound")}}selected{{/if}}>III - Bound</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    {{!-- Vitals & Combat --}}
+    <div class="content-card opp-vitals-card">
+      <div class="opp-vitals-grid">
+
+        {{!-- COL 1: Vitals & Saves --}}
+        <div class="opp-vitals-col">
+          <h3 class="card-header opp-col-header">Vitals &amp; Saves</h3>
+          <p class="notes-hint">Roll d20 ≤ value to succeed.</p>
+
+          <div class="opp-virtue-row">
+            <button type="button" class="rb-save-btn opp-save-btn" data-virtue="body">Body</button>
+            <div class="opp-virtue-inputs">
+              <input type="number" name="system.body.value"   value="{{system.body.value}}"   min="0" data-dtype="Number"/>
+              <span>/</span>
+              <input type="number" name="system.body.max"     value="{{system.body.max}}"     data-dtype="Number"/>
+            </div>
+            <progress class="opp-virtue-progress" value="{{system.body.value}}" max="{{system.body.max}}"></progress>
+          </div>
+
+          <div class="opp-virtue-row">
+            <button type="button" class="rb-save-btn opp-save-btn" data-virtue="spirit">Psyche</button>
+            <div class="opp-virtue-inputs">
+              <input type="number" name="system.spirit.value" value="{{system.spirit.value}}" min="0" data-dtype="Number"/>
+              <span>/</span>
+              <input type="number" name="system.spirit.max"   value="{{system.spirit.max}}"   data-dtype="Number"/>
+            </div>
+            <progress class="opp-virtue-progress" value="{{system.spirit.value}}" max="{{system.spirit.max}}"></progress>
+          </div>
+
+          <div class="opp-virtue-row">
+            <button type="button" class="rb-save-btn opp-save-btn" data-virtue="virtue">Virtue</button>
+            <div class="opp-virtue-inputs">
+              <input type="number" name="system.virtue.value" value="{{system.virtue.value}}" min="0" data-dtype="Number"/>
+              <span>/</span>
+              <input type="number" name="system.virtue.max"   value="{{system.virtue.max}}"   data-dtype="Number"/>
+            </div>
+            <progress class="opp-virtue-progress" value="{{system.virtue.value}}" max="{{system.virtue.max}}"></progress>
+          </div>
+
+          <div class="opp-virtue-row">
+            <button type="button" class="rb-save-btn opp-save-btn" data-virtue="grace">Grace</button>
+            <div class="opp-virtue-inputs">
+              <input type="number" name="system.grace.value"  value="{{system.grace.value}}"  min="0" data-dtype="Number"/>
+              <span>/</span>
+              <input type="number" name="system.grace.max"    value="{{system.grace.max}}"    data-dtype="Number"/>
+            </div>
+            <progress class="opp-virtue-progress" value="{{system.grace.value}}" max="{{system.grace.max}}"></progress>
+          </div>
+
+          <div class="opp-divider"></div>
+
+          <div class="opp-virtue-row">
+            <span class="opp-save-btn opp-resolve-label">Resolve</span>
+            <div class="opp-virtue-inputs">
+              <input type="number" name="system.resolve.value" value="{{system.resolve.value}}" min="0" data-dtype="Number"/>
+              <span>/</span>
+              <input type="number" name="system.resolve.max"   value="{{system.resolve.max}}"   data-dtype="Number"/>
+            </div>
+            <progress class="opp-virtue-progress opp-resolve-progress"
+                      value="{{system.resolve.value}}"
+                      max="{{#if (gt system.resolve.max 0)}}{{system.resolve.max}}{{else}}1{{/if}}"></progress>
+          </div>
+
+          <div class="opp-divider"></div>
+          <div class="fatigue-row">
+            <input type="checkbox" name="system.burnout" {{#if system.burnout}}checked{{/if}} id="opp-burnout-check"/>
+            <label for="opp-burnout-check" class="opp-stat-label" style="margin:0;cursor:pointer;">Burnout</label>
+            <button type="button"
+                    class="burnout-recover-btn{{#unless system.burnout}} burnout-recover-disabled{{/unless}}"
+                    data-tooltip="Sin Raise - roll 2d4 and recover from burnout"
+                    {{#unless system.burnout}}disabled{{/unless}}>Sin Raise</button>
+          </div>
+        </div>
+
+        {{!-- COL 2: Weapons & Armor --}}
+        <div class="opp-weapons-col">
+          <h3 class="card-header opp-col-header">Weapons &amp; Armor</h3>
+
+          <div class="opp-weapons-list">
+            {{#each system.weapons}}
+            <div class="opp-weapon-row" draggable="true" data-index="{{@index}}">
+              <input type="text"   name="system.weapons.{{@index}}.name"   value="{{this.name}}"   placeholder="Weapon name…" class="opp-weapon-name"/>
+              <input type="text"   name="system.weapons.{{@index}}.damage" value="{{this.damage}}" placeholder="d6"           class="opp-weapon-dmg"/>
+              <button type="button" class="remove-btn opp-weapon-remove-btn" data-index="{{@index}}" title="Remove"><i class="fas fa-times"></i></button>
+            </div>
+            {{/each}}
+          </div>
+
+          <button type="button" class="add-btn opp-weapon-add-btn" style="margin-top:6px;">
+            <i class="fas fa-plus"></i> Add Weapon
+          </button>
+
+          <div class="opp-divider"></div>
+
+          <div class="opp-armor-row">
+            <span class="opp-stat-label">Resistance (Armor)</span>
+            <input type="number" name="system.armor" value="{{system.armor}}" min="0" class="opp-armor-input" data-dtype="Number"/>
+          </div>
+        </div>
+
+        {{!-- COL 3: Combat --}}
+        <div class="opp-combat-col">
+          <h3 class="card-header opp-col-header">Combat</h3>
+          <div class="opp-combat-btns">
+            <button type="button" class="rb-attack-btn opp-combat-btn">⚔ Attack</button>
+            <button type="button" class="rb-use-domain-btn opp-combat-btn">✦ Use Domain</button>
+            <button type="button" class="rb-take-damage-btn opp-combat-btn">🛡 Take Damage</button>
+            <button type="button" class="rb-virtue-loss-btn opp-combat-btn">💀 Vital Loss</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    {{!-- Content --}}
+    <section class="sheet-body">
+        <div class="overview">
+            <div class="content-card">
+                <h3 class="card-header">Description</h3>
+                <textarea name="system.description" rows="2" placeholder="A brief description of this opponent...">{{system.description}}</textarea>
+            </div>
+
+            <div class="content-card opp-trauma-card">
+                <h3 class="card-header">Trauma Questions</h3>
+                {{#each system.traumas}}
+                <div class="opp-trauma-row">
+                    <input type="checkbox" name="system.traumas.{{@index}}.answered" {{#if this.answered}}checked{{/if}} id="opp-trauma-{{@index}}"/>
+                    <input type="text" name="system.traumas.{{@index}}.question" value="{{this.question}}" placeholder="Trauma question..." class="opp-trauma-input"/>
+                </div>
+                {{/each}}
+            </div>
+
+            <div class="content-card opponent-domain-drop">
+                <h3 class="card-header">Domains</h3>
+                <p class="drop-hint">Drag domain items here from the compendium</p>
+                <div class="opp-domain-list">
+                    {{#each currentOpponentDomains}}
+                    <div class="opponent-domain-item" draggable="true" data-domain-id="{{this.id}}" data-index="{{@index}}">
+                        <img src="{{this.img}}" class="domain-icon" alt="{{this.name}}" title="{{this.name}}"/>
+                        <span class="domain-name">{{this.name}}</span>
+                        <button type="button" class="remove-btn remove-opponent-domain-btn" data-id="{{this.id}}"><i class="fas fa-times"></i></button>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+
+            <div class="two-column opp-tend-palace-row">
+                <div class="content-card">
+                    <h3 class="card-header">Tendencies</h3>
+                    <textarea name="system.tendencies" rows="3" placeholder="It tends to do this thing...">{{system.tendencies}}</textarea>
+                </div>
+                <div class="content-card opp-palace-card">
+                    <h3 class="card-header">Palace</h3>
+                    <textarea name="system.conditionalEffects" rows="3" placeholder="Where the sin resides...">{{system.conditionalEffects}}</textarea>
+                </div>
+            </div>
+
+            <div class="two-column opp-host-appear-row">
+                <div class="content-card opp-host-card">
+                    <h3 class="card-header">Host</h3>
+                    <textarea name="system.behavior" rows="3" placeholder="Who did the SIN evolve from...">{{system.behavior}}</textarea>
+                </div>
+                <div class="content-card">
+                    <h3 class="card-header">Appearance</h3>
+                    <textarea name="system.appearance" rows="3" placeholder="Physical description...">{{system.appearance}}</textarea>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <h3 class="card-header">GM Notes</h3>
+                <p class="notes-hint">Lore, plot hooks, secret weaknesses, or session-specific reminders...</p>
+                <div class="editor-wrap">
+                    {{editor enrichedBiography target="system.biography" engine="prosemirror" button=true editable=editable}}
+                </div>
+            </div>
+
+            <div class="content-card source-card">
+                <div class="source-row">
+                    <i class="fas fa-book"></i>
+                    <label>Source:</label>
+                    <input type="text" name="system.source" value="{{system.source}}" placeholder="Core p.XX, Games for Freaks p.XX"/>
+                </div>
+            </div>
+        </div>
+
+    </section>
+</form>
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Pirata+One&display=swap');
+
+    /* ==================== CSS VARIABLES (default: purple) ==================== */
+    .opponent-theme {
+        --opp-accent:          var(--opp-accent);
+        --opp-accent-dim:      var(--opp-accent-dim);
+        --opp-btn-top:         var(--opp-btn-top);
+        --opp-btn-bot:         var(--opp-btn-bot);
+        --opp-btn-top-hover:   var(--opp-btn-top-hover);
+        --opp-btn-bot-hover:   var(--opp-btn-bot-hover);
+        --opp-bg:              var(--opp-bg);
+        --opp-bg-dark:         var(--opp-bg-dark);
+        --opp-card-bg:         var(--opp-card-bg);
+        --opp-bg-rgb:          45, 31, 61;
+        --opp-dim-rgb:         106, 76, 147;
+        --opp-accent-glow:     var(--opp-accent-glow);
+        --opp-accent-hover:    var(--opp-accent-hover);
+        --opp-accent-subtle:   rgba(157, 124, 216, 0.1);
+        --opp-accent-faint:    var(--opp-accent-faint);
+        --opp-accent-faint2:   var(--opp-accent-faint2);
+        --opp-text:            var(--opp-text);
+        --opp-text-dim:        var(--opp-text-dim);
+        --opp-text-mid:        var(--opp-text-mid);
+    }
+
+    /* ==================== SIN TYPE THEMES ==================== */
+    .opponent-theme.ogre {
+        border: 3px solid #0d79f2;
+        --opp-accent:        #4a9eff;
+        --opp-accent-dim:    #1a5ca8;
+        --opp-btn-top:       #1a3d7a;
+        --opp-btn-bot:       #0d1f4d;
+        --opp-btn-top-hover: #2a4d9a;
+        --opp-btn-bot-hover: #1a2f6d;
+        --opp-bg:            #0d1f3d;
+        --opp-bg-dark:       #080f28;
+        --opp-card-bg:       #0d1a38;
+        --opp-bg-rgb:        13, 31, 61;
+        --opp-dim-rgb:       26, 92, 168;
+        --opp-accent-glow:   rgba(74, 158, 255, 0.6);
+        --opp-accent-hover:  rgba(74, 158, 255, 0.4);
+        --opp-accent-subtle: rgba(74, 158, 255, 0.1);
+        --opp-accent-faint:  rgba(74, 158, 255, 0.3);
+        --opp-accent-faint2: rgba(74, 158, 255, 0.5);
+        --opp-text:          #e6f0ff;
+        --opp-text-dim:      #b8cce8;
+        --opp-text-mid:      #c4d4f0;
+    }
+    .opponent-theme.idol {
+        border: 3px solid #e40df2;
+        --opp-accent:        #e040fb;
+        --opp-accent-dim:    #8a0a93;
+        --opp-btn-top:       #6a1a73;
+        --opp-btn-bot:       #3d0f4d;
+        --opp-btn-top-hover: #8a2a93;
+        --opp-btn-bot-hover: #5d1f6d;
+        --opp-bg:            #2d0f3d;
+        --opp-bg-dark:       #1a0828;
+        --opp-card-bg:       #251038;
+        --opp-bg-rgb:        45, 15, 61;
+        --opp-dim-rgb:       138, 10, 147;
+        --opp-accent-glow:   rgba(224, 64, 251, 0.6);
+        --opp-accent-hover:  rgba(224, 64, 251, 0.3);
+        --opp-accent-subtle: rgba(224, 64, 251, 0.1);
+        --opp-accent-faint:  rgba(224, 64, 251, 0.25);
+        --opp-accent-faint2: rgba(224, 64, 251, 0.4);
+        --opp-text:          #ffe6ff;
+        --opp-text-dim:      #e8b8e8;
+        --opp-text-mid:      #f0c4f0;
+    }
+    .opponent-theme.hound {
+        border: 3px solid #ff0808;
+        --opp-accent:        #ff5555;
+        --opp-accent-dim:    #8a1a1a;
+        --opp-btn-top:       #6a1a1a;
+        --opp-btn-bot:       #3d0d0d;
+        --opp-btn-top-hover: #8a2a2a;
+        --opp-btn-bot-hover: #5d1d1d;
+        --opp-bg:            #2d0f0f;
+        --opp-bg-dark:       #1a0808;
+        --opp-card-bg:       #251010;
+        --opp-bg-rgb:        45, 15, 15;
+        --opp-dim-rgb:       138, 26, 26;
+        --opp-accent-glow:   rgba(255, 85, 85, 0.6);
+        --opp-accent-hover:  rgba(255, 85, 85, 0.3);
+        --opp-accent-subtle: rgba(255, 85, 85, 0.1);
+        --opp-accent-faint:  rgba(255, 85, 85, 0.25);
+        --opp-accent-faint2: rgba(255, 85, 85, 0.4);
+        --opp-text:          #ffe6e6;
+        --opp-text-dim:      #e8b8b8;
+        --opp-text-mid:      #f0c4c4;
+    }
+    .opponent-theme.centipede {
+        border: 3px solid #9f00ff;
+        --opp-accent:        #bf5fff;
+        --opp-accent-dim:    #7a0a93;
+        --opp-btn-top:       #5a0a73;
+        --opp-btn-bot:       #2d0a4d;
+        --opp-btn-top-hover: #7a1a93;
+        --opp-btn-bot-hover: #4d1a6d;
+        --opp-bg:            #200a3d;
+        --opp-bg-dark:       #110528;
+        --opp-card-bg:       #1a0838;
+        --opp-bg-rgb:        32, 10, 61;
+        --opp-dim-rgb:       122, 10, 147;
+        --opp-accent-glow:   rgba(191, 95, 255, 0.6);
+        --opp-accent-hover:  rgba(191, 95, 255, 0.4);
+        --opp-accent-subtle: rgba(191, 95, 255, 0.1);
+        --opp-accent-faint:  rgba(191, 95, 255, 0.3);
+        --opp-accent-faint2: rgba(191, 95, 255, 0.5);
+        --opp-text:          #f5e6ff;
+        --opp-text-dim:      #d8b8e8;
+        --opp-text-mid:      #e8c4f0;
+    }
+    .opponent-theme.toad {
+        border: 3px solid #f2af0d;
+        --opp-accent:        #f2af0d;
+        --opp-accent-dim:    #8a6a0a;
+        --opp-btn-top:       #6a4a0a;
+        --opp-btn-bot:       #3d2d05;
+        --opp-btn-top-hover: #8a6a1a;
+        --opp-btn-bot-hover: #5d4d15;
+        --opp-bg:            #2d200a;
+        --opp-bg-dark:       #1a1205;
+        --opp-card-bg:       #251a08;
+        --opp-bg-rgb:        45, 32, 10;
+        --opp-dim-rgb:       138, 106, 10;
+        --opp-accent-glow:   rgba(242, 175, 13, 0.6);
+        --opp-accent-hover:  rgba(242, 175, 13, 0.3);
+        --opp-accent-subtle: rgba(242, 175, 13, 0.1);
+        --opp-accent-faint:  rgba(242, 175, 13, 0.25);
+        --opp-accent-faint2: rgba(242, 175, 13, 0.4);
+        --opp-text:          #fff9e6;
+        --opp-text-dim:      #e8d8b8;
+        --opp-text-mid:      #f0e4c4;
+    }
+    .opponent-theme.lord {
+        border: 3px solid #91ffef;
+        --opp-accent:        #4dffe8;
+        --opp-accent-dim:    #0a7a6a;
+        --opp-btn-top:       #0a5a4a;
+        --opp-btn-bot:       #053d30;
+        --opp-btn-top-hover: #1a7a6a;
+        --opp-btn-bot-hover: #155d50;
+        --opp-bg:            #0a2d25;
+        --opp-bg-dark:       #051a15;
+        --opp-card-bg:       #081f1a;
+        --opp-bg-rgb:        10, 45, 37;
+        --opp-dim-rgb:       10, 122, 106;
+        --opp-accent-glow:   rgba(77, 255, 232, 0.6);
+        --opp-accent-hover:  rgba(77, 255, 232, 0.3);
+        --opp-accent-subtle: rgba(77, 255, 232, 0.1);
+        --opp-accent-faint:  rgba(77, 255, 232, 0.25);
+        --opp-accent-faint2: rgba(77, 255, 232, 0.4);
+        --opp-text:          #e6fff9;
+        --opp-text-dim:      #b8e8d8;
+        --opp-text-mid:      #c4f0e4;
+    }
+
+    .opponent-theme.imago {
+        border: 3px solid #666666;
+        --opp-accent:        #9a9a9a;
+        --opp-accent-dim:    #4a4a4a;
+        --opp-btn-top:       #3a3a3a;
+        --opp-btn-bot:       #1e1e1e;
+        --opp-btn-top-hover: #4e4e4e;
+        --opp-btn-bot-hover: #303030;
+        --opp-bg:            #1a1a1a;
+        --opp-bg-dark:       #0f0f0f;
+        --opp-card-bg:       #161616;
+        --opp-bg-rgb:        26, 26, 26;
+        --opp-dim-rgb:       74, 74, 74;
+        --opp-accent-glow:   rgba(154, 154, 154, 0.5);
+        --opp-accent-hover:  rgba(154, 154, 154, 0.3);
+        --opp-accent-subtle: rgba(154, 154, 154, 0.1);
+        --opp-accent-faint:  rgba(154, 154, 154, 0.25);
+        --opp-accent-faint2: rgba(154, 154, 154, 0.4);
+        --opp-text:          #d0d0d0;
+        --opp-text-dim:      #a8a8a8;
+        --opp-text-mid:      #bcbcbc;
+    }
+
+    .opponent-theme.other {
+        border: 3px solid #7a6a50;
+        --opp-accent:        #c4a870;
+        --opp-accent-dim:    #6a5030;
+        --opp-btn-top:       #4a3820;
+        --opp-btn-bot:       #2e2210;
+        --opp-btn-top-hover: #5a4830;
+        --opp-btn-bot-hover: #3e3220;
+        --opp-bg:            #221808;
+        --opp-bg-dark:       #160e02;
+        --opp-card-bg:       #1c1406;
+        --opp-bg-rgb:        34, 24, 8;
+        --opp-dim-rgb:       106, 80, 48;
+        --opp-accent-glow:   rgba(196, 168, 112, 0.5);
+        --opp-accent-hover:  rgba(196, 168, 112, 0.3);
+        --opp-accent-subtle: rgba(196, 168, 112, 0.1);
+        --opp-accent-faint:  rgba(196, 168, 112, 0.25);
+        --opp-accent-faint2: rgba(196, 168, 112, 0.4);
+        --opp-text:          #ede0c8;
+        --opp-text-dim:      #c8b898;
+        --opp-text-mid:      #d8c8a8;
+    }
+
+    .opponent-theme.mother {
+        border: 3px solid #c8c0b0;
+        --opp-accent:        #e0d8c8;
+        --opp-accent-dim:    #8a8070;
+        --opp-btn-top:       #4a4438;
+        --opp-btn-bot:       #2e2820;
+        --opp-btn-top-hover: #5a5448;
+        --opp-btn-bot-hover: #3e3830;
+        --opp-bg:            #141210;
+        --opp-bg-dark:       #0e0c0a;
+        --opp-card-bg:       #181410;
+        --opp-bg-rgb:        20, 18, 16;
+        --opp-dim-rgb:       138, 128, 112;
+        --opp-accent-glow:   rgba(224, 216, 200, 0.5);
+        --opp-accent-hover:  rgba(224, 216, 200, 0.3);
+        --opp-accent-subtle: rgba(224, 216, 200, 0.1);
+        --opp-accent-faint:  rgba(224, 216, 200, 0.25);
+        --opp-accent-faint2: rgba(224, 216, 200, 0.4);
+        --opp-text:          #f5f0e8;
+        --opp-text-dim:      #d8d0c0;
+        --opp-text-mid:      #ece6da;
+    }
+
+    /* ==================== "OTHER" TYPE — HIDDEN SECTIONS ==================== */
+    .opponent-theme.other .opp-trauma-card,
+    .opponent-theme.other .opponent-domain-drop,
+    .opponent-theme.other .opp-palace-card,
+    .opponent-theme.other .opp-host-card {
+        display: none;
+    }
+
+    .opponent-theme.other .opp-tend-palace-row,
+    .opponent-theme.other .opp-host-appear-row {
+        grid-template-columns: 1fr;
+    }
+
+    /* ==================== BASE (Dark Paper Theme) ==================== */
+    .opponent-theme {
+        background-image: url("systems/bastionlands/assets/backgrounds/paper1.jpg");
+        background-color: var(--opp-bg);
+        background-blend-mode: multiply;
+        background-size: cover;
+        color: var(--opp-text);
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        padding: 10px;
+        gap: 10px;
+    }
+
+    /* ==================== HEADER ==================== */
+    .opponent-header {
+        background-image: url("systems/bastionlands/assets/backgrounds/paper2.jpg");
+        background-color: var(--opp-bg-dark);
+        background-blend-mode: multiply;
+        background-size: cover;
+        border: 2px solid var(--opp-accent-dim);
+        border-radius: 8px;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        flex: none !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    /* Top Row: Portrait + Name + Actions */
+    .header-top {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+    }
+
+    .portrait-frame {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .profile-img {
+        width: 70px;
+        height: 70px;
+        border: 2px solid var(--opp-accent);
+        border-radius: 6px;
+        object-fit: cover;
+        box-shadow: 0 0 10px var(--opp-accent-glow);
+        background-color: var(--opp-bg);
+        display: block;
+    }
+
+    .category-badge {
+        position: absolute;
+        bottom: -6px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        background: linear-gradient(180deg, #8b2020 0%, #5c0000 100%);
+        border: 2px solid #ff6666;
+        border-radius: 10px;
+        padding: 1px 6px;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+    }
+
+    .cat-label {
+        font-size: 8px;
+        font-weight: bold;
+        color: #ffcccc;
+        letter-spacing: 1px;
+    }
+
+    .opponent-theme .cat-input {
+        width: 22px;
+        padding: 0;
+        text-align: center;
+        font-weight: bold;
+        font-size: 14px !important;
+        color: #fff !important;
+        background: transparent !important;
+        border: none !important;
+    }
+
+    .name-section {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        min-width: 0;
+    }
+
+    .opponent-theme .name-input {
+        font-family: 'Pirata One', serif;
+        font-size: 22px;
+        padding: 2px 8px;
+        background: rgba(20, 10, 30, 0.7);
+        border: none;
+        border-bottom: 2px solid var(--opp-accent);
+        border-radius: 0;
+        color: var(--opp-text) !important;
+        width: 100%;
+    }
+
+    .opponent-theme .name-input::placeholder {
+        color: var(--opp-accent-hover);
+    }
+
+    .type-line {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .opponent-theme .type-select {
+        padding: 2px 8px;
+        background: rgba(var(--opp-dim-rgb), 0.4);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 3px;
+        color: var(--opp-text-mid);
+        font-size: 12px;
+        font-style: italic;
+    }
+
+    .opponent-theme .type-select option {
+        background: var(--opp-bg);
+        color: var(--opp-text);
+    }
+
+    .type-divider {
+        color: var(--opp-accent-dim);
+        font-size: 14px;
+    }
+
+    .opponent-theme .subtype-input {
+        flex: 1;
+        padding: 2px 8px;
+        background: rgba(var(--opp-dim-rgb), 0.4);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 3px;
+        color: var(--opp-text-mid);
+        font-size: 12px;
+        font-style: italic;
+    }
+
+    /* Action Buttons in Header */
+    .action-buttons {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+    }
+
+    .action-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1px;
+        padding: 6px 10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: #fff;
+        font-weight: bold;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .action-btn i { font-size: 14px; }
+    .action-btn span { font-size: 7px; }
+
+    .attack-btn {
+        background: linear-gradient(180deg, #8b2020 0%, #4a0a0a 100%);
+        border: 2px solid #ff4444;
+        box-shadow: 0 0 6px rgba(255, 68, 68, 0.3);
+    }
+    .attack-btn:hover {
+        background: linear-gradient(180deg, #a53030 0%, #8b2020 100%);
+        box-shadow: 0 0 12px rgba(255, 68, 68, 0.6);
+        transform: translateY(-1px);
+    }
+
+    .reaction-btn {
+        background: linear-gradient(180deg, #5a2082 0%, #2d0050 100%);
+        border: 2px solid #bb88ff;
+        box-shadow: 0 0 6px rgba(187, 136, 255, 0.3);
+    }
+    .reaction-btn:hover {
+        background: linear-gradient(180deg, #6a30a2 0%, #5a2082 100%);
+        box-shadow: 0 0 12px rgba(187, 136, 255, 0.6);
+        transform: translateY(-1px);
+    }
+
+    .afflict-btn {
+        background: linear-gradient(180deg, #2d6a27 0%, #0f3a0a 100%);
+        border: 2px solid #66dd66;
+        box-shadow: 0 0 6px rgba(102, 221, 102, 0.3);
+    }
+    .afflict-btn:hover {
+        background: linear-gradient(180deg, #3d8a37 0%, #2d6a27 100%);
+        box-shadow: 0 0 12px rgba(102, 221, 102, 0.6);
+        transform: translateY(-1px);
+    }
+
+    /* ==================== EXECUTION TALISMAN VISUAL ==================== */
+    .et-visual-row {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(20, 10, 30, 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 6px;
+        padding: 6px 10px;
+    }
+
+    .et-mode-tabs {
+        display: flex;
+        gap: 4px;
+        flex-shrink: 0;
+    }
+
+    .et-mode-tab {
+        padding: 4px 8px;
+        font-size: 10px;
+        font-weight: bold;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text-dim);
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .et-mode-tab:hover {
+        background: rgba(var(--opp-dim-rgb), 0.4);
+        color: var(--opp-text);
+    }
+
+    .et-mode-tab.active {
+        background: linear-gradient(180deg, var(--opp-accent-dim) 0%, var(--opp-btn-top) 100%);
+        border-color: var(--opp-accent);
+        color: #fff;
+    }
+
+    .opponent-theme .et-max-input {
+        width: 28px;
+        padding: 1px 2px;
+        text-align: center;
+        font-size: 11px;
+        font-weight: bold;
+        background: rgba(0,0,0,0.3);
+        border: 1px solid var(--opp-accent-faint2);
+        border-radius: 3px;
+        color: inherit;
+    }
+
+    .et-pips-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .et-label {
+        font-size: 9px;
+        font-weight: bold;
+        color: var(--opp-accent);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+
+    .et-pips {
+        display: flex;
+        gap: 3px;
+        flex-wrap: wrap;
+        flex: 1;
+    }
+
+    .et-pip {
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: rgba(var(--opp-bg-rgb), 0.8);
+        border: 2px solid var(--opp-accent-dim);
+        cursor: pointer;
+        transition: all 0.15s;
+    }
+
+    .et-pip:hover {
+        border-color: var(--opp-accent);
+        box-shadow: 0 0 6px var(--opp-accent-faint2);
+    }
+
+    .et-pip.filled {
+        background: linear-gradient(135deg, #ff6666 0%, #cc0000 100%);
+        border-color: #ff4444;
+        box-shadow: 0 0 8px rgba(255, 68, 68, 0.6);
+    }
+
+    .et-pip.filled:hover {
+        background: linear-gradient(135deg, #ff8888 0%, #ff4444 100%);
+    }
+
+    .et-counter {
+        font-size: 12px;
+        font-weight: bold;
+        color: #ff8080;
+        min-width: 40px;
+        text-align: right;
+    }
+
+    /* ==================== TABS ==================== */
+    .opponent-theme .sheet-tabs {
+        display: flex;
+        gap: 4px;
+        background: rgba(26, 16, 40, 0.7);
+        padding: 6px;
+        border-radius: 6px;
+        border: 1px solid var(--opp-accent-dim);
+        flex: none !important;
+        flex-grow: 0 !important;
+        flex-shrink: 0 !important;
+    }
+
+    .opponent-theme .tab-item {
+        flex: 1;
+        font-family: 'Pirata One', serif;
+        font-size: 16px;
+        padding: 8px 12px;
+        text-align: center;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text-dim);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .tab-item:hover {
+        background: rgba(var(--opp-dim-rgb), 0.4);
+        color: var(--opp-text);
+    }
+
+    .opponent-theme .tab-item.active {
+        background: linear-gradient(180deg, var(--opp-accent-dim) 0%, var(--opp-btn-top) 100%);
+        color: #fff;
+        border-color: var(--opp-accent);
+    }
+
+    /* ==================== BODY ==================== */
+    .opponent-theme .sheet-body {
+        flex: 1 1 auto !important;
+        min-height: 0;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .opponent-theme .overview {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    /* ==================== CARDS ==================== */
+    .opponent-theme .content-card {
+        background-image: url("systems/bastionlands/assets/backgrounds/paper2.jpg");
+        background-color: var(--opp-card-bg);
+        background-blend-mode: multiply;
+        background-size: cover;
+        border: 2px solid var(--opp-accent-dim);
+        border-radius: 8px;
+        padding: 12px;
+    }
+
+    .opponent-theme .card-header {
+        font-family: 'Pirata One', serif;
+        font-size: 18px;
+        color: var(--opp-text-mid);
+        text-align: center;
+        margin: 0 0 10px 0;
+        padding-bottom: 6px;
+        border-bottom: 1px solid var(--opp-accent-dim);
+    }
+
+    .opponent-theme .card-header i {
+        margin-right: 6px;
+        color: var(--opp-accent);
+    }
+
+    .two-column {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    /* ==================== REACTIONS ==================== */
+    .reactions-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .reaction-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .reaction-field.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .reaction-field label {
+        font-size: 11px;
+        font-weight: bold;
+        color: var(--opp-text-dim);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .reaction-field label i {
+        color: var(--opp-accent);
+        font-size: 12px;
+    }
+
+    .reaction-field.stress-field label i {
+        color: #ff6b6b;
+    }
+
+    .opponent-theme .reaction-field input {
+        padding: 8px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+        font-size: 13px;
+    }
+
+    .opponent-theme .reaction-field input::placeholder {
+        color: var(--opp-accent-hover);
+    }
+
+    /* ==================== AFFLICTIONS ==================== */
+    .afflictions-card {
+        border-color: #2d6a27 !important;
+    }
+
+    .afflictions-card .card-header {
+        color: #88dd88;
+        border-color: #2d6a27;
+    }
+
+    .drop-hint {
+        text-align: center;
+        font-size: 11px;
+        color: rgba(136, 221, 136, 0.6);
+        font-style: italic;
+        margin-bottom: 8px;
+    }
+
+    .afflictions-list {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-height: 40px;
+    }
+
+    .affliction-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 10px;
+        background: rgba(45, 106, 39, 0.3);
+        border: 1px solid #2d6a27;
+        border-radius: 6px;
+    }
+
+    .affliction-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 4px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.15s;
+    }
+
+    .affliction-icon:hover {
+        transform: scale(1.1);
+    }
+
+    .affliction-name {
+        flex: 1;
+        color: #88dd88;
+        font-weight: bold;
+        font-size: 13px;
+        cursor: pointer;
+        transition: color 0.15s;
+    }
+
+    .affliction-name:hover {
+        color: #aaffaa;
+        text-decoration: underline;
+    }
+
+    /* ==================== TEXTAREAS ==================== */
+    .opponent-theme .content-card textarea {
+        width: 100%;
+        padding: 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 6px;
+        color: var(--opp-text);
+        font-size: 13px;
+        resize: vertical;
+        line-height: 1.5;
+    }
+
+    .opponent-theme .content-card textarea::placeholder {
+        color: var(--opp-accent-hover);
+    }
+
+    /* ==================== LISTS ==================== */
+    .list-container, .abilities-container {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 10px;
+    }
+
+    .opponent-theme .list-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 6px;
+    }
+
+    .opponent-theme .list-item input {
+        flex: 1;
+        padding: 6px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+        font-size: 13px;
+    }
+
+    .opponent-theme .list-item .bullet {
+        color: var(--opp-accent);
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    /* ==================== ABILITIES ==================== */
+    .opponent-theme .ability-item {
+        padding: 12px;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 8px;
+    }
+
+    .ability-top {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 8px;
+    }
+
+    .opponent-theme .ability-top input {
+        flex: 1;
+        padding: 8px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+        font-size: 13px;
+    }
+
+    .opponent-theme .trigger-input {
+        max-width: 120px;
+        color: var(--opp-text-mid) !important;
+        border-color: var(--opp-accent) !important;
+        font-style: italic;
+    }
+
+    .opponent-theme .ability-item textarea {
+        width: 100%;
+        padding: 8px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+        font-size: 12px;
+        resize: vertical;
+    }
+
+    /* ==================== BUTTONS ==================== */
+    .opponent-theme .add-btn {
+        width: 100%;
+        padding: 10px;
+        font-family: 'Pirata One', serif;
+        font-size: 14px;
+        background: linear-gradient(180deg, var(--opp-btn-top) 0%, var(--opp-btn-bot) 100%);
+        border: 1px solid var(--opp-accent);
+        border-radius: 6px;
+        color: var(--opp-text);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .add-btn:hover {
+        background: linear-gradient(180deg, var(--opp-btn-top-hover) 0%, var(--opp-btn-bot-hover) 100%);
+        box-shadow: 0 0 8px var(--opp-accent-hover);
+    }
+
+    .opponent-theme .remove-btn {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        padding: 0;
+        background: linear-gradient(180deg, #8b2020 0%, #5c1010 100%);
+        border: 1px solid #ff6666;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .remove-btn:hover {
+        background: linear-gradient(180deg, #a53030 0%, #8b2020 100%);
+        box-shadow: 0 0 6px rgba(255, 102, 102, 0.5);
+    }
+
+    .opponent-theme .chat-btn {
+        width: 24px;
+        height: 24px;
+        min-width: 24px;
+        padding: 0;
+        background: linear-gradient(180deg, #2d6a27 0%, #1a4a17 100%);
+        border: 1px solid #66dd66;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 10px;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .chat-btn:hover {
+        background: linear-gradient(180deg, #3d8a37 0%, #2d6a27 100%);
+        box-shadow: 0 0 6px rgba(102, 221, 102, 0.5);
+    }
+
+    /* Notes hint */
+    .notes-hint {
+        text-align: center;
+        font-size: 11px;
+        color: rgba(212, 196, 240, 0.5);
+        font-style: italic;
+        margin-bottom: 8px;
+    }
+
+    /* ==================== PRESSURE ==================== */
+    .pressure-row {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .checkbox-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    }
+
+    .opponent-theme .checkbox-wrap input {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--opp-accent);
+    }
+
+    .checkbox-wrap span {
+        font-size: 14px;
+        font-weight: bold;
+        color: var(--opp-text);
+    }
+
+    .opponent-theme .pressure-row > input[type="text"] {
+        flex: 1;
+        padding: 8px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+        font-size: 13px;
+    }
+
+    /* ==================== EDITOR ==================== */
+    .opponent-theme .editor-wrap {
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 6px;
+        min-height: 120px;
+        padding: 10px;
+    }
+
+    .opponent-theme .editor-wrap .editor-content {
+        color: var(--opp-text);
+    }
+
+    /* ==================== SCROLLBAR ==================== */
+    .opponent-theme .sheet-body::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    .opponent-theme .sheet-body::-webkit-scrollbar-track {
+        background: rgba(26, 16, 40, 0.5);
+        border-radius: 5px;
+    }
+
+    .opponent-theme .sheet-body::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, var(--opp-accent-dim) 0%, var(--opp-btn-top) 100%);
+        border-radius: 5px;
+        border: 2px solid var(--opp-bg);
+    }
+
+    .opponent-theme .sheet-body::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(180deg, #7a5ca3 0%, #5a4483 100%);
+    }
+
+    /* ==================== FORM OVERRIDES ==================== */
+    form.opponent-theme .content-card {
+        display: block;
+    }
+
+    /* ==================== TAGS ==================== */
+    .tags-row {
+        background: rgba(20, 10, 30, 0.4);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        padding: 6px 10px;
+    }
+
+    .tags-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        align-items: center;
+    }
+
+    .tag-item {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        padding: 3px 8px;
+        background: linear-gradient(180deg, var(--opp-btn-top) 0%, var(--opp-btn-bot) 100%);
+        border: 1px solid var(--opp-accent);
+        border-radius: 12px;
+        font-size: 11px;
+        font-weight: bold;
+        color: var(--opp-text);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .tag-remove-btn {
+        width: 14px;
+        height: 14px;
+        padding: 0;
+        background: transparent;
+        border: none;
+        color: #ff8888;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 8px;
+        opacity: 0.6;
+        transition: opacity 0.15s;
+    }
+
+    .tag-remove-btn:hover {
+        opacity: 1;
+    }
+
+    .opponent-theme .tag-input {
+        padding: 3px 8px;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px dashed var(--opp-accent-dim);
+        border-radius: 12px;
+        color: var(--opp-text-dim);
+        font-size: 11px;
+        width: 80px;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .tag-input:focus {
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border-style: solid;
+        border-color: var(--opp-accent);
+        width: 120px;
+    }
+
+    .opponent-theme .tag-input::placeholder {
+        color: rgba(var(--opp-bg-rgb), 0.5);
+    }
+
+    /* ==================== RANGE ==================== */
+    .range-label {
+        font-size: 11px;
+        font-weight: bold;
+        color: var(--opp-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .opponent-theme .range-select {
+        padding: 2px 8px;
+        background: rgba(var(--opp-dim-rgb), 0.4);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 3px;
+        color: var(--opp-text-mid);
+        font-size: 11px;
+        font-weight: bold;
+    }
+
+    .opponent-theme .range-select option {
+        background: var(--opp-bg);
+        color: var(--opp-text);
+    }
+
+    /* ==================== STRESS FORMULA ==================== */
+    .stress-card {
+        border-color: #8b2020 !important;
+    }
+
+    .stress-card .card-header {
+        color: #ff8888;
+        border-color: #8b2020;
+    }
+
+    .stress-formula-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 12px;
+    }
+
+    .stress-field {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .stress-field.full-width {
+        grid-column: 1 / -1;
+    }
+
+    .stress-field label {
+        font-size: 10px;
+        font-weight: bold;
+        color: #ffaaaa;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .opponent-theme .stress-field input {
+        padding: 8px 10px;
+        background: rgba(139, 32, 32, 0.3);
+        border: 1px solid #8b2020;
+        border-radius: 4px;
+        color: #ffcccc;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    .opponent-theme .stress-field input::placeholder {
+        color: rgba(255, 136, 136, 0.4);
+    }
+
+    .stress-roll-btn {
+        width: 100%;
+        padding: 12px;
+        font-family: 'Pirata One', serif;
+        font-size: 16px;
+        background: linear-gradient(180deg, #8b2020 0%, #4a0a0a 100%);
+        border: 2px solid #ff4444;
+        border-radius: 6px;
+        color: #fff;
+        cursor: pointer;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        box-shadow: 0 0 8px rgba(255, 68, 68, 0.3);
+    }
+
+    .stress-roll-btn:hover {
+        background: linear-gradient(180deg, #a53030 0%, #8b2020 100%);
+        box-shadow: 0 0 15px rgba(255, 68, 68, 0.6);
+        transform: translateY(-1px);
+    }
+
+    .stress-roll-btn i {
+        font-size: 18px;
+    }
+
+    /* ==================== SOURCE ==================== */
+    .source-card {
+        background: rgba(var(--opp-bg-rgb), 0.4) !important;
+        border-style: dashed !important;
+        padding: 8px 12px !important;
+    }
+
+    .source-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .source-row i {
+        color: var(--opp-accent);
+        font-size: 14px;
+    }
+
+    .source-row label {
+        font-size: 12px;
+        font-weight: bold;
+        color: var(--opp-text-dim);
+    }
+
+    .opponent-theme .source-row input {
+        flex: 1;
+        padding: 6px 10px;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text-mid);
+        font-size: 12px;
+        font-style: italic;
+    }
+
+    /* ==================== VITALS CARD ==================== */
+    .opp-vitals-card {
+        flex-shrink: 0;
+    }
+
+    .opp-vitals-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+        align-items: start;
+    }
+
+    .opp-vitals-col,
+    .opp-weapons-col,
+    .opp-combat-col {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+    }
+
+    .opp-weapons-col,
+    .opp-combat-col {
+        border-left: 1px solid rgba(157,124,216,0.3);
+        padding-left: 16px;
+    }
+
+    .opp-col-header {
+        font-family: 'Pirata One', serif;
+        font-size: 15px;
+        color: var(--opp-text-mid);
+        text-align: center;
+        margin: 0 0 8px 0;
+        padding-bottom: 4px;
+        border-bottom: 1px solid var(--opp-accent-dim);
+    }
+
+    .opp-combat-col .opp-combat-btns {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+    }
+
+    /* Weapons list */
+    .opp-weapons-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-bottom: 6px;
+    }
+
+    .opp-weapon-row {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .opponent-theme .opp-weapon-name {
+        flex: 1;
+        min-width: 0;
+        padding: 4px 6px;
+        font-size: 12px;
+        background: rgba(var(--opp-bg-rgb), 0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 3px;
+        color: var(--opp-text);
+    }
+
+    .opponent-theme .opp-weapon-dmg {
+        flex: 0 0 44px;
+        width: 44px;
+        padding: 4px 4px;
+        font-size: 12px;
+        text-align: center;
+        background: rgba(139,32,32,0.3);
+        border: 1px solid #8b2020;
+        border-radius: 3px;
+        color: #ffcccc;
+    }
+
+    .opp-divider {
+        border-top: 1px solid rgba(157,124,216,0.3);
+        margin: 8px 0;
+    }
+
+    .opp-armor-burnout-row {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-top: 6px;
+        flex-wrap: wrap;
+    }
+
+    .opp-armor-burnout-row .opp-armor-row {
+        margin-top: 0;
+    }
+
+    .opp-armor-burnout-row .fatigue-row {
+        flex: 1;
+    }
+
+    .opp-virtue-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 6px;
+    }
+
+    .opponent-theme .opp-save-btn {
+        font-family: 'Pirata One', serif;
+        font-size: 14px;
+        padding: 5px 10px;
+        flex: 0 0 72px;
+        width: 72px;
+        text-align: center;
+        background: linear-gradient(180deg, var(--opp-btn-top) 0%, var(--opp-btn-bot) 100%);
+        border: 1px solid var(--opp-accent);
+        border-radius: 4px;
+        color: var(--opp-text);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .opp-save-btn:hover {
+        background: linear-gradient(180deg, var(--opp-btn-top-hover) 0%, var(--opp-btn-bot-hover) 100%);
+        box-shadow: 0 0 6px rgba(157,124,216,0.4);
+    }
+
+    .opponent-theme .opp-resolve-label {
+        cursor: default;
+        pointer-events: none;
+        background: linear-gradient(180deg, #2d4a27 0%, #1a3015 100%);
+        border-color: #66dd66;
+        color: #aaffaa;
+    }
+
+    .opp-virtue-inputs {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        flex: 0 0 auto;
+    }
+
+    .opponent-theme .opp-virtue-inputs input {
+        width: 36px;
+        padding: 2px 4px;
+        text-align: center;
+        font-size: 12px;
+        font-weight: bold;
+        background: rgba(45,31,61,0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 3px;
+        color: var(--opp-text);
+    }
+
+    .opponent-theme .opp-virtue-inputs span {
+        color: var(--opp-accent);
+        font-size: 11px;
+    }
+
+    .opp-virtue-progress {
+        flex: 1;
+        min-width: 40px;
+        height: 6px;
+        border-radius: 3px;
+        appearance: none;
+        -webkit-appearance: none;
+        background: rgba(45,31,61,0.8);
+        border: 1px solid var(--opp-accent-dim);
+        overflow: hidden;
+    }
+
+    .opp-virtue-progress::-webkit-progress-bar   { background: rgba(45,31,61,0.8); }
+    .opp-virtue-progress::-webkit-progress-value { background: linear-gradient(90deg,var(--opp-accent-dim),var(--opp-accent)); border-radius: 3px; }
+    .opp-virtue-progress::-moz-progress-bar      { background: linear-gradient(90deg,var(--opp-accent-dim),var(--opp-accent)); border-radius: 3px; }
+
+    .opp-resolve-progress::-webkit-progress-value { background: linear-gradient(90deg,#2d6a27,#66dd66); }
+    .opp-resolve-progress::-moz-progress-bar      { background: linear-gradient(90deg,#2d6a27,#66dd66); }
+
+    .opp-stat-label {
+        font-size: 11px;
+        font-weight: bold;
+        color: var(--opp-text-dim);
+        margin-bottom: 3px;
+    }
+
+    .opp-armor-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 8px;
+    }
+
+    .opp-armor-row .opp-stat-label { margin-bottom: 0; }
+
+    .opponent-theme .opp-armor-input {
+        width: 56px;
+        padding: 4px 6px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: center;
+        background: rgba(45,31,61,0.9);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text);
+    }
+
+    .opponent-theme .opp-combat-btn {
+        width: 100%;
+        padding: 10px 14px;
+        font-family: 'Pirata One', serif;
+        font-size: 15px;
+        text-align: left;
+        background: linear-gradient(180deg, var(--opp-btn-top) 0%, var(--opp-btn-bot) 100%);
+        border: 1px solid var(--opp-accent);
+        border-radius: 4px;
+        color: var(--opp-text);
+        cursor: pointer;
+        transition: all 0.2s;
+    }
+
+    .opponent-theme .opp-combat-btn:hover {
+        background: linear-gradient(180deg, var(--opp-btn-top-hover) 0%, var(--opp-btn-bot-hover) 100%);
+        box-shadow: 0 0 8px rgba(157,124,216,0.4);
+    }
+
+    .opp-trauma-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 6px;
+    }
+
+    .opp-trauma-row input[type="checkbox"] {
+        flex-shrink: 0;
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+    }
+
+    .opponent-theme .opp-trauma-input {
+        flex: 1;
+        padding: 5px 8px;
+        background: rgba(var(--opp-bg-rgb), 0.6);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+        color: var(--opp-text-mid);
+        font-size: 13px;
+    }
+
+    .opponent-theme .opp-trauma-input:focus {
+        border-color: var(--opp-accent);
+        outline: none;
+    }
+
+    .opp-domain-list {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        min-height: 32px;
+    }
+
+    .opponent-domain-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 4px 6px;
+        background: rgba(var(--opp-bg-rgb), 0.5);
+        border: 1px solid var(--opp-accent-dim);
+        border-radius: 4px;
+    }
+
+    .opponent-domain-item .domain-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 3px;
+        object-fit: cover;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+
+    .opponent-domain-item .domain-name {
+        flex: 1;
+        font-size: 13px;
+        color: var(--opp-text-mid);
+        cursor: pointer;
+    }
+
+    .opponent-domain-item .domain-name:hover,
+    .opponent-domain-item .domain-icon:hover {
+        color: var(--opp-text);
+        text-decoration: underline;
+    }
+
+    .opponent-domain-drop.dragover {
+        border-color: var(--opp-accent);
+        background: rgba(157, 124, 216, 0.1);
+    }
+
+    /* Drag-to-reorder states */
+    .opponent-domain-item.rb-dragging, .opp-weapon-row.rb-dragging { opacity: 0.4; }
+    .opponent-domain-item.rb-drag-over { border-color: var(--opp-accent); box-shadow: 0 0 4px var(--opp-accent); }
+    .opp-weapon-row.rb-drag-over { border-top: 2px solid var(--opp-accent, #9d7cd8); }
+</style>

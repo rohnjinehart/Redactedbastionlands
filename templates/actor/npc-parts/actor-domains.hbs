@@ -1,0 +1,65 @@
+<div class="tab" data-group="primary" data-tab="domains">
+
+  {{#each selectedDomains}}
+  <div id="{{@index}}" class="content-card npc-domain-card {{#unless this.name}}npc-domain-empty{{/unless}}">
+    {{#if this.name}}
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid #2d6a5a;">
+        <h3 class="domain-title" style="margin:0;font-family:'Pirata One',serif;font-size:20px;color:#91ffef;">{{this.name}}</h3>
+        <div style="display:flex;gap:6px;">
+          <button type="button" class="chat-btn chat-button" data-index="{{@index}}" title="Send to Chat">
+            <i class="fas fa-comment"></i>
+          </button>
+          <button type="button" class="remove-btn remove-domain-button" data-index="{{@index}}" title="Remove Domain">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+      </div>
+      <p class="ability-value" data-ability="{{@index}}"
+         style="font-size:13px;color:#f0e6ff;line-height:1.6;margin:0;white-space:pre-wrap;">{{this.description}}</p>
+    {{else}}
+      <div style="text-align:center;padding:10px;color:#9d7cd8;">
+        <i class="fas fa-circle-chevron-down" style="margin-right:8px;"></i>
+        <span>No domain — drag one here!</span>
+      </div>
+    {{/if}}
+  </div>
+  {{/each}}
+
+  <div class="content-card" style="border-style:dashed;background:rgba(45,31,61,0.3);">
+    <div style="display:flex;align-items:center;gap:10px;color:#9d7cd8;">
+      <i class="fas fa-info-circle" style="flex-shrink:0;font-size:16px;"></i>
+      <span style="font-size:12px;">Domains are separate items. If you don't see any, import them from the Domains compendium first, then drag them here.</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function sendAbilityToChat(abilityNumber) {
+    const selectElement = document.querySelector(`select.domain-select[data-ability="${abilityNumber}"]`);
+    const textareaElement = document.querySelector(`textarea.domain-textarea[data-ability="${abilityNumber}"]`);
+    const abilityValueElement = document.querySelector(`p.ability-value[data-ability="${abilityNumber}"]`);
+
+    let domainName = '';
+    let domainDescription = '';
+
+    if (textareaElement) {
+      domainName = '[REDACTED] Domain';
+      domainDescription = textareaElement.value;
+    } else if (abilityValueElement) {
+      const selectedOption = selectElement ? selectElement.options[selectElement.selectedIndex] : null;
+      const optionTitle = selectedOption ? selectedOption.text : '';
+      const colonIndex = optionTitle.indexOf(':');
+      domainName = colonIndex !== -1 ? optionTitle.substring(0, colonIndex).trim() : (optionTitle || 'Domain');
+      domainDescription = abilityValueElement.textContent.trim();
+    }
+
+    const messageContent = `
+      <div style="border:2px solid #444;border-radius:8px;padding:12px;background:linear-gradient(135deg,#2a2a2a 0%,#1a1a1a 100%);margin:4px 0;">
+        <h3 style="margin:0 0 8px;color:#91ffef;font-family:'Pirata One',serif;font-size:1.4em;border-bottom:2px solid #91ffef;padding-bottom:4px;">${domainName}</h3>
+        <div style="color:#e0e0e0;font-family:'Courier New',monospace;line-height:1.6;font-size:1em;">${domainDescription}</div>
+      </div>`;
+
+    ChatMessage.create({ content: messageContent });
+  }
+</script>

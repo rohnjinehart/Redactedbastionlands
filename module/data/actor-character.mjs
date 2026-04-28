@@ -1,0 +1,221 @@
+import CainActorBase from "./base-actor.mjs";
+
+export default class CainCharacter extends CainActorBase {
+
+  static defineSchema() {
+    const fields = foundry.data.fields;
+    const requiredInteger = { required: true, nullable: false, integer: true };
+    const schema = super.defineSchema();
+
+    schema.attributes = new fields.SchemaField({
+      level: new fields.SchemaField({
+        value: new fields.NumberField({ ...requiredInteger, initial: 1 })
+      }),
+    });
+
+    // Skills replaced by MB d20 saves (body/spirit/virtue/grace defined on base-actor).
+
+    // Add new string fields
+    schema.sex = new fields.StringField({ required: true, blank: true });
+    schema.height = new fields.StringField({ required: true, blank: true });
+    schema.weight = new fields.StringField({ required: true, blank: true });
+    schema.hair = new fields.StringField({ required: true, blank: true });
+    schema.eyes = new fields.StringField({ required: true, blank: true });
+    schema.agenda = new fields.StringField({ required: true, blank: true });
+    schema.blasphemy = new fields.StringField({ required: true, blank: true });
+    schema.XID = new fields.StringField({ required: true, blank: true });
+
+    // Add XP and advancements fields
+    schema.xp = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 10 }),
+      max: new fields.NumberField({ required: true, initial: 4, min: 4, max: 10 }),
+    });
+
+    schema.advancements = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, max: 4 }),
+      max: new fields.NumberField({ required: true, initial: 4, max: 4 }),
+    });
+
+    schema.scrip = new fields.NumberField({ required: true, initial: 0, min: 0, max: 1000 });
+    schema.demonTraitActive = new fields.BooleanField({ required: true, initial: false });
+    
+    schema.CATLEVEL = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 7 }),
+    });
+
+    schema.afflictions = new fields.ArrayField(new fields.StringField({ required: true, initial: " " }), { required: true, initial: [] });
+    
+    schema.divineAgony = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 10 }),
+      max: new fields.NumberField({ required: true, initial: 3, min: 0, max: 10 })
+    });
+    
+    schema.injuries = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 10 }),
+      max: new fields.NumberField({ required: true, initial: 3, min: 0, max: 10 })
+    });
+    
+    schema.stress = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 15 }),
+      max: new fields.NumberField({ required: true, initial: 6, min: 0, max: 15 })
+    });
+
+    schema.extraDice = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 6 }),
+    });
+
+    // Define the Talisman Schema
+    schema.talismans = new fields.ArrayField(
+       new fields.ObjectField({
+        name: new fields.StringField({ required: true }),
+        imagePath: new fields.StringField({ required: true }),
+        currMarkAmount: new fields.NumberField({ required: true, initial: 0, min: 0 }),
+        minMarkAmount: new fields.NumberField({ required: true, initial: 0, min:  0 }),
+        maxMarkAmount: new fields.NumberField({ required: true, initial: 6, min:  0}),
+      }),
+      { required: true, initial: [{name: "Execution", imagePath: "systems/bastionlands/assets/Talismans/Talisman-A-0.png", currMarkAmount: 0, minMarkAmount: 0, maxMarkAmount: 6}] }
+    );
+
+    schema.currentSinMarks = new fields.ArrayField(new fields.StringField({ required: true, initial: " " }), { required: true, initial: [] });
+
+    schema.sinOverflow = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 0, min: 0, max: 20 }),
+      max: new fields.NumberField({ required: true, initial: 10, min: 0, max: 20 }),
+      min : new fields.NumberField({ required: true, initial: 0, min: 0, max: 20 }),
+    });
+
+    schema.kitPoints = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 5, min: 0, max: 10 }),
+      max: new fields.NumberField({ required: true, initial: 5, min: 0, max: 10 }),
+    });
+
+    // Add psyche field
+    schema.psyche = new fields.NumberField({ required: true, initial: 1, min: 1 });
+
+    schema.psycheBurst = new fields.SchemaField({
+      value: new fields.NumberField({ required: true, initial: 3, min: 0, max: 5 }),
+      max: new fields.NumberField({ required: true, initial: 3, min: 0, max: 5 }),
+    });
+
+    schema.restDiceModifier = new fields.NumberField({ required: true, initial: 0, min: -3, max: 3 });
+    
+    schema.currentBoldedAgendaTasks = new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.currentUnboldedAgendaTasks = new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.currentAgendaAbilities = new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.currentAgenda = new fields.StringField({required: true, nullable: false, initial: "INVALID"});
+
+    schema.agendaAppetites = new fields.ArrayField(
+      new fields.SchemaField({
+        title:       new fields.StringField({ required: true, initial: "" }),
+        description: new fields.StringField({ required: true, initial: "" }),
+      }),
+      { required: true, initial: [] }
+    );
+    schema.agendaAversions = new fields.ArrayField(
+      new fields.SchemaField({
+        title:       new fields.StringField({ required: true, initial: "" }),
+        description: new fields.StringField({ required: true, initial: "" }),
+      }),
+      { required: true, initial: [] }
+    );
+
+    schema.animas = new fields.ArrayField(
+      new fields.SchemaField({
+        description: new fields.StringField({ required: true, initial: "" }),
+      }),
+      { required: true, initial: [] }
+    );
+
+    schema.currentBlasphemies =  new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.currentBlasphemyPowers =  new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+
+    schema.sinMarks = new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.sinMarkAbilities = new fields.ArrayField(new fields.StringField(), { required: true, initial: [] });
+    schema.sinMarkDescription = new fields.StringField({ required: true, initial: "" });
+
+    // Bonds - array of bond references with current level tracking
+    // Each entry is an object with bondId (reference to bond item) and currentLevel (0-3)
+    schema.bonds = new fields.ArrayField(
+      new fields.SchemaField({
+        bondId: new fields.StringField({ required: true }),
+        currentLevel: new fields.NumberField({ required: true, initial: 0, min: 0, max: 3 })
+      }),
+      { required: true, initial: [] }
+    );
+
+    // Whether to hide this character from the Divine Agony tracker
+    schema.hideFromTracker = new fields.BooleanField({ required: true, initial: false });
+
+    return schema;
+  }
+
+  async _preCreate(data, options, user){
+    await super._preCreate(data, options, user);
+
+    this.parent.updateSource({
+      img: "systems/bastionlands/assets/exorcist/generic_exo.png"
+    })
+  }
+
+  prepareDerivedData() {
+    // Loop through ability scores, and add their modifiers to our sheet output.
+    for (const key in this.abilities) {
+      // Calculate the modifier using d20 rules.
+      this.abilities[key].mod = Math.floor((this.abilities[key].value - 10) / 2);
+      // Handle ability label localization.
+      this.abilities[key].label = game.i18n.localize(CONFIG.RB.abilities[key]) ?? key;
+    }
+
+    // Calculate psyche based on CAT level
+    this.psyche = Math.ceil(this.CATLEVEL.value / 2) || 1;
+  }
+
+  getRollData() {
+    const data = {};
+
+    // Copy the ability scores to the top level, so that rolls can use
+    // formulas like `@str.mod + 4`.
+    if (this.abilities) {
+      for (let [k,v] of Object.entries(this.abilities)) {
+        data[k] = foundry.utils.deepClone(v);
+      }
+    }
+
+    data.lvl = this.attributes.level.value;
+
+    return data
+  }
+
+  // Method to handle XP and advancements
+  handleXP() {
+    if (this.xp >= this.xp.max) {
+      this.xp = 0;
+      this.advancements += 1;
+    }
+  }
+
+  // Migration function to convert old schema items to new format
+  static async migrateOldSchema(actor) {
+    const updateData = {};
+
+    // Convert old agenda items to new format
+    if (actor.system.agendaItems && Array.isArray(actor.system.agendaItems)) {
+      updateData['system.currentAgendaItems'] = actor.system.agendaItems.map(item => ({
+        text: item,
+        isBold: false
+      }));
+    }
+
+    // Convert old agenda abilities to new format
+    if (actor.system.agendaAbilities && Array.isArray(actor.system.agendaAbilities)) {
+      updateData['system.currentAgendaAbilities'] = actor.system.agendaAbilities.map(ability => ({
+        text: ability,
+        isBold: false
+      }));
+    }
+
+    // Update the actor with the new data
+    await actor.update(updateData);
+  }
+
+}
