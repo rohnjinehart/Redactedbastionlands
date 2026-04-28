@@ -71,7 +71,7 @@ Reference was also made to the [Mythic Bastionland FoundryVTT System](https://gi
 - Ghostie — Icon assets
 
 **[Redacted]lands FoundryVTT System**
-- rohnjinehart — Custom ruleset design, system mechanics, and FoundryVTT implementation
+- rohnjinehart — FoundryVTT implementation
 
 ---
 
