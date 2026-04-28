@@ -15,6 +15,8 @@ CAIN is copyright © Tom Bloom.
 
 This system is built upon the [CAIN FoundryVTT System](https://github.com/diabeatz96/cain) by Adam Kostandy, used in accordance with its MIT License.
 
+Reference was also made to the [Mythic Bastionland FoundryVTT System](https://github.com/maqloner/mythic-bastionland-fvtt) by maqloner, used in accordance with its MIT License.
+
 ---
 
 ## About [Redacted]lands
@@ -48,6 +50,7 @@ This system is built upon the [CAIN FoundryVTT System](https://github.com/diabea
 - **Mythic Bastionland content:** All materials used with special permission from Chris McDowall.
 - **CAIN content:** Copyright © Tom Bloom.
 - **CAIN FoundryVTT system code:** MIT License — see [CAIN repository](https://github.com/diabeatz96/cain)
+- **Mythic Bastionland FoundryVTT system code:** MIT License — see [maqloner's repository](https://github.com/maqloner/mythic-bastionland-fvtt)
 - **Icons:** [game-icons.net](https://game-icons.net/) under [Creative Commons 3.0](https://creativecommons.org/licenses/by/3.0/)
 
 ---
@@ -57,6 +60,9 @@ This system is built upon the [CAIN FoundryVTT System](https://github.com/diabea
 **[Redacted]lands Ruleset**
 - Chris McDowall — Creator of Mythic Bastionland, the rules foundation this project is built on
 - Tom Bloom — Creator of CAIN, whose character systems are adapted here
+
+**Mythic Bastionland FoundryVTT System** *(reference system)*
+- maqloner — Creator of the [Mythic Bastionland FoundryVTT system](https://github.com/maqloner/mythic-bastionland-fvtt)
 
 **CAIN FoundryVTT System** *(the system framework this is built upon)*
 - Adam Kostandy (Diabeatz96) — Original creator and lead developer
