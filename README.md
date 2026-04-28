@@ -80,3 +80,4 @@ Reference was also made to the [Mythic Bastionland FoundryVTT System](https://gi
 ## Questions & Issues
 
 [Report an issue](https://github.com/rohnjinehart/Redactedbastionlands/issues)
+
