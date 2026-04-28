@@ -4,13 +4,19 @@
 </div>
 {{/if}}
 
-{{!-- Scrip tracker --}}
-<div class="inv-scrip-tracker inv-scrip-tracker-top">
-  <span class="inv-scrip-label">Scrip</span>
-  <button type="button" class="inv-scrip-btn inv-scrip-dec" title="Spend scrip">−</button>
-  <input type="number" class="inv-scrip-input" name="system.scrip"
-         value="{{system.scrip}}" min="0" max="1000" data-dtype="Number"/>
-  <button type="button" class="inv-scrip-btn inv-scrip-inc" title="Gain scrip">+</button>
+{{!-- Scrip trackers --}}
+<div class="inv-scrip-row">
+  <div class="inv-scrip-tracker inv-scrip-tracker-top">
+    <span class="inv-scrip-label">Scrip</span>
+    <button type="button" class="inv-scrip-btn inv-scrip-dec" title="Spend scrip">−</button>
+    <input type="number" class="inv-scrip-input" name="system.scrip"
+           value="{{system.scrip}}" min="0" max="1000" data-dtype="Number"/>
+    <button type="button" class="inv-scrip-btn inv-scrip-inc" title="Gain scrip">+</button>
+  </div>
+  <div class="inv-scrip-tracker inv-scrip-tracker-top inv-scrip-wealth-tracker">
+    <span class="inv-scrip-label inv-scrip-wealth-label">Scrip Wealth</span>
+    <span class="inv-scrip-wealth-value">{{scripWealth}}</span>
+  </div>
 </div>
 
 {{!-- ===== WEAPONS ===== --}}
@@ -32,6 +38,7 @@
         <span class="inv-col inv-props">Properties</span>
         <span class="inv-col inv-mag-col">Ammo</span>
         <span class="inv-col inv-range-col">Range</span>
+        <span class="inv-col inv-scrip-val">Scrip</span>
         <span class="inv-col inv-equip">Equip</span>
         <span class="inv-col inv-reload"></span>
         <span class="inv-col inv-controls"></span>
@@ -64,6 +71,7 @@
               <option value="far"      {{#if (eq item.system.rangeType "far")}}selected{{/if}}>Far</option>
             </select>
           </div>
+          <div class="inv-col inv-scrip-val inv-muted">{{#if item.system.scripValue}}{{item.system.scripValue}}{{/if}}</div>
           <div class="inv-col inv-equip">
             <button type="button"
                     class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"
@@ -107,6 +115,7 @@
         <span class="inv-col inv-name">Name</span>
         <span class="inv-col inv-armor-val">Armor</span>
         <span class="inv-col inv-type-label">Type</span>
+        <span class="inv-col inv-scrip-val">Scrip</span>
         <span class="inv-col inv-equip">Equip</span>
         <span class="inv-col inv-controls"></span>
       </li>
@@ -121,6 +130,7 @@
             <strong>A{{item.system.armor}}</strong>
           </div>
           <div class="inv-col inv-type-label inv-muted">{{item.type}}</div>
+          <div class="inv-col inv-scrip-val inv-muted">{{#if item.system.scripValue}}{{item.system.scripValue}}{{/if}}</div>
           <div class="inv-col inv-equip">
             <button type="button"
                     class="item-equip-toggle {{#if item.system.equipped}}equipped{{/if}}"
@@ -303,13 +313,28 @@
 .inv-list-row.rb-dragging { opacity: 0.4; }
 .inv-list-row.rb-drag-over { border-top: 2px solid #00bfff; }
 
+/* ---- Scrip row (both trackers side by side) ---- */
+.inv-scrip-row {
+  display: flex; gap: 8px; margin-bottom: 10px;
+}
+.inv-scrip-row .inv-scrip-tracker { flex: 1; margin-bottom: 0; }
+
 /* ---- Top scrip tracker ---- */
 .inv-scrip-tracker-top {
-  margin-bottom: 10px;
   padding: 5px 8px;
   background: #1a1a1a;
   border: 1px solid #444;
   border-radius: 4px;
   justify-content: center;
 }
+
+/* ---- Scrip wealth tracker ---- */
+.inv-scrip-wealth-label { color: #7ec8e3; }
+.inv-scrip-wealth-value {
+  font-size: 0.88em; font-weight: bold; color: #7ec8e3;
+  min-width: 44px; text-align: center;
+}
+
+/* ---- Scrip value column in weapon/armor lists ---- */
+.inv-scrip-val { flex: 0 0 44px; justify-content: center; font-size: 0.85em; }
 </style>

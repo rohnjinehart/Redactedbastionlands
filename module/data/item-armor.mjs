@@ -9,8 +9,9 @@ export default class RBArmor extends CainItemBase {
     const schema = super.defineSchema();
 
     schema.description = new fields.StringField({ required: true, blank: true });
-    schema.armor   = new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 });
-    schema.equipped = new fields.BooleanField({ required: true, initial: false });
+    schema.armor      = new fields.NumberField({ ...requiredInteger, initial: 1, min: 0 });
+    schema.scripValue = new fields.NumberField({ ...requiredInteger, initial: 0, min: 0 });
+    schema.equipped   = new fields.BooleanField({ required: true, initial: false });
 
     return schema;
   }

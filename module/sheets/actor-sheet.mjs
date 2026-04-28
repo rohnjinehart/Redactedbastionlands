@@ -426,6 +426,12 @@ export class CainActorSheet extends BaseActorSheet {
     context.totalArmor = [...equippedArmorItems, ...equippedArmorWeapons]
       .reduce((sum, i) => sum + (i.system.armor ?? 0), 0);
 
+    // Scrip wealth = current scrip + scrip value of all owned items.
+    const gearScripTotal    = gear.reduce((sum, i) => sum + (i.system.scripValue ?? 0) * (i.system.quantity ?? 1), 0);
+    const weaponScripTotal  = weapons.reduce((sum, i) => sum + (i.system.scripValue ?? 0), 0);
+    const armorScripTotal   = armor.reduce((sum, i) => sum + (i.system.scripValue ?? 0), 0);
+    context.scripWealth = (context.system.scrip ?? 0) + gearScripTotal + weaponScripTotal + armorScripTotal;
+
     context.weapons = weapons;
     context.armor   = armor;
     context.gear    = gear;

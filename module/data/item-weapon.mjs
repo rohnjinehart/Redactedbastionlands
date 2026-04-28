@@ -13,8 +13,9 @@ export default class RBWeapon extends CainItemBase {
     schema.long  = new fields.BooleanField({ required: true, initial: false });
     schema.slow  = new fields.BooleanField({ required: true, initial: false });
 
-    schema.armor    = new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0, min: 0 });
-    schema.equipped = new fields.BooleanField({ required: true, initial: false });
+    schema.armor      = new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0, min: 0 });
+    schema.scripValue = new fields.NumberField({ required: true, nullable: false, integer: true, initial: 0, min: 0 });
+    schema.equipped   = new fields.BooleanField({ required: true, initial: false });
 
     schema.blast    = new fields.BooleanField({ required: true, initial: false });
     schema.range    = new fields.BooleanField({ required: true, initial: false });
