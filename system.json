@@ -114,9 +114,6 @@
   "documentTypes": {
     "Actor": {
       "character": {},
-      "sin": {},
-      "mundane": {},
-      "npc": {},
       "opponent": {},
       "human": {},
       "mook": {}
